@@ -179,9 +179,16 @@
   const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real
   const accessToken = sessionStorage.getItem("accessToken");
 
+  const userName = sessionStorage.getItem("userName");
+  const userPicture = sessionStorage.getItem("userPicture");
+
   if (!accessToken) {
-    Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
-      .then(() => window.location.href = "../../../../index.html");
+      Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
+          .then(() => window.location.href = "../../../../index.html");
+  } else {
+      // Mostrar usuario
+      document.getElementById("userName").textContent = userName || "Usuario";
+      document.getElementById("userImage").src = userPicture || "https://via.placeholder.com/40";
   }
 
   const tipoVisita = document.getElementById("tipoVisita");
