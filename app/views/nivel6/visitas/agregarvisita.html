@@ -105,8 +105,105 @@
     <script src="../../../../public/js/demo/chart-area-demo.js"></script>
     <script src="../../../../public/js/demo/chart-pie-demo.js"></script> <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-    <script> // ========= CONFIG ========= const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real const accessToken = sessionStorage.getItem("accessToken"); if (!accessToken) { Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning") .then(() => window.location.href = "../index.html"); } const tipoVisita = document.getElementById("tipoVisita"); const formExtra = document.getElementById("formExtra"); // ========= RENDERIZAR FORMULARIO ========= tipoVisita.addEventListener("change", function () { const valor = this.value; formExtra.innerHTML = ""; if (valor === "recorridos") { formExtra.innerHTML = <div class="row mb-4"> <div class="col"> <label for="fecha" class="form-label">Fecha</label> <input type="date" id="fecha" name="fecha" class="form-control"> </div> <div class="col"> <label for="turno" class="form-label">Turno</label> <select id="turno" class="form-control"> <option value="mañana">Mañana</option> <option value="tarde">Tarde</option> </select> </div> <div class="col"> <label class="form-label">Actividades</label><br> <div class="form-check"> <input class="form-check-input" type="checkbox" id="robotica"> <label class="form-check-label" for="robotica">Robótica</label> </div> <div class="form-check"> <input class="form-check-input" type="checkbox" id="vr"> <label class="form-check-label" for="vr">Realidad Virtual</label> </div> <div class="form-check"> <input class="form-check-input" type="checkbox" id="prototipado"> <label class="form-check-label" for="prototipado">Prototipado</label> </div> </div> <div class="col"> <label for="cantidad" class="form-label">Cantidad</label> <input type="number" id="cantidad" class="form-control" min="1"> </div> </div> <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button> ; } if (valor === "computadoras") { formExtra.innerHTML = <div class="row mb-4"> <div class="col"> <label for="fechaCompu" class="form-label">Fecha</label> <input type="date" id="fechaCompu" class="form-control"> </div> <div class="col"> <label for="horarioCompu" class="form-label">Horario</label> <select id="horarioCompu" class="form-control"> <option value="mañana">Mañana</option> <option value="tarde">Tarde</option> </select> </div> <div class="col"> <label for="cantCompu" class="form-label">Cantidad de PCs</label> <input type="number" id="cantCompu" class="form-control" min="1"> </div> </div> <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button> ; } if (valor === "reservas") { formExtra.innerHTML = <div class="row mb-4"> <div class="col"> <label for="nombreReserva" class="form-label">Nombre del Responsable</label> <input type="text" id="nombreReserva" class="form-control"> </div> <div class="col"> <label for="fechaReserva" class="form-label">Fecha</label> <input type="date" id="fechaReserva" class="form-control"> </div> <div class="col"> <label for="horaReserva" class="form-label">Hora</label> <input type="time" id="horaReserva" class="form-control"> </div> <div class="col"> <label for="detallesReserva" class="form-label">Detalles</label> <textarea id="detallesReserva" class="form-control" rows="1"></textarea> </div> </div> <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button> ; } }); // ========= FUNCION GUARDAR ========= async function guardarEnSheets(tipo, datos) { let range = ""; if (tipo === "recorridos") { range = "Areas Internas!A1:Z1000"; } else if (tipo === "computadoras") { range = "Computadoras!A1:Z1000"; } else if (tipo === "reservas") { range = "Salas!A1:Z1000"; } try { const res = await fetch( https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW, { method: "POST", headers: { "Authorization": Bearer ${accessToken}, "Content-Type": "application/json" }, body: JSON.stringify({ values: [datos] }) } ); if (res.status === 401) { Swal.fire("⚠️ Sesión expirada", "Vuelve a iniciar sesión", "warning"); sessionStorage.clear(); window.location.href = "../index.html"; return; } if (!res.ok) { throw new Error(await res.text()); } Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success"); } catch (err) { console.error(err); Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error"); } } // ========= BOTÓN DE GUARDAR ========= document.addEventListener("click", async (e) => { if (e.target && e.target.id === "btnGuardar") { const tipo = document.getElementById("tipoVisita").value; let row = []; if (tipo === "recorridos") { row = [ document.getElementById("fecha").value || "", document.getElementById("turno").value || "", document.getElementById("robotica").checked ? "Sí" : "No", document.getElementById("vr").checked ? "Sí" : "No", document.getElementById("prototipado").checked ? "Sí" : "No", document.getElementById("cantidad").value || "" ]; } if (tipo === "computadoras") { row = [ document.getElementById("fechaCompu").value || "", document.getElementById("horarioCompu").value || "", document.getElementById("cantCompu").value || "" ]; } if (tipo === "reservas") { row = [ document.getElementById("nombreReserva").value || "", document.getElementById("fechaReserva").value || "", document.getElementById("horaReserva").value || "", document.getElementById("detallesReserva").value || "" ]; } if (row.length > 0) { await guardarEnSheets(tipo, row); } else { Swal.fire("⚠️ Campos vacíos", "Completa todos los datos antes de guardar", "warning"); } } }); </script>
     <script src="../../../../public/js/fechaactual.js"></script>
+    <script>
+  // ========= CONFIG =========
+  const SPREADSHEET_ID = "1jcP5Kwh903YSN4sXV4CCC6EAUOwxM1rTmk339Evlh-I"; // tu ID real
+  const accessToken = sessionStorage.getItem("accessToken");
+
+  // Si no hay sesión activa, redirigir
+  if (!accessToken) {
+    Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
+      .then(() => window.location.href = "../index.html");
+  }
+
+  // ========= FUNCION GUARDAR =========
+  async function guardarEnSheets(tipo, datos) {
+    let range = "";
+
+    if (tipo === "recorridos") {
+      range = "Areas Internas!A1:Z1000";
+    } else if (tipo === "computadoras") {
+      range = "Computadoras!A1:Z1000";
+    } else if (tipo === "reservas") {
+      range = "Salas!A1:Z1000";
+    }
+
+    try {
+      const res = await fetch(
+        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW`,
+        {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ values: [datos] })
+        }
+      );
+
+      if (res.status === 401) {
+        Swal.fire("⚠️ Sesión expirada", "Vuelve a iniciar sesión", "warning");
+        sessionStorage.clear();
+        window.location.href = "../index.html";
+        return;
+      }
+
+      if (!res.ok) {
+        throw new Error(await res.text());
+      }
+
+      Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success");
+    } catch (err) {
+      console.error(err);
+      Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
+    }
+  }
+
+  // ========= BOTÓN DE GUARDAR =========
+  document.addEventListener("click", async (e) => {
+    if (e.target && e.target.id === "btnGuardar") {
+      const tipo = document.getElementById("tipoVisita").value;
+
+      let row = [];
+
+      if (tipo === "recorridos") {
+        row = [
+          document.getElementById("fecha").value || "",
+          document.getElementById("turno").value || "",
+          document.getElementById("robotica").checked ? "Sí" : "No",
+          document.getElementById("vr").checked ? "Sí" : "No",
+          document.getElementById("prototipado").checked ? "Sí" : "No",
+          document.getElementById("cantidad").value || ""
+        ];
+      }
+
+      if (tipo === "computadoras") {
+        row = [
+          document.getElementById("fechaCompu").value || "",
+          document.getElementById("horarioCompu").value || "",
+          document.getElementById("cantCompu").value || ""
+        ];
+      }
+
+      if (tipo === "reservas") {
+        row = [
+          document.getElementById("nombreReserva").value || "",
+          document.getElementById("fechaReserva").value || "",
+          document.getElementById("horaReserva").value || "",
+          document.getElementById("detallesReserva").value || ""
+        ];
+      }
+
+      if (row.length > 0) {
+        await guardarEnSheets(tipo, row);
+      } else {
+        Swal.fire("⚠️ Campos vacíos", "Completa todos los datos antes de guardar", "warning");
+      }
+    }
+  });
+</script>
+
 </body>
 
 </html>
