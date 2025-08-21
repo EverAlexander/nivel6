@@ -187,6 +187,12 @@
   const tipoVisita = document.getElementById("tipoVisita");
   const formExtra = document.getElementById("formExtra");
 
+  // ========= FECHA ACTUAL =========
+  function obtenerFechaActual() {
+    const hoy = new Date();
+    return hoy.toISOString().split("T")[0];
+  }
+
   // ========= RENDERIZAR FORMULARIO =========
   tipoVisita.addEventListener("change", function () {
     const valor = this.value;
@@ -249,6 +255,7 @@
           <div class="col">
             <label for="horarioCompu" class="form-label">Horario</label>
             <select id="horarioCompu" class="form-control">
+              <option value="" disabled selected>Seleccionar</option>
               <option value="mañana">Mañana</option>
               <option value="tarde">Tarde</option>
             </select>
@@ -262,6 +269,7 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
+      document.getElementById("fechaCompu").value = obtenerFechaActual();
     }
 
     if (valor === "reservas") {
@@ -290,8 +298,7 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
-       // ✅ Poner la fecha actual automáticamente
-      document.getElementById("fecha").value = obtenerFechaActual();
+      document.getElementById("fechaReserva").value = obtenerFechaActual();
     }
   });
 
@@ -331,7 +338,7 @@
         throw new Error(await res.text());
       }
 
-      Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success").then(() => window.location.reload());
+      Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success");
     } catch (err) {
       console.error(err);
       Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
@@ -344,43 +351,66 @@
       const tipo = document.getElementById("tipoVisita").value;
 
       let row = [];
+      let errores = [];
 
       if (tipo === "recorridos") {
+        const fecha = document.getElementById("fecha").value.trim();
+        const turno = document.getElementById("turno").value.trim();
+        const cantidad = document.getElementById("cantidad").value.trim();
+
+        if (!fecha) errores.push("Debe seleccionar una fecha.");
+        if (!turno) errores.push("Debe seleccionar un turno.");
+        if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+
         row = [
-          document.getElementById("fecha").value || "",
-          document.getElementById("turno").value || "",
+          fecha,
+          turno,
           document.getElementById("robotica").checked ? "Sí" : "No",
           document.getElementById("vr").checked ? "Sí" : "No",
           document.getElementById("prototipado").checked ? "Sí" : "No",
-          document.getElementById("cantidad").value || ""
+          cantidad
         ];
       }
 
       if (tipo === "computadoras") {
-        row = [
-          document.getElementById("fechaCompu").value || "",
-          document.getElementById("horarioCompu").value || "",
-          document.getElementById("cantCompu").value || ""
-        ];
+        const fecha = document.getElementById("fechaCompu").value.trim();
+        const horario = document.getElementById("horarioCompu").value.trim();
+        const cantidad = document.getElementById("cantCompu").value.trim();
+
+        if (!fecha) errores.push("Debe seleccionar una fecha.");
+        if (!horario) errores.push("Debe seleccionar un horario.");
+        if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+
+        row = [fecha, horario, cantidad];
       }
 
       if (tipo === "reservas") {
-        row = [
-          document.getElementById("nombreReserva").value || "",
-          document.getElementById("fechaReserva").value || "",
-          document.getElementById("horaReserva").value || "",
-          document.getElementById("detallesReserva").value || ""
-        ];
+        const nombre = document.getElementById("nombreReserva").value.trim();
+        const fecha = document.getElementById("fechaReserva").value.trim();
+        const hora = document.getElementById("horaReserva").value.trim();
+        const detalles = document.getElementById("detallesReserva").value.trim();
+
+        if (!nombre) errores.push("Debe ingresar el nombre del responsable.");
+        if (!fecha) errores.push("Debe seleccionar una fecha.");
+        if (!hora) errores.push("Debe seleccionar una hora.");
+        if (!detalles) errores.push("Debe ingresar los detalles de la reserva.");
+
+        row = [nombre, fecha, hora, detalles];
+      }
+
+      // 🔎 Validar antes de guardar
+      if (errores.length > 0) {
+        Swal.fire("⚠️ Campos vacíos", errores.join("<br>"), "warning");
+        return;
       }
 
       if (row.length > 0) {
         await guardarEnSheets(tipo, row);
-      } else {
-        Swal.fire("⚠️ Campos vacíos", "Completa todos los datos antes de guardar", "warning");
       }
     }
   });
 </script>
+
 
 
 
