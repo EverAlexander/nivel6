@@ -331,7 +331,7 @@
         throw new Error(await res.text());
       }
 
-      Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success");
+      Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success").then(() => window.location.reload());
     } catch (err) {
       console.error(err);
       Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
