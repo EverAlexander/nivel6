@@ -173,14 +173,13 @@
 
   
 
-  <script>
-  // ========= CONFIG =========
-  const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real
-  const accessToken = sessionStorage.getItem("accessToken");
-
-  if (!accessToken) {
-    Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
-      .then(() => window.location.href = "../index.html");
+ <script>
+  function obtenerFechaActual() {
+    const hoy = new Date();
+    const year = hoy.getFullYear();
+    const month = String(hoy.getMonth() + 1).padStart(2, '0');
+    const day = String(hoy.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   const tipoVisita = document.getElementById("tipoVisita");
@@ -231,6 +230,9 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button>
       `;
+
+      // ✅ Poner la fecha actual automáticamente
+      document.getElementById("fecha").value = obtenerFechaActual();
     }
 
     if (valor === "computadoras") {
@@ -257,6 +259,9 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
+
+      // ✅ Fecha actual por defecto
+      document.getElementById("fechaCompu").value = obtenerFechaActual();
     }
 
     if (valor === "reservas") {
@@ -285,6 +290,9 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
+
+      // ✅ Fecha actual por defecto
+      document.getElementById("fechaReserva").value = obtenerFechaActual();
     }
   });
 
@@ -313,67 +321,17 @@
         }
       );
 
-      if (res.status === 401) {
-        Swal.fire("⚠️ Sesión expirada", "Vuelve a iniciar sesión", "warning");
-        sessionStorage.clear();
-        window.location.href = "../index.html";
-        return;
-      }
+      if (!res.ok) throw new Error(await res.text());
 
-      if (!res.ok) {
-        throw new Error(await res.text());
-      }
-
-      Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success");
+      Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success")
+        .then(() => window.location.reload()); // ✅ Refrescar la página
     } catch (err) {
       console.error(err);
       Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
     }
   }
-
-  // ========= BOTÓN DE GUARDAR =========
-  document.addEventListener("click", async (e) => {
-    if (e.target && e.target.id === "btnGuardar") {
-      const tipo = document.getElementById("tipoVisita").value;
-
-      let row = [];
-
-      if (tipo === "recorridos") {
-        row = [
-          document.getElementById("fecha").value || "",
-          document.getElementById("turno").value || "",
-          document.getElementById("robotica").checked ? "Sí" : "No",
-          document.getElementById("vr").checked ? "Sí" : "No",
-          document.getElementById("prototipado").checked ? "Sí" : "No",
-          document.getElementById("cantidad").value || ""
-        ];
-      }
-
-      if (tipo === "computadoras") {
-        row = [
-          document.getElementById("fechaCompu").value || "",
-          document.getElementById("horarioCompu").value || "",
-          document.getElementById("cantCompu").value || ""
-        ];
-      }
-
-      if (tipo === "reservas") {
-        row = [
-          document.getElementById("nombreReserva").value || "",
-          document.getElementById("fechaReserva").value || "",
-          document.getElementById("horaReserva").value || "",
-          document.getElementById("detallesReserva").value || ""
-        ];
-      }
-
-      if (row.length > 0) {
-        await guardarEnSheets(tipo, row);
-      } else {
-        Swal.fire("⚠️ Campos vacíos", "Completa todos los datos antes de guardar", "warning");
-      }
-    }
-  });
 </script>
+
 <script src="../../../../public/js/fechaactual.js"></script>
 
 
