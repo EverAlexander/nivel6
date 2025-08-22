@@ -448,6 +448,8 @@
         const pcasignadas = document.getElementById("pcasignadas").value.trim();
         const iniciopc = document.getElementById("iniciopc").value.trim();
         const finalpc = document.getElementById("finalpc").value.trim();
+        const registadopor = document.getElementById("registadopor").value.trim();
+        const condicion = "En uso";
 
         if (!fecha) errores.push("Debe seleccionar una fecha.");
         if (!tipoDocum) errores.push("Debe seleccionar el tipo de documento.");
@@ -455,12 +457,13 @@
         if (!txtnombreUsuario) errores.push("Debe ingresar su nombre");
         if (!generoCompu) errores.push("Debe ingresar su nombre");
         if (!pcasignadas) errores.push("Debe seleccionar equipo");
-        if (!iniciopc) errores.push("Debe seleccionar equipo");
-        if (!finalpc) errores.push("Debe seleccionar equipo");
-        
+        if (!iniciopc) errores.push("Debe seleccinar hora de inicio");
+        if (!finalpc) errores.push("Debe seleccionar hora de finalizacion");
+        if (!registadopor) errores.push("Debe ingresar nombre a cargo");
+
         //if (! || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
 
-        row = [fecha, tipoDocum, numero,txtnombreUsuario,generoCompu,pcasignadas,iniciopc,finalpc];
+        row = [fecha, tipoDocum, numero,txtnombreUsuario,generoCompu,pcasignadas,iniciopc,finalpc,registadopor,condicion];
       }
 
       if (tipo === "reservas") {
