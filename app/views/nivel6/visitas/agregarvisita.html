@@ -255,9 +255,6 @@
       formExtra.innerHTML = `
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Datos Personales</h5>
-                </div>
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-3 d-none">
@@ -329,11 +326,16 @@
                             <label for="finalpc" class="form-label">Finalización</label>
                             <input type="time" id="finalpc" class="form-control">
                         </div>
+
+                        <div class="col-md-3">
+                            <label for="registadopor" class="form-label">Registrado Por</label>
+                            <input type="text" id="registadopor" class="form-control">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <br>
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
       document.getElementById("fechaCompu").value = obtenerFechaActual();
