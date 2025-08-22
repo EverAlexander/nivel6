@@ -256,84 +256,83 @@
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
                 <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Datos Personales</h5>
+                    <h5 class="mb-0">Datos Personales</h5>
                 </div>
                 <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                    <label for="fechaCompu" class="form-label">Fecha</label>
-                    <input type="date" id="fechaCompu" class="form-control">
-                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-3 d-none">
+                            <label for="fechaCompu" class="form-label">Fecha</label>
+                            <input type="date" id="fechaCompu" class="form-control">
+                        </div>
 
-                    <div class="col-md-3">
-                    <label for="tipoDocum" class="form-label">Tipo de documento</label>
-                    <select id="tipoDocum" class="form-select">
-                        <option value="" disabled selected>Seleccionar</option>
-                        <option value="Llave del Saber">Llave del Saber</option>
-                        <option value="Dui">DUI</option>
-                        <option value="Pasaporte">Pasaporte</option>
-                        <option value="Otros">Otros</option>   
-                    </select>
-                    </div>
+                        <div class="col-md-3">
+                            <label for="tipoDocum" class="form-label">Tipo de documento</label>
+                            <select id="tipoDocum" class="form-select">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Llave del Saber">Llave del Saber</option>
+                                <option value="Dui">DUI</option>
+                                <option value="Pasaporte">Pasaporte</option>
+                                <option value="Otros">Otros</option>   
+                            </select>
+                        </div>
 
-                    <div class="col-md-3">
-                    <label for="numeroId" class="form-label">Número</label>
-                    <input type="text" id="numeroId" class="form-control">
-                    </div>
+                        <div class="col-md-3">
+                            <label for="numeroId" class="form-label">Número</label>
+                            <input type="text" id="numeroId" class="form-control">
+                        </div>
 
-                    <div class="col-md-3">
-                    <label for="txtnombreUsuario" class="form-label">Nombre Completo</label>
-                    <input type="text" id="txtnombreUsuario" class="form-control">
+                        <div class="col-md-3">
+                            <label for="txtnombreUsuario" class="form-label">Nombre Completo</label>
+                            <input type="text" id="txtnombreUsuario" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="generoCompu" class="form-label">Género</label>
+                            <select id="generoCompu" class="form-select">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
 
-            <!-- Equipos asignados -->
             <div class="card shadow-sm rounded-3">
                 <div class="card-header bg-success text-white">
-                <h5 class="mb-0">Equipo Asignado</h5>
-                </div>
+                    <h5 class="mb-0">Equipo Asignado</h5>
+                    </div>
                 <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-3">
-                    <label for="generoCompu" class="form-label">Género</label>
-                    <select id="generoCompu" class="form-select">
-                        <option value="" disabled selected>Seleccionar</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Femenino</option>
-                    </select>
-                    </div>
+                    <div class="row g-3">
+                        
 
-                    <div class="col-md-3">
-                    <label for="pcasignadas" class="form-label">Equipo</label>
-                    <select id="pcasignadas" class="form-select">
-                        <option value="" disabled selected>Seleccionar</option>
-                        <option value="PC-01">PC-01</option>
-                        <option value="PC-02">PC-02</option>
-                        <option value="PC-03">PC-03</option>
-                        <option value="PC-04">PC-04</option>
-                        <option value="PC-05">PC-05</option>
-                        <option value="PC-06">PC-06</option>
-                        <option value="PC-07">PC-07</option>
-                        <option value="PC-08">PC-08</option>
-                    </select>
-                    </div>
+                        <div class="col-md-3">
+                            <label for="pcasignadas" class="form-label">Equipo</label>
+                            <select id="pcasignadas" class="form-select">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="PC-01">PC-01</option>
+                                <option value="PC-02">PC-02</option>
+                                <option value="PC-03">PC-03</option>
+                                <option value="PC-04">PC-04</option>
+                                <option value="PC-05">PC-05</option>
+                                <option value="PC-06">PC-06</option>
+                                <option value="PC-07">PC-07</option>
+                                <option value="PC-08">PC-08</option>
+                            </select>
+                        </div>
 
-                    <div class="col-md-3">
-                    <label for="iniciopc" class="form-label">Inicio</label>
-                    <input type="time" id="iniciopc" class="form-control">
-                    </div>
+                        <div class="col-md-3">
+                            <label for="iniciopc" class="form-label">Inicio</label>
+                            <input type="time" id="iniciopc" class="form-control">
+                        </div>
 
-                    <div class="col-md-3">
-                    <label for="finalpc" class="form-label">Finalización</label>
-                    <input type="time" id="finalpc" class="form-control">
+                        <div class="col-md-3">
+                            <label for="finalpc" class="form-label">Finalización</label>
+                            <input type="time" id="finalpc" class="form-control">
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
-
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
