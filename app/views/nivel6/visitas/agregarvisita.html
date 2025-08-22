@@ -443,14 +443,24 @@
         const fecha = document.getElementById("fechaCompu").value.trim();
         const tipoDocum = document.getElementById("tipoDocum").value.trim();
         const numero = document.getElementById("numeroId").value.trim();
+        const txtnombreUsuario = document.getElementById("txtnombreUsuario").value.trim();
+        const generoCompu = document.getElementById("generoCompu").value.trim();
+        const pcasignadas = document.getElementById("pcasignadas").value.trim();
+        const iniciopc = document.getElementById("iniciopc").value.trim();
+        const finalpc = document.getElementById("finalpc").value.trim();
 
         if (!fecha) errores.push("Debe seleccionar una fecha.");
         if (!tipoDocum) errores.push("Debe seleccionar el tipo de documento.");
         if (!numero) errores.push("Debe ingresar numero de identificacion.");
+        if (!txtnombreUsuario) errores.push("Debe ingresar su nombre");
+        if (!generoCompu) errores.push("Debe ingresar su nombre");
+        if (!pcasignadas) errores.push("Debe seleccionar equipo");
+        if (!iniciopc) errores.push("Debe seleccionar equipo");
+        if (!finalpc) errores.push("Debe seleccionar equipo");
         
         //if (! || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
 
-        row = [fecha, tipoDocum, numero];
+        row = [fecha, tipoDocum, numero,txtnombreUsuario,generoCompu,pcasignadas,iniciopc,finalpc];
       }
 
       if (tipo === "reservas") {
