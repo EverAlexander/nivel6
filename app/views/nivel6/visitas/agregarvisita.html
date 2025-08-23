@@ -168,7 +168,6 @@
   <script src="../../../../public/js/demo/chart-area-demo.js"></script>
   <script src="../../../../public/js/demo/chart-pie-demo.js"></script>
   <script src="../../../../public/js/fechaactual.js"></script>
-  <script src="../../../../public/js/prestamosHorapc.js"></script>
 
 
   <!-- SweetAlert2 -->
@@ -324,7 +323,7 @@
 
                         <div class="col-md-3">
                             <label for="finalpc" class="form-label">Finalización</label>
-                            <input type="time" id="finalpc" class="form-control" readonly>
+                            <input type="time" id="finalpc" class="form-control">
                         </div>
 
                         <div class="col-md-3">
@@ -339,8 +338,6 @@
         <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
       `;
         document.getElementById("fechaCompu").value = obtenerFechaActual();
-        // inicializar el JS de tiempo
-        inicializarTiempoJuego();
       }
 
       if (valor === "reservas") {
