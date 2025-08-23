@@ -1,25 +1,25 @@
-$(document).ready(function() {
-    // Cuando cambia el valor del campo inicio
-    $("#iniciopc").on("change", function() {
-        // Obtener el valor de inicio
-        var inicio = $("#iniciopc").val();
+function inicializarTiempoJuego() {
+  const inicioInput = document.getElementById("iniciopc");
+  const finalInput = document.getElementById("finalpc");
 
-        // Validar el formato de la hora de inicio
-        if (!moment(inicio, "HH:mm").isValid()) {
-            console.log("Hora de inicio no válida");
-            return;
-        }
+  if (!inicioInput || !finalInput) return; // seguridad
 
-        // Crear objeto moment para la hora de inicio
-        var inicioMoment = moment(inicio, "HH:mm");
+  inicioInput.addEventListener("change", function() {
+    let inicio = inicioInput.value;
+    if (!inicio) return;
 
-        // Clonar y sumar 120 minutos (2 horas)
-        var finalizacionMoment = inicioMoment.clone().add(120, 'minutes');
+    let [horas, minutos] = inicio.split(":").map(Number);
+    let totalMin = horas * 60 + minutos;
 
-        // Formatear la nueva hora
-        var nuevaHora = finalizacionMoment.format("HH:mm");
+    totalMin += 120; // +2 horas
 
-        // Actualizar el valor de finalización
-        $("#finalpc").val(nuevaHora);
-    });
-});
+    let nuevaHora = Math.floor(totalMin / 60) % 24;
+    let nuevaMin = totalMin % 60;
+
+    let horaFinal =
+      String(nuevaHora).padStart(2, "0") + ":" +
+      String(nuevaMin).padStart(2, "0");
+
+    finalInput.value = horaFinal;
+  });
+}
