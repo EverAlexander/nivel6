@@ -168,45 +168,47 @@
   <script src="../../../../public/js/demo/chart-area-demo.js"></script>
   <script src="../../../../public/js/demo/chart-pie-demo.js"></script>
   <script src="../../../../public/js/fechaactual.js"></script>
-  
+  <script src="public/js/prestamosHorapc.js"></script>
+
+
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-  
+
 
   <script>
-  // ========= CONFIG =========
-  const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real
-  const accessToken = sessionStorage.getItem("accessToken");
+    // ========= CONFIG =========
+    const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real
+    const accessToken = sessionStorage.getItem("accessToken");
 
-  const userName = sessionStorage.getItem("userName");
-  const userPicture = sessionStorage.getItem("userPicture");
+    const userName = sessionStorage.getItem("userName");
+    const userPicture = sessionStorage.getItem("userPicture");
 
-  if (!accessToken) {
+    if (!accessToken) {
       Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
-          .then(() => window.location.href = "../../../../index.html");
-  } else {
+        .then(() => window.location.href = "../../../../index.html");
+    } else {
       // Mostrar usuario
       document.getElementById("userName").textContent = userName || "Usuario";
       document.getElementById("userImage").src = userPicture || "https://via.placeholder.com/40";
-  }
+    }
 
-  const tipoVisita = document.getElementById("tipoVisita");
-  const formExtra = document.getElementById("formExtra");
+    const tipoVisita = document.getElementById("tipoVisita");
+    const formExtra = document.getElementById("formExtra");
 
-  // ========= FECHA ACTUAL =========
-  function obtenerFechaActual() {
-    const hoy = new Date();
-    return hoy.toISOString().split("T")[0];
-  }
+    // ========= FECHA ACTUAL =========
+    function obtenerFechaActual() {
+      const hoy = new Date();
+      return hoy.toISOString().split("T")[0];
+    }
 
-  // ========= RENDERIZAR FORMULARIO =========
-  tipoVisita.addEventListener("change", function () {
-    const valor = this.value;
-    formExtra.innerHTML = "";
+    // ========= RENDERIZAR FORMULARIO =========
+    tipoVisita.addEventListener("change", function () {
+      const valor = this.value;
+      formExtra.innerHTML = "";
 
-    if (valor === "recorridos") {
-      formExtra.innerHTML = `
+      if (valor === "recorridos") {
+        formExtra.innerHTML = `
         <div class="row mb-4">
           <div class="col">
             <label for="fecha" class="form-label">Fecha</label>
@@ -248,11 +250,11 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button>
       `;
-      document.getElementById("fecha").value = obtenerFechaActual();
-    }
+        document.getElementById("fecha").value = obtenerFechaActual();
+      }
 
-    if (valor === "computadoras") {
-      formExtra.innerHTML = `
+      if (valor === "computadoras") {
+        formExtra.innerHTML = `
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
                 <div class="card-body">
@@ -336,11 +338,34 @@
         <br>
         <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
       `;
-      document.getElementById("fechaCompu").value = obtenerFechaActual();
-    }
+        document.getElementById("fechaCompu").value = obtenerFechaActual();
+        document.addEventListener("DOMContentLoaded", function () {
+          const inicioInput = document.getElementById("iniciopc");
+          const finalInput = document.getElementById("finalpc");
 
-    if (valor === "reservas") {
-      formExtra.innerHTML = `
+          inicioInput.addEventListener("change", function () {
+            let inicio = inicioInput.value; // formato "HH:MM"
+            if (!inicio) return;
+
+            let [horas, minutos] = inicio.split(":").map(Number);
+            let totalMin = horas * 60 + minutos;
+
+            totalMin += 120; // +2 horas
+
+            let nuevaHora = Math.floor(totalMin / 60) % 24;
+            let nuevaMin = totalMin % 60;
+
+            let horaFinal =
+              String(nuevaHora).padStart(2, "0") + ":" +
+              String(nuevaMin).padStart(2, "0");
+
+            finalInput.value = horaFinal;
+          });
+        });
+      }
+
+      if (valor === "reservas") {
+        formExtra.innerHTML = `
         <div class="row mb-4">
           <div class="col">
             <label for="nombreReserva" class="form-label">Nombre del Responsable</label>
@@ -365,133 +390,133 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
-      document.getElementById("fechaReserva").value = obtenerFechaActual();
-    }
-  });
-
-  // ========= FUNCION GUARDAR =========
-  async function guardarEnSheets(tipo, datos) {
-    let range = "";
-
-    if (tipo === "recorridos") {
-      range = "Areas Internas!A1:Z1000";
-    } else if (tipo === "computadoras") {
-      range = "Computadoras!A1:Z1000";
-    } else if (tipo === "reservas") {
-      range = "Salas!A1:Z1000";
-    }
-
-    try {
-      const res = await fetch(
-        `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW`,
-        {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${accessToken}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ values: [datos] })
-        }
-      );
-
-      if (res.status === 401) {
-        Swal.fire("⚠️ Sesión expirada", "Vuelve a iniciar sesión", "warning");
-        sessionStorage.clear();
-        window.location.href = "../index.html";
-        return;
+        document.getElementById("fechaReserva").value = obtenerFechaActual();
       }
+    });
 
-      if (!res.ok) {
-        throw new Error(await res.text());
-      }
-
-      Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success").then(() => window.location.reload());
-    } catch (err) {
-      console.error(err);
-      Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
-    }
-  }
-
-  // ========= BOTÓN DE GUARDAR =========
-  document.addEventListener("click", async (e) => {
-    if (e.target && e.target.id === "btnGuardar") {
-      const tipo = document.getElementById("tipoVisita").value;
-
-      let row = [];
-      let errores = [];
+    // ========= FUNCION GUARDAR =========
+    async function guardarEnSheets(tipo, datos) {
+      let range = "";
 
       if (tipo === "recorridos") {
-        const fecha = document.getElementById("fecha").value.trim();
-        const turno = document.getElementById("turno").value.trim();
-        const cantidad = document.getElementById("cantidad").value.trim();
-
-        if (!fecha) errores.push("Debe seleccionar una fecha.");
-        if (!turno) errores.push("Debe seleccionar un turno.");
-        if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
-
-        row = [
-          fecha,
-          turno,
-          document.getElementById("robotica").checked ? "Sí" : "No",
-          document.getElementById("vr").checked ? "Sí" : "No",
-          document.getElementById("prototipado").checked ? "Sí" : "No",
-          cantidad
-        ];
+        range = "Areas Internas!A1:Z1000";
+      } else if (tipo === "computadoras") {
+        range = "Computadoras!A1:Z1000";
+      } else if (tipo === "reservas") {
+        range = "Salas!A1:Z1000";
       }
 
-      if (tipo === "computadoras") {
-        const fecha = document.getElementById("fechaCompu").value.trim();
-        const tipoDocum = document.getElementById("tipoDocum").value.trim();
-        const numero = document.getElementById("numeroId").value.trim();
-        const txtnombreUsuario = document.getElementById("txtnombreUsuario").value.trim();
-        const generoCompu = document.getElementById("generoCompu").value.trim();
-        const pcasignadas = document.getElementById("pcasignadas").value.trim();
-        const iniciopc = document.getElementById("iniciopc").value.trim();
-        const finalpc = document.getElementById("finalpc").value.trim();
-        const registadopor = document.getElementById("registadopor").value.trim();
-        const condicion = "En uso";
+      try {
+        const res = await fetch(
+          `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW`,
+          {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${accessToken}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ values: [datos] })
+          }
+        );
 
-        if (!fecha) errores.push("Debe seleccionar una fecha.");
-        if (!tipoDocum) errores.push("Debe seleccionar el tipo de documento.");
-        if (!numero) errores.push("Debe ingresar numero de identificacion.");
-        if (!txtnombreUsuario) errores.push("Debe ingresar su nombre");
-        if (!generoCompu) errores.push("Debe seleccionar su genero");
-        if (!pcasignadas) errores.push("Debe seleccionar equipo");
-        if (!iniciopc) errores.push("Debe seleccinar hora de inicio");
-        if (!finalpc) errores.push("Debe seleccionar hora de finalizacion");
-        if (!registadopor) errores.push("Debe ingresar nombre a cargo");
+        if (res.status === 401) {
+          Swal.fire("⚠️ Sesión expirada", "Vuelve a iniciar sesión", "warning");
+          sessionStorage.clear();
+          window.location.href = "../index.html";
+          return;
+        }
 
-        //if (! || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+        if (!res.ok) {
+          throw new Error(await res.text());
+        }
 
-        row = [fecha, tipoDocum, numero,txtnombreUsuario,generoCompu,pcasignadas,iniciopc,finalpc,registadopor,condicion];
-      }
-
-      if (tipo === "reservas") {
-        const nombre = document.getElementById("nombreReserva").value.trim();
-        const fecha = document.getElementById("fechaReserva").value.trim();
-        const hora = document.getElementById("horaReserva").value.trim();
-        const detalles = document.getElementById("detallesReserva").value.trim();
-
-        if (!nombre) errores.push("Debe ingresar el nombre del responsable.");
-        if (!fecha) errores.push("Debe seleccionar una fecha.");
-        if (!hora) errores.push("Debe seleccionar una hora.");
-        if (!detalles) errores.push("Debe ingresar los detalles de la reserva.");
-
-        row = [nombre, fecha, hora, detalles];
-      }
-
-      // 🔎 Validar antes de guardar
-      if (errores.length > 0) {
-        Swal.fire("⚠️ Campos vacíos", errores.join("<br>"), "warning");
-        return;
-      }
-
-      if (row.length > 0) {
-        await guardarEnSheets(tipo, row);
+        Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success").then(() => window.location.reload());
+      } catch (err) {
+        console.error(err);
+        Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
       }
     }
-  });
-</script>
+
+    // ========= BOTÓN DE GUARDAR =========
+    document.addEventListener("click", async (e) => {
+      if (e.target && e.target.id === "btnGuardar") {
+        const tipo = document.getElementById("tipoVisita").value;
+
+        let row = [];
+        let errores = [];
+
+        if (tipo === "recorridos") {
+          const fecha = document.getElementById("fecha").value.trim();
+          const turno = document.getElementById("turno").value.trim();
+          const cantidad = document.getElementById("cantidad").value.trim();
+
+          if (!fecha) errores.push("Debe seleccionar una fecha.");
+          if (!turno) errores.push("Debe seleccionar un turno.");
+          if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+
+          row = [
+            fecha,
+            turno,
+            document.getElementById("robotica").checked ? "Sí" : "No",
+            document.getElementById("vr").checked ? "Sí" : "No",
+            document.getElementById("prototipado").checked ? "Sí" : "No",
+            cantidad
+          ];
+        }
+
+        if (tipo === "computadoras") {
+          const fecha = document.getElementById("fechaCompu").value.trim();
+          const tipoDocum = document.getElementById("tipoDocum").value.trim();
+          const numero = document.getElementById("numeroId").value.trim();
+          const txtnombreUsuario = document.getElementById("txtnombreUsuario").value.trim();
+          const generoCompu = document.getElementById("generoCompu").value.trim();
+          const pcasignadas = document.getElementById("pcasignadas").value.trim();
+          const iniciopc = document.getElementById("iniciopc").value.trim();
+          const finalpc = document.getElementById("finalpc").value.trim();
+          const registadopor = document.getElementById("registadopor").value.trim();
+          const condicion = "En uso";
+
+          if (!fecha) errores.push("Debe seleccionar una fecha.");
+          if (!tipoDocum) errores.push("Debe seleccionar el tipo de documento.");
+          if (!numero) errores.push("Debe ingresar numero de identificacion.");
+          if (!txtnombreUsuario) errores.push("Debe ingresar su nombre");
+          if (!generoCompu) errores.push("Debe seleccionar su genero");
+          if (!pcasignadas) errores.push("Debe seleccionar equipo");
+          if (!iniciopc) errores.push("Debe seleccinar hora de inicio");
+          if (!finalpc) errores.push("Debe seleccionar hora de finalizacion");
+          if (!registadopor) errores.push("Debe ingresar nombre a cargo");
+
+          //if (! || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+
+          row = [fecha, tipoDocum, numero, txtnombreUsuario, generoCompu, pcasignadas, iniciopc, finalpc, registadopor, condicion];
+        }
+
+        if (tipo === "reservas") {
+          const nombre = document.getElementById("nombreReserva").value.trim();
+          const fecha = document.getElementById("fechaReserva").value.trim();
+          const hora = document.getElementById("horaReserva").value.trim();
+          const detalles = document.getElementById("detallesReserva").value.trim();
+
+          if (!nombre) errores.push("Debe ingresar el nombre del responsable.");
+          if (!fecha) errores.push("Debe seleccionar una fecha.");
+          if (!hora) errores.push("Debe seleccionar una hora.");
+          if (!detalles) errores.push("Debe ingresar los detalles de la reserva.");
+
+          row = [nombre, fecha, hora, detalles];
+        }
+
+        // 🔎 Validar antes de guardar
+        if (errores.length > 0) {
+          Swal.fire("⚠️ Campos vacíos", errores.join("<br>"), "warning");
+          return;
+        }
+
+        if (row.length > 0) {
+          await guardarEnSheets(tipo, row);
+        }
+      }
+    });
+  </script>
 
 
 
@@ -499,5 +524,3 @@
 </body>
 
 </html>
-
-
