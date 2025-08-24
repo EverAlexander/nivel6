@@ -428,12 +428,12 @@
 
                         <div class="col-md-3">
                             <label for="inicioReserva" class="form-label">Hora de inicio</label>
-                            <input type="text" id="inicioReserva" class="form-control">
+                            <input type="time" id="inicioReserva" class="form-control">
                         </div>
 
                         <div class="col-md-3">
                             <label for="finalreserva" class="form-label">Hora de finalizacion</label>
-                            <input type="text" id="finalreserva" class="form-control">
+                            <input type="time" id="finalreserva" class="form-control">
                         </div>  
                     </div>
                 </div>
@@ -464,7 +464,7 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
-        document.getElementById("fecharegistro").value = obtenerFechaActual();
+        //document.getElementById("fecharegistro").value = obtenerFechaActual();
         document.getElementById("fechareserva").value = obtenerFechaActual();
         
       }
