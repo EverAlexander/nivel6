@@ -528,6 +528,8 @@
 
       if (tipo === "recorridos") {
         range = "Areas Internas!A1:Z1000";
+      } else if (tipo === "activacionell") {
+        range = "Activacion de llaves!A1:Z1000";
       } else if (tipo === "computadoras") {
         range = "Computadoras!A1:Z1000";
       } else if (tipo === "reservas") {
@@ -592,6 +594,22 @@
           ];
         }
 
+        if (tipo === "activacionell") {
+          const fechaActiva = document.getElementById("fechaActiva").value.trim();
+          const numllave = document.getElementById("numllave").value.trim();
+          const generollave = document.getElementById("generollave").value.trim();
+          const encargadollave = document.getElementById("encargadollave").value.trim();
+          const estadollave = document.getElementById("estadollave").value.trim();
+          
+          if (!fechaActiva) errores.push("Debe seleccionar una fecha.");
+          if (!numllave) errores.push("Debe ingresra numero de llave.");
+          if (!generollave) errores.push("Debe seleccionar el genero");
+          if (!encargadollave) errores.push("Debe ingresar responsable");
+          if (!estadollave) errores.push("Debe seleccionar el estado");
+          
+          row = [fechaActiva, numllave, generollave, encargadollave, estadollave];
+        }
+
         if (tipo === "computadoras") {
           const fecha = document.getElementById("fechaCompu").value.trim();
           const tipoDocum = document.getElementById("tipoDocum").value.trim();
@@ -652,6 +670,7 @@
 
           row = [fecharegistro, nombreReserva, edadreserva, generoReserva, propositoreserva, lugarreserva, numdocumentreserva, carnetReserva, telefonoreserva, cabinareserva, fechareserva, inicioReserva, finalreserva, asignarreserva, registradoporReserv];
         }
+
 
         // 🔎 Validar antes de guardar
         if (errores.length > 0) {
