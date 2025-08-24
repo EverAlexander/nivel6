@@ -347,7 +347,7 @@
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-3 d-none">
-                            <label for="fechaReserva" class="form-label">Fecha</label>
+                            <label for="fecharegistro" class="form-label">Fecha</label>
                             <input type="date" id="fechaReserva" class="form-control">
                         </div>
 
@@ -448,7 +448,7 @@
                             <select id="asignarreserva" class="form-control">
                                 <option value="" disabled selected>Seleccionar</option>
                                 <option value="Reservado">Reservado</option>
-                                <option value="Colocado"></option>
+                                <option value="Colocado">Colocado</option>
                             </select>
                         </div>
 
@@ -464,7 +464,9 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
-        document.getElementById("fechaReserva").value = obtenerFechaActual();
+        document.getElementById("fecharegistro").value = obtenerFechaActual();
+        document.getElementById("fechareserva").value = obtenerFechaActual();
+        
       }
     });
 
