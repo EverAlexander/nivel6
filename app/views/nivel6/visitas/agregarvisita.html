@@ -453,8 +453,8 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label for="registrarreserva" class="form-label">Registrado por</label>
-                            <input type="text" id="registrarreserva" class="form-control">
+                            <label for="registradoporReserv" class="form-label">Registrado por</label>
+                            <input type="text" id="registradoporReserv" class="form-control">
                         </div>
 
                     </div>
@@ -580,8 +580,8 @@
           const fechareserva = document.getElementById("fechareserva").value.trim();
           const inicioReserva = document.getElementById("inicioReserva").value.trim();
           const finalreserva = document.getElementById("finalreserva").value.trim();
-          
-
+          const asignarreserva = document.getElementById("asignarreserva").value.trim();
+          const registradoporReserv = document.getElementById("registradoporReserv").value.trim();
 
           if (!nombreReserva) errores.push("Debe ingresar el nombre del responsable.");
           if (!edadreserva) errores.push("Debe ingresar un numero valido");
@@ -595,11 +595,9 @@
           if (!fechareserva) errores.push("Debe seleccione una fecha de prestamo.");
           if (!inicioReserva) errores.push("Debe seleccione una hora de inicio");
           if (!finalreserva) errores.push("Debe seleccione una hora de finalizacion");
-          
-          
-          
+          if (!asignarreserva) errores.push("Debe seleccione el estado del prestamo");
 
-          row = [fecharegistro, nombreReserva, edadreserva, generoReserva, propositoreserva, lugarreserva, numdocumentreserva, carnetReserva, telefonoreserva, cabinareserva, fechareserva, inicioReserva, finalreserva];
+          row = [fecharegistro, nombreReserva, edadreserva, generoReserva, propositoreserva, lugarreserva, numdocumentreserva, carnetReserva, telefonoreserva, cabinareserva, fechareserva, inicioReserva, finalreserva, asignarreserva, registradoporReserv];
         }
 
         // 🔎 Validar antes de guardar
