@@ -347,8 +347,8 @@
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-3 d-none">
-                            <label for="fechaReserva" class="form-label">Fecha</label>
-                            <input type="date" id="fechaReserva" class="form-control">
+                            <label for="fecharegistro" class="form-label">Fecha</label>
+                            <input type="date" id="fecharegistro" class="form-control">
                         </div>
 
                         <div class="col-md-3">
@@ -428,12 +428,12 @@
 
                         <div class="col-md-3">
                             <label for="inicioReserva" class="form-label">Hora de inicio</label>
-                            <input type="text" id="inicioReserva" class="form-control">
+                            <input type="time" id="inicioReserva" class="form-control">
                         </div>
 
                         <div class="col-md-3">
                             <label for="finalreserva" class="form-label">Hora de finalizacion</label>
-                            <input type="text" id="finalreserva" class="form-control">
+                            <input type="time" id="finalreserva" class="form-control">
                         </div>  
                     </div>
                 </div>
@@ -567,7 +567,7 @@
         }
 
         if (tipo === "reservas") {
-          const fechaReserva = document.getElementById("fechaReserva").value.trim();
+          const fecharegistro = document.getElementById("fecharegistro").value.trim();
           const nombreReserva = document.getElementById("nombreReserva").value.trim();
           const edadreserva = document.getElementById("edadreserva").value.trim();
           const generoReserva = document.getElementById("generoReserva").value.trim();
@@ -576,6 +576,11 @@
           const numdocumentreserva = document.getElementById("numdocumentreserva").value.trim();
           const carnetReserva = document.getElementById("carnetReserva").value.trim();
           const telefonoreserva = document.getElementById("telefonoreserva").value.trim();
+          const cabinareserva = document.getElementById("cabinareserva").value.trim();
+          const fechareserva = document.getElementById("fechareserva").value.trim();
+          const inicioReserva = document.getElementById("inicioReserva").value.trim();
+          const finalreserva = document.getElementById("finalreserva").value.trim();
+          
 
 
           if (!nombreReserva) errores.push("Debe ingresar el nombre del responsable.");
@@ -586,9 +591,15 @@
           if (!numdocumentreserva) errores.push("Debe ingrese un documento valido.");
           if (!carnetReserva) errores.push("Debe ingrese su carnet de la institucion.");
           if (!telefonoreserva) errores.push("Debe ingrese un numero de telefono.");
+          if (!cabinareserva) errores.push("Debe seleccione cabina asignar.");
+          if (!fechareserva) errores.push("Debe seleccione una fecha de prestamo.");
+          if (!inicioReserva) errores.push("Debe seleccione una hora de inicio");
+          if (!finalreserva) errores.push("Debe seleccione una hora de finalizacion");
+          
+          
           
 
-          row = [fechaReserva, nombreReserva, edadreserva, generoReserva, propositoreserva, lugarreserva, numdocumentreserva, carnetReserva, telefonoreserva];
+          row = [fecharegistro, nombreReserva, edadreserva, generoReserva, propositoreserva, lugarreserva, numdocumentreserva, carnetReserva, telefonoreserva, cabinareserva, fechareserva, inicioReserva, finalreserva];
         }
 
         // 🔎 Validar antes de guardar
