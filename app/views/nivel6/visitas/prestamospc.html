@@ -328,7 +328,7 @@
         function abrirModal(fila) {
             document.getElementById("filaEditar").value = fila;
             const valorActual = datosGlobal[fila][indiceDescripcion];
-            document.getElementById("selectDescripcion").value = valorActual || "Otro";
+            document.getElementById("selectDescripcion").value = valorActual;
             const modal = new bootstrap.Modal(document.getElementById("editarModal"));
             modal.show();
         }
