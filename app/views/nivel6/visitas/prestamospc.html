@@ -282,7 +282,7 @@
 
             const encabezados = datos[0];
             const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
-            indiceDescripcion = encabezados.indexOf("Descripcion");
+            indiceDescripcion = encabezados.indexOf("Estado");
 
             const trHead = document.createElement("tr");
             columnasDeseadas.forEach(h => {
