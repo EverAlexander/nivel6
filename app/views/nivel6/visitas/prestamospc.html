@@ -329,13 +329,18 @@
                 const btn = document.createElement("button");
                 btn.textContent = "Editar";
                 btn.className = "btn btn-sm btn-primary";
-                // Ajustar index: sumar 1 para coincidir con fila real en Google Sheets
-                btn.onclick = () => abrirModal(index + 1);
+
+                // ⚡ Aquí estaba el error: usabas index + 1 (del filtrado)
+                // Solución: busca el índice real en datosGlobal
+                const indiceReal = datosGlobal.indexOf(fila);
+
+                btn.onclick = () => abrirModal(indiceReal);
                 tdAccion.appendChild(btn);
                 tr.appendChild(tdAccion);
 
                 tbody.appendChild(tr);
             });
+
         }
 
 
