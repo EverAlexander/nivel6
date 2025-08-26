@@ -244,7 +244,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     sessionStorage.clear();
-                    window.location.href = "../index.html";
+                    window.location.href = "../../../../index.html";
                 }
             });
         });
@@ -316,7 +316,7 @@
             const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
 
             if (datosFiltrados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8">No hay registros "En uso"</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8">No hay cabianas en uso</td></tr>';
                 return;
             }
 
@@ -365,7 +365,7 @@
                 return;
             }
 
-            const rangoCelda = `Computadoras!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
+            const rangoCelda = `Prestamos de salas!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
 
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
 
