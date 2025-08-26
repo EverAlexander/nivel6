@@ -403,11 +403,7 @@
                             <input type="text" id="nombreReserva" class="form-control">
                         </div>
 
-                        <div class="col-md-3">
-                            <label for="edadreserva" class="form-label">Edad</label>
-                            <input type="text" id="edadreserva" class="form-control">
-                        </div>
-
+                        
                         <div class="col-md-3">
                             <label for="generoReserva" class="form-label">Género</label>
                             <select id="generoReserva" class="form-control">
@@ -421,6 +417,11 @@
                             <label for="propositoreserva" class="form-label">Proposito del prestamo</label>
                             <input type="text" id="propositoreserva" class="form-control">
                         </div>
+
+                        <div class="col-md-3">
+                            <label for="telefonoreserva" class="form-label">Telefono</label>
+                            <input type="text" id="telefonoreserva" class="form-control">
+                        </div>  
                     </div>
                 </div>
             </div>
@@ -457,11 +458,6 @@
                             <label for="carnetReserva" class="form-label">Carnet Institucional</label>
                             <input type="text" id="carnetReserva" class="form-control">
                         </div>
-
-                        <div class="col-md-3">
-                            <label for="telefonoreserva" class="form-label">Telefono</label>
-                            <input type="text" id="telefonoreserva" class="form-control">
-                        </div>  
                     </div>
                 </div>
             </div>
@@ -649,14 +645,13 @@
         if (tipo === "reservas") {
           const fecharegistro = document.getElementById("fecharegistro").value.trim();
           const nombreReserva = document.getElementById("nombreReserva").value.trim();
-          const edadreserva = document.getElementById("edadreserva").value.trim();
           const generoReserva = document.getElementById("generoReserva").value.trim();
           const propositoreserva = document.getElementById("propositoreserva").value.trim();
+          const telefonoreserva = document.getElementById("telefonoreserva").value.trim();
           const lugarreserva = document.getElementById("lugarreserva").value.trim();
           const tipodocumentlla = document.getElementById("tipodocumentlla").value.trim();
           const numdocumentreserva = document.getElementById("numdocumentreserva").value.trim();
           const carnetReserva = document.getElementById("carnetReserva").value.trim();
-          const telefonoreserva = document.getElementById("telefonoreserva").value.trim();
           const cabinareserva = document.getElementById("cabinareserva").value.trim();
           const fechareserva = document.getElementById("fechareserva").value.trim();
           const inicioReserva = document.getElementById("inicioReserva").value.trim();
@@ -665,21 +660,20 @@
           const registradoporReserv = document.getElementById("registradoporReserv").value.trim();
 
           if (!nombreReserva) errores.push("Debe ingresar el nombre del responsable.");
-          if (!edadreserva) errores.push("Debe ingresar un numero valido");
           if (!generoReserva) errores.push("Debe seleccione el genero.");
           if (!propositoreserva) errores.push("Debe ingresar los detalles de prestamo.");
+          if (!telefonoreserva) errores.push("Debe ingrese un numero de telefono.");
           if (!lugarreserva) errores.push("Debe ingresar nombre de la institucion.");
           if (!tipodocumentlla) errores.push("Debe selecciones tipo de documento.");
           if (!numdocumentreserva) errores.push("Debe ingrese un documento valido.");
           if (!carnetReserva) errores.push("Debe ingrese su carnet de la institucion.");
-          if (!telefonoreserva) errores.push("Debe ingrese un numero de telefono.");
           if (!cabinareserva) errores.push("Debe seleccione cabina asignar.");
           if (!fechareserva) errores.push("Debe seleccione una fecha de prestamo.");
           if (!inicioReserva) errores.push("Debe seleccione una hora de inicio");
           if (!finalreserva) errores.push("Debe seleccione una hora de finalizacion");
           if (!asignarreserva) errores.push("Debe seleccione el estado del prestamo");
 
-          row = [fecharegistro, nombreReserva, edadreserva, generoReserva, propositoreserva, lugarreserva, tipodocumentlla, numdocumentreserva, carnetReserva, telefonoreserva, cabinareserva, fechareserva, inicioReserva, finalreserva, asignarreserva, registradoporReserv];
+          row = [fecharegistro, nombreReserva, generoReserva, propositoreserva, telefonoreserva, lugarreserva, tipodocumentlla, numdocumentreserva, carnetReserva, cabinareserva, fechareserva, inicioReserva, finalreserva, asignarreserva, registradoporReserv];
         }
 
 
