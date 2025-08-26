@@ -172,7 +172,7 @@
                                                             <label for="selectDescripcion"
                                                                 class="form-label">Descripción:</label>
                                                             <select class="form-control" id="selectDescripcion">
-                                                                <option value="En uso">Reservado</option>
+                                                                <option value="Colocado">Colocado</option>
                                                                 <option value="Finalizo">Finalizo</option>
                                                             </select>
                                                         </div>
@@ -312,7 +312,7 @@
             thead.appendChild(trHead);
 
             // Filtrar solo los registros "En uso"
-            const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
+            const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Colocado");
 
             if (datosFiltrados.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8">No hay cabianas en uso</td></tr>';
