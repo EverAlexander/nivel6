@@ -604,8 +604,8 @@
                 <div class="card-body">
                     <div class="row g-3">
                         <div class="col-md-3">
-                            <label for="pantallaequipo" class="form-label">Disponibilidad</label>
-                            <select id="pantallaequipo" class="form-control">
+                            <label for="disponibilidadpantalla" class="form-label">Disponibilidad</label>
+                            <select id="disponibilidadpantalla" class="form-control">
                                 <option value="" disabled selected>Seleccionar</option>
                                 <option value="Colocado">Colocado</option>
                             </select>
@@ -759,6 +759,7 @@
 
           const iniciopantalla = document.getElementById("iniciopantalla").value.trim();
           const finalpantalla = document.getElementById("finalpantalla").value.trim();
+          const disponibilidadpantalla = document.getElementById("disponibilidadpantalla").value.trim();
           const registradopantalla = document.getElementById("registradopantalla").value.trim();
 
 
@@ -770,9 +771,10 @@
           if (!pantallaequipo) errores.push("Debe seleccionar equipo");
           if (!iniciopantalla) errores.push("Debe seleccinar hora de inicio");
           if (!finalpantalla) errores.push("Debe seleccionar hora de finalizacion");
+
           if (!registradopantalla) errores.push("Debe ingresar nombre a cargo");
 
-          row = [fechaPantallas, nombrePantalla, generoPantalla, tipodocupantalla, numeroIdpantalla, pantallaequipo, document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No",, iniciopantalla, finalpantalla, registradopantalla];
+          row = [fechaPantallas, nombrePantalla, generoPantalla, tipodocupantalla, numeroIdpantalla, pantallaequipo, document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No", iniciopantalla, finalpantalla, disponibilidadpantalla, registradopantalla];
         }
 
         if (tipo === "reservas") {
