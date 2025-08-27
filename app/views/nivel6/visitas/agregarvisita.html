@@ -47,47 +47,47 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
 
-   <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Nivel 6</div>
-            </a>
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Nivel 6</div>
+      </a>
 
-            <hr class="sidebar-divider my-0">
+      <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
-                <a class="nav-link" href="home.html">
-                    <i class="fas fa-home"></i>
-                    <span>Inicio</span>
-                </a>
-            </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="home.html">
+          <i class="fas fa-home"></i>
+          <span>Inicio</span>
+        </a>
+      </li>
 
-            <hr class="sidebar-divider">
+      <hr class="sidebar-divider">
 
-            <div class="sidebar-heading">Menu Prestamos</div>
+      <div class="sidebar-heading">Menu Prestamos</div>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Recursos</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="#">Agregar Visitas</a>
-                        <a class="collapse-item" href="prestamospc.html">Computadoras</a>
-                        <a class="collapse-item" href="listareservacabinas.html">Reservaciones</a>
-                        <a class="collapse-item" href="prestamoscabina.html">Cabinas en uso</a>
-                        <a class="collapse-item" href="datosrecorridos.html">Recorridos</a>
-                    </div>
-                </div>
-            </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-exchange-alt"></i>
+          <span>Recursos</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Opciones:</h6>
+            <a class="collapse-item" href="#">Agregar Visitas</a>
+            <a class="collapse-item" href="prestamospc.html">Computadoras</a>
+            <a class="collapse-item" href="listareservacabinas.html">Reservaciones</a>
+            <a class="collapse-item" href="prestamoscabina.html">Cabinas en uso</a>
+            <a class="collapse-item" href="datosrecorridos.html">Recorridos</a>
+          </div>
+        </div>
+      </li>
 
-            <hr class="sidebar-divider">
-        </ul>
+      <hr class="sidebar-divider">
+    </ul>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -130,7 +130,8 @@
                     <select id="tipoVisita" class="form-control">
                       <option value="">Selecciona </option>
                       <option value="activacionell">Activacion de llaves del saber</option>
-                      <option value="computadoras">Computadoras Nivel 6</option>
+                      <option value="computadors">Prestamos de Computadoras</option>
+                      <option value="pantallasn6">Prestamos de Pantallas</option>
                       <option value="reservas">Reservas de Salas</option>
                       <option value="recorridos">Recorridos (Áreas Internas)</option>
                     </select>
@@ -521,10 +522,111 @@
       `;
         document.getElementById("fecharegistro").value = obtenerFechaActual();
       }
-    
+
+      if (valor === "pantallasn6") {
+        formExtra.innerHTML = `
+        <div class="container mt-4">
+            <div class="card shadow-sm mb-4 rounded-3">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3 d-none">
+                            <label for="fechaPantallas" class="form-label">Fecha</label>
+                            <input type="date" id="fechaPantallas" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="nombrePantalla" class="form-label">Nombre del Usuario</label>
+                            <input type="text" id="nombrePantalla" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="generoPantalla" class="form-label">Genero</label>
+                            <select id="generoPantalla" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="M">M</option>
+                                <option value="F">F</option> 
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="tipodocupantalla" class="form-label">Tipo de documentos</label>
+                            <select id="tipodocupantalla" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Llave del saber">Llave del saber</option>
+                                <option value="Dui">Dui</option>
+                                <option value="Pasaporte">Pasaporte</option>                               
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="numeroIdpantalla" class="form-label">Número</label>
+                            <input type="text" id="numeroIdpantalla" class="form-control">
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm rounded-3">
+                <div class="card-header bg-success text-white">
+                    <h5>Equipo Asignado</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="pantallaequipo" class="form-label">Equipo a utilizar</label>
+                            <select id="pantallaequipo" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Pantalla - 01">Pantalla - 01</option>
+                                <option value="Pantalla - 02">Pantalla - 02</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="complementoPantalla" class="form-label">Complemento</label>
+                            
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="iniciopc" class="form-label">Inicio</label>
+                            <input type="time" id="iniciopc" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="finalpc" class="form-label">Finalización</label>
+                            <input type="time" id="finalpc" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="pantallaequipo" class="form-label">Disponibilidad</label>
+                            <select id="pantallaequipo" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Colocado">Colocado</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="registradopantalla" class="form-label">Registrado por</label>
+                            <input type="time" id="registradopantalla" class="form-control">
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
+      `;
+        document.getElementById("fechaPantallas").value = obtenerFechaActual();
+      }
 
       
-    
+
     });
 
     // ========= FUNCION GUARDAR =========
@@ -537,6 +639,8 @@
         range = "Activacion de llaves!A1:Z1000";
       } else if (tipo === "computadoras") {
         range = "Computadoras!A1:Z1000";
+      } else if (tipo === "pantallasn6") {
+        range = "Prestamos de pantallas!A1:Z1000";
       } else if (tipo === "reservas") {
         range = "Prestamos de salas!A1:Z1000";
       }
@@ -605,13 +709,13 @@
           const generollave = document.getElementById("generollave").value.trim();
           const encargadollave = document.getElementById("encargadollave").value.trim();
           const estadollave = document.getElementById("estadollave").value.trim();
-          
+
           if (!fechaActiva) errores.push("Debe seleccionar una fecha.");
           if (!numllave) errores.push("Debe ingresra numero de llave.");
           if (!generollave) errores.push("Debe seleccionar el genero");
           if (!encargadollave) errores.push("Debe ingresar responsable");
           if (!estadollave) errores.push("Debe seleccionar el estado");
-          
+
           row = [fechaActiva, numllave, generollave, encargadollave, estadollave];
         }
 
