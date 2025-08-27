@@ -583,8 +583,10 @@
 
                         <div class="col-md-3">
                             <label for="complementoPantalla" class="form-label">Complemento</label>
-                            <input class="form-check-input" type="checkbox" id="lppantalla">
-                            <label for="complementoPantalla" class="form-label">Lapiz Huawei</label>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="lppantalla">
+                              <label class="form-check-label" for="lppantalla">Lapiz Huawei</label>
+                            </div>
                         </div>
 
                         <div class="col-md-3">
@@ -774,7 +776,18 @@
 
           if (!registradopantalla) errores.push("Debe ingresar nombre a cargo");
 
-          row = [fechaPantallas, nombrePantalla, generoPantalla, tipodocupantalla, numeroIdpantalla, pantallaequipo, document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No", iniciopantalla, finalpantalla, disponibilidadpantalla, registradopantalla];
+          row = [fechaPantallas, 
+                 nombrePantalla, 
+                 generoPantalla, 
+                 tipodocupantalla, 
+                 numeroIdpantalla, 
+                 pantallaequipo, 
+                 document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No", 
+                 iniciopantalla, 
+                 finalpantalla, 
+                 disponibilidadpantalla, 
+                 registradopantalla
+            ];
         }
 
         if (tipo === "reservas") {
