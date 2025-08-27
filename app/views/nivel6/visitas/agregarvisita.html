@@ -179,19 +179,35 @@
   <script>
     // ========= CONFIG =========
     const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real
-    const accessToken = sessionStorage.getItem("accessToken");
-
-    const userName = sessionStorage.getItem("userName");
-    const userPicture = sessionStorage.getItem("userPicture");
-
-    if (!accessToken) {
+    const token = sessionStorage.getItem("accessToken");
+    if (!token) {
       Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
-        .then(() => window.location.href = "../../../../index.html");
+        .then(() => {
+          window.location.href = "../../../../index.html";
+        });
     } else {
-      // Mostrar usuario
-      document.getElementById("userName").textContent = userName || "Usuario";
-      document.getElementById("userImage").src = userPicture || "https://via.placeholder.com/40";
+      // Cargar datos de usuario
+      document.getElementById("userName").textContent = sessionStorage.getItem("userName");
+      document.getElementById("userImage").src = sessionStorage.getItem("userPicture");
     }
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      Swal.fire({
+        title: "¿Cerrar sesión?",
+        text: "Se cerrará tu cuenta de Google",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, salir",
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          sessionStorage.clear();
+          window.location.href = "../index.html";
+        }
+      });
+    });
+
 
     const tipoVisita = document.getElementById("tipoVisita");
     const formExtra = document.getElementById("formExtra");
@@ -629,8 +645,6 @@
         document.getElementById("fechaPantallas").value = obtenerFechaActual();
       }
 
-
-
     });
 
     // ========= FUNCION GUARDAR =========
@@ -778,19 +792,19 @@
 
           if (!registradopantalla) errores.push("Debe ingresar nombre a cargo");
 
-          row = [fechaPantallas, 
-                 nombrePantalla, 
-                 generoPantalla, 
-                 tipodocupantalla, 
-                 numeroIdpantalla, 
-                 pantallaequipo, 
-                 document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No", 
-                 iniciopantalla, 
-                 finalpantalla, 
-                 tiempo,
-                 disponibilidadpantalla, 
-                 registradopantalla
-            ];
+          row = [fechaPantallas,
+            nombrePantalla,
+            generoPantalla,
+            tipodocupantalla,
+            numeroIdpantalla,
+            pantallaequipo,
+            document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No",
+            iniciopantalla,
+            finalpantalla,
+            tiempo,
+            disponibilidadpantalla,
+            registradopantalla
+          ];
         }
 
         if (tipo === "reservas") {
@@ -839,11 +853,8 @@
         }
       }
     });
+
   </script>
-
-
-
-
 </body>
 
 </html>
