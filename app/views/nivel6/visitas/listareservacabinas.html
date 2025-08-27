@@ -317,7 +317,7 @@
             const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
 
             if (datosFiltrados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8">No hay cabianas en uso</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8">No reservaciones de cabinas</td></tr>';
                 return;
             }
 
