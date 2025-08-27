@@ -767,14 +767,11 @@
           if (!tipodocupantalla) errores.push("Debe seleccionar el tipo de documento.");
           if (!numeroIdpantalla) errores.push("Debe ingresar numero de identificacion.");
           if (!pantallaequipo) errores.push("Debe seleccionar equipo");
-
           if (!iniciopantalla) errores.push("Debe seleccinar hora de inicio");
           if (!finalpantalla) errores.push("Debe seleccionar hora de finalizacion");
           if (!registradopantalla) errores.push("Debe ingresar nombre a cargo");
 
-          //if (! || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
-
-          row = [fechaPantallas, nombrePantalla, generoPantalla, tipodocupantalla, numeroIdpantalla, pantallaequipo, iniciopantalla, finalpantalla, registradopantalla];
+          row = [fechaPantallas, nombrePantalla, generoPantalla, tipodocupantalla, numeroIdpantalla, pantallaequipo, document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No",, iniciopantalla, finalpantalla, registradopantalla];
         }
 
         if (tipo === "reservas") {
