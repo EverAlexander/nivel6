@@ -132,7 +132,7 @@
                                     </button>
                                     <br>
                                     <br>
-                                    
+
                                     <!-- Combobox -->
                                     <div class="mb-3">
                                         <label for="tipoVisita" class="form-label">Tipo de Visita</label>
@@ -181,6 +181,7 @@
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 
     <script>
@@ -684,6 +685,35 @@
                 Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
             }
         }
+
+        document.getElementById("refreshBtn").addEventListener("click", () => {
+            const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // 🔑 tu client_id real
+            const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+            google.accounts.oauth2.initTokenClient({
+                client_id: clientId,
+                scope: scope,
+                callback: (response) => {
+                    if (response.access_token) {
+                        sessionStorage.setItem("accessToken", response.access_token);
+                        obtenerDatos().then(mostrarDatos);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Refrescado",
+                            text: "Se renovó el acceso y los datos fueron actualizados.",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "No se pudo refrescar el token."
+                        });
+                    }
+                }
+            }).requestAccessToken();
+        });
 
         // ========= BOTÓN DE GUARDAR =========
         document.addEventListener("click", async (e) => {
