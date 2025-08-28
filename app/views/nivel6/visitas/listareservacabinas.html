@@ -408,8 +408,12 @@
             if (res.ok) {
                 datosGlobal[fila][indiceDescripcion] = nuevoValor;
                 mostrarDatos(datosGlobal);
-                bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
-            } else {
+
+                const modalElement = document.getElementById("editarModal");
+                const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+                modalInstance.hide();
+            }
+            else {
                 const err = await res.json();
                 console.error("Error al actualizar:", err);
                 alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
