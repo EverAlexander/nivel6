@@ -319,7 +319,7 @@
             thead.appendChild(trHead);
 
             // Filtrar solo los registros "En uso"
-            const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
+            const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Colocado");
 
             if (datosFiltrados.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8">No reservaciones de cabinas</td></tr>';
