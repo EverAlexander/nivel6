@@ -174,10 +174,9 @@
                                                             <select class="form-control" id="selectDescripcion">
                                                                 <option value="Reservado">Reservado</option>
                                                                 <option value="Colocado">Colocado</option>
-                                                                <option value="Reservacion Cancelada">Reservacion
-                                                                    Cancelada</option>
+                                                                <option value="Reservacion Cancelada">Reservacion Cancelada</option>
                                                                 <option value="No asistio">No asistio</option>
-
+                                                            
                                                             </select>
                                                         </div>
                                                         <input type="hidden" id="filaEditar">
@@ -222,58 +221,20 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-    <!-- Google Identity Services -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-
     <script>
-        // ========= CONFIG =========
-        const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc";
-        const RANGE = "Prestamos de salas!A1:Z1000";
-
-        const columnasDeseadas = [
-            "Nombre del usuario",
-            "Tipo de documento",
-            "Numero",
-            "Cabina",
-            "Agenda",
-            "Hora de entrada",
-            "Hora de Salida",
-        ];
-
-        let datosGlobal = [];
-        let indiceDescripcion = -1;
-        let accessToken = sessionStorage.getItem("accessToken");
-        let tokenClient;
-
-        // ========= INICIALIZAR TOKEN CLIENT =========
-        window.onload = () => {
-            tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com", // 🔑 reemplazar por tu Client ID
-                scope: "https://www.googleapis.com/auth/spreadsheets",
-                callback: (resp) => {
-                    if (resp.access_token) {
-                        accessToken = resp.access_token;
-                        sessionStorage.setItem("accessToken", accessToken);
-                        console.log("🔄 Token renovado automáticamente");
-                    }
-                }
-            });
-
-            // Verificar sesión
-            if (!accessToken) {
-                solicitarToken();
+        // Verificar sesión
+        window.addEventListener("load", () => {
+            const token = sessionStorage.getItem("accessToken");
+            if (!token) {
+                window.location.href = "../../../../index.html";
             } else {
+                // Cargar datos de usuario
                 document.getElementById("userName").textContent = sessionStorage.getItem("userName");
                 document.getElementById("userImage").src = sessionStorage.getItem("userPicture");
-                obtenerDatos().then(mostrarDatos);
             }
-        };
+        });
 
-        function solicitarToken() {
-            tokenClient.requestAccessToken({ prompt: '' });
-        }
-
-        // ========= LOGOUT =========
+        // Logout
         document.getElementById("logoutBtn").addEventListener("click", () => {
             Swal.fire({
                 title: "¿Cerrar sesión?",
@@ -289,23 +250,39 @@
                 }
             });
         });
+    </script>
 
-        // ========= OBTENER DATOS =========
+    <!-- Scripts -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc";
+        const RANGE = "Prestamos de salas!A1:Z1000";
+
+        const columnasDeseadas = [
+            "Nombre del usuario",
+            "Tipo de documento",
+            "Numero",
+            "Cabina",
+            "Agenda",
+            "Hora de entrada",
+            "Hora de Salida",
+        ];
+
+        let datosGlobal = [];
+        let indiceDescripcion = -1;
+
         async function obtenerDatos() {
+            const accessToken = sessionStorage.getItem("accessToken"); // 🔑 usamos token de login
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`;
-            const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
-
-            if (res.status === 401) {
-                console.warn("⚠️ Token expirado, renovando...");
-                solicitarToken();
-                return [];
-            }
-
+            const res = await fetch(url, {
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
             const data = await res.json();
             return data.values || [];
         }
 
-        // ========= MOSTRAR DATOS =========
         function mostrarDatos(datos) {
             datosGlobal = datos;
             const tabla = document.getElementById("tablaCabina");
@@ -335,6 +312,7 @@
             trHead.appendChild(thAccion);
             thead.appendChild(trHead);
 
+            // Filtrar solo los registros "En uso"
             const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
 
             if (datosFiltrados.length === 0) {
@@ -342,7 +320,7 @@
                 return;
             }
 
-            datosFiltrados.forEach((fila) => {
+            datosFiltrados.forEach((fila, index) => {
                 const tr = document.createElement("tr");
                 indices.forEach(idx => {
                     const td = document.createElement("td");
@@ -355,16 +333,20 @@
                 btn.textContent = "Editar";
                 btn.className = "btn btn-sm btn-primary";
 
+                // ⚡ Aquí estaba el error: usabas index + 1 (del filtrado)
+                // Solución: busca el índice real en datosGlobal
                 const indiceReal = datosGlobal.indexOf(fila);
-                btn.onclick = () => abrirModal(indiceReal);
 
+                btn.onclick = () => abrirModal(indiceReal);
                 tdAccion.appendChild(btn);
                 tr.appendChild(tdAccion);
+
                 tbody.appendChild(tr);
             });
+
         }
 
-        // ========= EDITAR =========
+
         function abrirModal(fila) {
             document.getElementById("filaEditar").value = fila;
             const valorActual = datosGlobal[fila][indiceDescripcion];
@@ -377,12 +359,14 @@
             const fila = parseInt(document.getElementById("filaEditar").value);
             const nuevoValor = document.getElementById("selectDescripcion").value;
 
+            const accessToken = sessionStorage.getItem("accessToken"); // 🔑
             if (!accessToken) {
                 alert("No hay sesión activa. Inicie sesión de nuevo.");
                 return;
             }
 
             const rangoCelda = `Prestamos de salas!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
+
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
 
             const res = await fetch(url, {
@@ -398,29 +382,19 @@
                 })
             });
 
-            if (res.status === 401) {
-                console.warn("⚠️ Token expirado, renovando...");
-                solicitarToken();
-                Swal.fire("🔄 Renovando", "Tu sesión se está renovando automáticamente", "info");
-                return;
-            }
-
             if (res.ok) {
                 datosGlobal[fila][indiceDescripcion] = nuevoValor;
                 mostrarDatos(datosGlobal);
-
-                const modalElement = document.getElementById("editarModal");
-                const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
-                modalInstance.hide();
-            }
-            else {
+                bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
+            } else {
                 const err = await res.json();
                 console.error("Error al actualizar:", err);
                 alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
             }
         };
-    </script>
 
+        obtenerDatos().then(mostrarDatos);
+    </script>
 </body>
 
 </html>
