@@ -132,12 +132,15 @@
 
                                         <div class="card shadow-lg border-0 rounded-3">
                                             <!-- Encabezado -->
-                                            <div class="card-header bg-gradient-success text-white text-center">
+                                            <div class="card-header bg-gradient-success text-white d-flex justify-content-between align-items-center">
                                                 <h5 class="mb-0 fw-bold">
-                                                    <i class="fas fa-tv me-2"></i> Prestamos de pantallas
+                                                    <i class="bi bi-laptop me-2"></i> Prestamos de pantallas
                                                 </h5>
+                                                <button id="refreshBtn" class="btn btn-light btn-sm">
+                                                    <i class="bi bi-arrow-clockwise"></i> Refrescar
+                                                </button>
                                             </div>
-
+                                            
                                             <!-- Contenido de tabla -->
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -343,7 +346,6 @@
 
         }
 
-
         function abrirModal(fila) {
             document.getElementById("filaEditar").value = fila;
             const valorActual = datosGlobal[fila][indiceDescripcion];
@@ -351,6 +353,36 @@
             const modal = new bootstrap.Modal(document.getElementById("editarModal"));
             modal.show();
         }
+
+        // Botón para refrescar token y datos
+        document.getElementById("refreshBtn").addEventListener("click", () => {
+            const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // 🔑 tu client_id real
+            const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+            google.accounts.oauth2.initTokenClient({
+                client_id: clientId,
+                scope: scope,
+                callback: (response) => {
+                    if (response.access_token) {
+                        sessionStorage.setItem("accessToken", response.access_token);
+                        obtenerDatos().then(mostrarDatos);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Refrescado",
+                            text: "Se renovó el acceso y los datos fueron actualizados.",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "No se pudo refrescar el token."
+                        });
+                    }
+                }
+            }).requestAccessToken();
+        });
 
         document.getElementById("guardarCambio").onclick = async () => {
             const fila = parseInt(document.getElementById("filaEditar").value);
