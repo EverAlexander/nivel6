@@ -2,213 +2,233 @@
 <html lang="es">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Menu principal</title>
+    <title>Agregar Visitas</title>
 
-  <!-- Fuente Nunito -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+    <!-- Fuente Nunito -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
 
-  <!-- Estilos de la plantilla -->
-  <link href="../../../../public/css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../../../../public/css/estilo.css" rel="stylesheet">
+    <!-- Estilos de la plantilla -->
+    <link href="../../../../public/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../../../public/css/estilo.css" rel="stylesheet">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  <!-- Bootstrap Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-  <!-- SweetAlert2 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-  <!-- Moment.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-  <script>
-    function actualizarHora() {
-      const ahora = new Date();
-      const horas = ahora.getHours().toString().padStart(2, '0');
-      const minutos = ahora.getMinutes().toString().padStart(2, '0');
-      const segundos = ahora.getSeconds().toString().padStart(2, '0');
-      const horaFormateada = `${horas}:${minutos}:${segundos}`;
-      document.getElementById('horaActual').textContent = horaFormateada;
-    }
-    setInterval(actualizarHora, 1000);
-  </script>
+    <script>
+        function actualizarHora() {
+            const ahora = new Date();
+            const horas = ahora.getHours().toString().padStart(2, '0');
+            const minutos = ahora.getMinutes().toString().padStart(2, '0');
+            const segundos = ahora.getSeconds().toString().padStart(2, '0');
+            const horaFormateada = `${horas}:${minutos}:${segundos}`;
+            document.getElementById('horaActual').textContent = horaFormateada;
+        }
+        setInterval(actualizarHora, 1000);
+    </script>
 </head>
 
 <body id="page-top">
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-      <a class="sidebar-brand d-flex align-items-center justify-content-center">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-user"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">Nivel 6</div>
-      </a>
-
-      <hr class="sidebar-divider my-0">
-
-      <li class="nav-item active">
-        <a class="nav-link" href="home.html">
-          <i class="fas fa-home"></i>
-          <span>Inicio</span>
-        </a>
-      </li>
-
-      <hr class="sidebar-divider">
-
-      <div class="sidebar-heading">Menu Prestamos</div>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-          aria-controls="collapseTwo">
-          <i class="fas fa-exchange-alt"></i>
-          <span>Recursos</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Opciones:</h6>
-            <a class="collapse-item" href="#">Agregar Visitas</a>
-            <a class="collapse-item" href="prestamospc.html">Computadoras en uso</a>
-            <a class="collapse-item" href="prestamoscabina.html">Cabinas en uso</a>
-            <a class="collapse-item" href="prestamospantallas.html">Pantallas en uso</a>
-            <a class="collapse-item" href="listareservacabinas.html">Reservaciones</a>
-            <a class="collapse-item" href="datosrecorridos.html">Recorridos</a>
-          </div>
-        </div>
-      </li>
-
-      <hr class="sidebar-divider">
-    </ul>
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-      <div id="content">
-        <div class="container-fluid">
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center">
-                <div class="col mr-2">
-                  <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="horaActual"></span></div>
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-user"></i>
                 </div>
-              </div>
-            </div>
+                <div class="sidebar-brand-text mx-3">Nivel 6</div>
+            </a>
 
-            <!-- Usuario -->
-            <div class="dropdown">
-              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img id="userImage" src="" alt="Imagen de usuario" class="user-logo rounded-circle" width="50"
-                  height="40">
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <span class="dropdown-item"><i class="fas fa-user mr-2"></i><span id="userName"></span></span>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i> Cerrar
-                  Sesión</a>
-              </div>
-            </div>
-          </div>
+            <hr class="sidebar-divider my-0">
 
-          <div class="row">
-            <div class="col-lg-12 col-md-12 order-2 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
+            <li class="nav-item active">
+                <a class="nav-link" href="home.html">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
 
-                  <!-- Combobox -->
-                  <div class="mb-3">
-                    <label for="tipoVisita" class="form-label">Tipo de Visita</label>
-                    <select id="tipoVisita" class="form-control">
-                      <option value="">Selecciona </option>
-                      <option value="activacionell">Activacion de llaves del saber</option>
-                      <option value="computadoras">Prestamos de Computadoras</option>
-                      <option value="pantallasn6">Prestamos de Pantallas</option>
-                      <option value="reservas">Reservas de Salas</option>
-                      <option value="recorridos">Recorridos (Áreas Internas)</option>
-                    </select>
-                  </div>
+            <hr class="sidebar-divider">
 
-                  <!-- Sección dinámica -->
-                  <div id="formExtra"></div>
+            <div class="sidebar-heading">Menu Prestamos</div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Recursos</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="#">Agregar Visitas</a>
+                        <a class="collapse-item" href="prestamospc.html">Computadoras en uso</a>
+                        <a class="collapse-item" href="prestamoscabina.html">Cabinas en uso</a>
+                        <a class="collapse-item" href="prestamospantallas.html">Pantallas en uso</a>
+                        <a class="collapse-item" href="listareservacabinas.html">Reservaciones</a>
+                        <a class="collapse-item" href="datosrecorridos.html">Recorridos</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="horaActual"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Usuario -->
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
+                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img id="userImage" src="" alt="Imagen de usuario" class="user-logo rounded-circle"
+                                    width="50" height="40">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <span class="dropdown-item"><i class="fas fa-user mr-2"></i><span
+                                        id="userName"></span></span>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" id="logoutBtn"><i
+                                        class="fas fa-sign-out-alt mr-2"></i> Cerrar
+                                    Sesión</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 order-2 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <!-- Combobox -->
+                                    <div class="mb-3">
+                                        <label for="tipoVisita" class="form-label">Tipo de Visita</label>
+                                        <select id="tipoVisita" class="form-control">
+                                            <option value="">Selecciona </option>
+                                            <option value="activacionell">Activacion de llaves del saber</option>
+                                            <option value="computadoras">Prestamos de Computadoras</option>
+                                            <option value="pantallasn6">Prestamos de Pantallas</option>
+                                            <option value="reservas">Reservas de Salas</option>
+                                            <option value="recorridos">Recorridos (Áreas Internas)</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Sección dinámica -->
+                                    <div id="formExtra"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-              </div>
             </div>
-          </div>
 
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        ©
+                        <script>document.write(new Date().getFullYear());</script>, The_Alexander
+                    </div>
+                </div>
+            </footer>
         </div>
-      </div>
-
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            ©
-            <script>document.write(new Date().getFullYear());</script>, The_Alexander
-          </div>
-        </div>
-      </footer>
     </div>
-  </div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="../../../../public/vendor/jquery/jquery.min.js"></script>
-  <script src="../../../../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../../../../public/vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="../../../../public/js/sb-admin-2.min.js"></script>
-  <script src="../../../../public/vendor/chart.js/Chart.min.js"></script>
-  <script src="../../../../public/js/demo/chart-area-demo.js"></script>
-  <script src="../../../../public/js/demo/chart-pie-demo.js"></script>
-  <script src="../../../../public/js/fechaactual.js"></script>
-
-
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="../../../../public/vendor/jquery/jquery.min.js"></script>
+    <script src="../../../../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../../../public/js/sb-admin-2.min.js"></script>
+    <script src="../../../../public/vendor/chart.js/Chart.min.js"></script>
+    <script src="../../../../public/js/demo/chart-area-demo.js"></script>
+    <script src="../../../../public/js/demo/chart-pie-demo.js"></script>
+    <script src="../../../../public/js/fechaactual.js"></script>
 
 
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        // ========= CONFIG =========
+        const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real
+        let accessToken = sessionStorage.getItem("accessToken");
 
-  <script>
-    // ========= CONFIG =========
-    const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real
-    const accessToken = sessionStorage.getItem("accessToken");
+        const userName = sessionStorage.getItem("userName");
+        const userPicture = sessionStorage.getItem("userPicture");
 
-    const userName = sessionStorage.getItem("userName");
-    const userPicture = sessionStorage.getItem("userPicture");
+        // ======== CLIENTE GOOGLE TOKEN ========
+        let tokenClient;
+        window.onload = () => {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: "TU_CLIENT_ID.apps.googleusercontent.com", // <== reemplazar con tu Client ID
+                scope: "https://www.googleapis.com/auth/spreadsheets",
+                callback: (resp) => {
+                    if (resp.access_token) {
+                        accessToken = resp.access_token;
+                        sessionStorage.setItem("accessToken", accessToken);
+                        console.log("🔄 Token renovado automáticamente");
+                    }
+                }
+            });
 
-    if (!accessToken) {
-      Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
-        .then(() => window.location.href = "../../../../index.html");
-    } else {
-      // Mostrar usuario
-      document.getElementById("userName").textContent = userName || "Usuario";
-      document.getElementById("userImage").src = userPicture || "https://via.placeholder.com/40";
-    }
+            if (!accessToken) {
+                solicitarToken(); // primera vez
+            }
+        };
 
-    const tipoVisita = document.getElementById("tipoVisita");
-    const formExtra = document.getElementById("formExtra");
+        function solicitarToken() {
+            tokenClient.requestAccessToken({ prompt: '' }); // sin prompt, no pide login si ya está autenticado
+        }
 
-    // ========= FECHA ACTUAL =========
-    function obtenerFechaActual() {
-      const hoy = new Date();
-      return hoy.toISOString().split("T")[0];
-    }
+        // ========= USUARIO =========
+        if (userName) document.getElementById("userName").textContent = userName;
+        if (userPicture) document.getElementById("userImage").src = userPicture;
 
-    // ========= RENDERIZAR FORMULARIO =========
-    tipoVisita.addEventListener("change", function () {
-      const valor = this.value;
-      formExtra.innerHTML = "";
+        const tipoVisita = document.getElementById("tipoVisita");
+        const formExtra = document.getElementById("formExtra");
 
-      if (valor === "activacionell") {
-        formExtra.innerHTML = `
+        // ========= FECHA ACTUAL =========
+        function obtenerFechaActual() {
+            const hoy = new Date();
+            return hoy.toISOString().split("T")[0];
+        }
+
+        // ========= RENDERIZAR FORMULARIO =========
+        tipoVisita.addEventListener("change", function () {
+            const valor = this.value;
+            formExtra.innerHTML = "";
+
+            if (valor === "activacionell") {
+                formExtra.innerHTML = `
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
                 <div class="card-body">
@@ -252,11 +272,11 @@
         <br>
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button>
       `;
-        document.getElementById("fechaActiva").value = obtenerFechaActual();
-      }
+                document.getElementById("fechaActiva").value = obtenerFechaActual();
+            }
 
-      if (valor === "recorridos") {
-        formExtra.innerHTML = `
+            if (valor === "recorridos") {
+                formExtra.innerHTML = `
         <div class="row mb-4">
           <div class="col">
             <label for="fecha" class="form-label">Fecha</label>
@@ -298,11 +318,11 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button>
       `;
-        document.getElementById("fecha").value = obtenerFechaActual();
-      }
+                document.getElementById("fecha").value = obtenerFechaActual();
+            }
 
-      if (valor === "computadoras") {
-        formExtra.innerHTML = `
+            if (valor === "computadoras") {
+                formExtra.innerHTML = `
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
                 <div class="card-body">
@@ -386,11 +406,11 @@
         <br>
         <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
       `;
-        document.getElementById("fechaCompu").value = obtenerFechaActual();
-      }
+                document.getElementById("fechaCompu").value = obtenerFechaActual();
+            }
 
-      if (valor === "reservas") {
-        formExtra.innerHTML = `
+            if (valor === "reservas") {
+                formExtra.innerHTML = `
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
                 <div class="card-body">
@@ -521,11 +541,11 @@
 
         <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
       `;
-        document.getElementById("fecharegistro").value = obtenerFechaActual();
-      }
+                document.getElementById("fecharegistro").value = obtenerFechaActual();
+            }
 
-      if (valor === "pantallasn6") {
-        formExtra.innerHTML = `
+            if (valor === "pantallasn6") {
+                formExtra.innerHTML = `
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
                 <div class="card-body">
@@ -626,218 +646,221 @@
         <br>
         <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
       `;
-        document.getElementById("fechaPantallas").value = obtenerFechaActual();
-      }
+                document.getElementById("fechaPantallas").value = obtenerFechaActual();
+            }
 
-    });
+        });
 
-    // ========= FUNCION GUARDAR =========
-    async function guardarEnSheets(tipo, datos) {
-      let range = "";
+        // ========= FUNCION GUARDAR =========
+        async function guardarEnSheets(tipo, datos) {
+            let range = "";
 
-      if (tipo === "recorridos") {
-        range = "Areas Internas!A1:Z1000";
-      } else if (tipo === "activacionell") {
-        range = "Activacion de llaves!A1:Z1000";
-      } else if (tipo === "computadoras") {
-        range = "Computadoras!A1:Z1000";
-      } else if (tipo === "pantallasn6") {
-        range = "Prestamos de pantallas!A1:Z1000";
-      } else if (tipo === "reservas") {
-        range = "Prestamos de salas!A1:Z1000";
-      }
+            if (tipo === "recorridos") {
+                range = "Areas Internas!A1:Z1000";
+            } else if (tipo === "activacionell") {
+                range = "Activacion de llaves!A1:Z1000";
+            } else if (tipo === "computadoras") {
+                range = "Computadoras!A1:Z1000";
+            } else if (tipo === "pantallasn6") {
+                range = "Prestamos de pantallas!A1:Z1000";
+            } else if (tipo === "reservas") {
+                range = "Prestamos de salas!A1:Z1000";
+            }
 
-      try {
-        const res = await fetch(
-          `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW`,
-          {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${accessToken}`,
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ values: [datos] })
-          }
-        );
+            try {
+                const res = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${accessToken}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ values: [datos] })
+                    }
+                );
 
-        if (res.status === 401) {
-          Swal.fire("⚠️ Sesión expirada", "Vuelve a iniciar sesión", "warning");
-          sessionStorage.clear();
-          window.location.href = "../../../../index.html";
-          return;
+                if (res.status === 401) {
+                    console.warn("⚠️ Token expirado, renovando...");
+                    solicitarToken(); // pide nuevo token sin login
+                    Swal.fire("🔄 Renovando", "Tu sesión se está renovando automáticamente", "info");
+                    return;
+                }
+
+                if (!res.ok) {
+                    throw new Error(await res.text());
+                }
+
+                Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success")
+                    .then(() => window.location.reload());
+            } catch (err) {
+                console.error(err);
+                Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
+            }
         }
 
-        if (!res.ok) {
-          throw new Error(await res.text());
-        }
+        // ========= BOTÓN DE GUARDAR =========
+        document.addEventListener("click", async (e) => {
+            if (e.target && e.target.id === "btnGuardar") {
+                const tipo = document.getElementById("tipoVisita").value;
 
-        Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success").then(() => window.location.reload());
-      } catch (err) {
-        console.error(err);
-        Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
-      }
-    }
+                let row = [];
+                let errores = [];
 
-    // ========= BOTÓN DE GUARDAR =========
-    document.addEventListener("click", async (e) => {
-      if (e.target && e.target.id === "btnGuardar") {
-        const tipo = document.getElementById("tipoVisita").value;
+                if (tipo === "recorridos") {
+                    const fecha = document.getElementById("fecha").value.trim();
+                    const turno = document.getElementById("turno").value.trim();
+                    const cantidad = document.getElementById("cantidad").value.trim();
 
-        let row = [];
-        let errores = [];
+                    if (!fecha) errores.push("Debe seleccionar una fecha.");
+                    if (!turno) errores.push("Debe seleccionar un turno.");
+                    if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
 
-        if (tipo === "recorridos") {
-          const fecha = document.getElementById("fecha").value.trim();
-          const turno = document.getElementById("turno").value.trim();
-          const cantidad = document.getElementById("cantidad").value.trim();
+                    row = [
+                        fecha,
+                        turno,
+                        document.getElementById("robotica").checked ? "Sí" : "No",
+                        document.getElementById("vr").checked ? "Sí" : "No",
+                        document.getElementById("prototipado").checked ? "Sí" : "No",
+                        cantidad
+                    ];
+                }
 
-          if (!fecha) errores.push("Debe seleccionar una fecha.");
-          if (!turno) errores.push("Debe seleccionar un turno.");
-          if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+                if (tipo === "activacionell") {
+                    const fechaActiva = document.getElementById("fechaActiva").value.trim();
+                    const numllave = document.getElementById("numllave").value.trim();
+                    const generollave = document.getElementById("generollave").value.trim();
+                    const encargadollave = document.getElementById("encargadollave").value.trim();
+                    const estadollave = document.getElementById("estadollave").value.trim();
 
-          row = [
-            fecha,
-            turno,
-            document.getElementById("robotica").checked ? "Sí" : "No",
-            document.getElementById("vr").checked ? "Sí" : "No",
-            document.getElementById("prototipado").checked ? "Sí" : "No",
-            cantidad
-          ];
-        }
+                    if (!fechaActiva) errores.push("Debe seleccionar una fecha.");
+                    if (!numllave) errores.push("Debe ingresra numero de llave.");
+                    if (!generollave) errores.push("Debe seleccionar el genero");
+                    if (!encargadollave) errores.push("Debe ingresar responsable");
+                    if (!estadollave) errores.push("Debe seleccionar el estado");
 
-        if (tipo === "activacionell") {
-          const fechaActiva = document.getElementById("fechaActiva").value.trim();
-          const numllave = document.getElementById("numllave").value.trim();
-          const generollave = document.getElementById("generollave").value.trim();
-          const encargadollave = document.getElementById("encargadollave").value.trim();
-          const estadollave = document.getElementById("estadollave").value.trim();
+                    row = [fechaActiva, numllave, generollave, encargadollave, estadollave];
+                }
 
-          if (!fechaActiva) errores.push("Debe seleccionar una fecha.");
-          if (!numllave) errores.push("Debe ingresra numero de llave.");
-          if (!generollave) errores.push("Debe seleccionar el genero");
-          if (!encargadollave) errores.push("Debe ingresar responsable");
-          if (!estadollave) errores.push("Debe seleccionar el estado");
+                if (tipo === "computadoras") {
+                    const fecha = document.getElementById("fechaCompu").value.trim();
+                    const tipoDocum = document.getElementById("tipoDocum").value.trim();
+                    const numero = document.getElementById("numeroId").value.trim();
+                    const txtnombreUsuario = document.getElementById("txtnombreUsuario").value.trim();
+                    const generoCompu = document.getElementById("generoCompu").value.trim();
+                    const pcasignadas = document.getElementById("pcasignadas").value.trim();
+                    const iniciopc = document.getElementById("iniciopc").value.trim();
+                    const finalpc = document.getElementById("finalpc").value.trim();
+                    const registadopor = document.getElementById("registadopor").value.trim();
+                    const condicion = "En uso";
 
-          row = [fechaActiva, numllave, generollave, encargadollave, estadollave];
-        }
+                    if (!fecha) errores.push("Debe seleccionar una fecha.");
+                    if (!tipoDocum) errores.push("Debe seleccionar el tipo de documento.");
+                    if (!numero) errores.push("Debe ingresar numero de identificacion.");
+                    if (!txtnombreUsuario) errores.push("Debe ingresar su nombre");
+                    if (!generoCompu) errores.push("Debe seleccionar su genero");
+                    if (!pcasignadas) errores.push("Debe seleccionar equipo");
+                    if (!iniciopc) errores.push("Debe seleccinar hora de inicio");
+                    if (!finalpc) errores.push("Debe seleccionar hora de finalizacion");
+                    if (!registadopor) errores.push("Debe ingresar nombre a cargo");
 
-        if (tipo === "computadoras") {
-          const fecha = document.getElementById("fechaCompu").value.trim();
-          const tipoDocum = document.getElementById("tipoDocum").value.trim();
-          const numero = document.getElementById("numeroId").value.trim();
-          const txtnombreUsuario = document.getElementById("txtnombreUsuario").value.trim();
-          const generoCompu = document.getElementById("generoCompu").value.trim();
-          const pcasignadas = document.getElementById("pcasignadas").value.trim();
-          const iniciopc = document.getElementById("iniciopc").value.trim();
-          const finalpc = document.getElementById("finalpc").value.trim();
-          const registadopor = document.getElementById("registadopor").value.trim();
-          const condicion = "En uso";
+                    //if (! || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
 
-          if (!fecha) errores.push("Debe seleccionar una fecha.");
-          if (!tipoDocum) errores.push("Debe seleccionar el tipo de documento.");
-          if (!numero) errores.push("Debe ingresar numero de identificacion.");
-          if (!txtnombreUsuario) errores.push("Debe ingresar su nombre");
-          if (!generoCompu) errores.push("Debe seleccionar su genero");
-          if (!pcasignadas) errores.push("Debe seleccionar equipo");
-          if (!iniciopc) errores.push("Debe seleccinar hora de inicio");
-          if (!finalpc) errores.push("Debe seleccionar hora de finalizacion");
-          if (!registadopor) errores.push("Debe ingresar nombre a cargo");
+                    row = [fecha, tipoDocum, numero, txtnombreUsuario, generoCompu, pcasignadas, iniciopc, finalpc, registadopor, condicion];
+                }
 
-          //if (! || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+                if (tipo === "pantallasn6") {
+                    const fechaPantallas = document.getElementById("fechaPantallas").value.trim();
+                    const nombrePantalla = document.getElementById("nombrePantalla").value.trim();
+                    const generoPantalla = document.getElementById("generoPantalla").value.trim();
+                    const tipodocupantalla = document.getElementById("tipodocupantalla").value.trim();
+                    const numeroIdpantalla = document.getElementById("numeroIdpantalla").value.trim();
+                    const pantallaequipo = document.getElementById("pantallaequipo").value.trim();
 
-          row = [fecha, tipoDocum, numero, txtnombreUsuario, generoCompu, pcasignadas, iniciopc, finalpc, registadopor, condicion];
-        }
+                    //const iniciopc = document.getElementById("iniciopc").value.trim();
 
-        if (tipo === "pantallasn6") {
-          const fechaPantallas = document.getElementById("fechaPantallas").value.trim();
-          const nombrePantalla = document.getElementById("nombrePantalla").value.trim();
-          const generoPantalla = document.getElementById("generoPantalla").value.trim();
-          const tipodocupantalla = document.getElementById("tipodocupantalla").value.trim();
-          const numeroIdpantalla = document.getElementById("numeroIdpantalla").value.trim();
-          const pantallaequipo = document.getElementById("pantallaequipo").value.trim();
-
-          //const iniciopc = document.getElementById("iniciopc").value.trim();
-
-          const iniciopantalla = document.getElementById("iniciopantalla").value.trim();
-          const finalpantalla = document.getElementById("finalpantalla").value.trim();
-          const tiempo = " ";
-          const disponibilidadpantalla = document.getElementById("disponibilidadpantalla").value.trim();
-          const registradopantalla = document.getElementById("registradopantalla").value.trim();
+                    const iniciopantalla = document.getElementById("iniciopantalla").value.trim();
+                    const finalpantalla = document.getElementById("finalpantalla").value.trim();
+                    const tiempo = " ";
+                    const disponibilidadpantalla = document.getElementById("disponibilidadpantalla").value.trim();
+                    const registradopantalla = document.getElementById("registradopantalla").value.trim();
 
 
-          if (!fechaPantallas) errores.push("Debe seleccionar una fecha.");
-          if (!nombrePantalla) errores.push("Debe ingresar su nombre");
-          if (!generoPantalla) errores.push("Debe seleccionar su genero");
-          if (!tipodocupantalla) errores.push("Debe seleccionar el tipo de documento.");
-          if (!numeroIdpantalla) errores.push("Debe ingresar numero de identificacion.");
-          if (!pantallaequipo) errores.push("Debe seleccionar equipo");
-          if (!iniciopantalla) errores.push("Debe seleccinar hora de inicio");
-          if (!finalpantalla) errores.push("Debe seleccionar hora de finalizacion");
+                    if (!fechaPantallas) errores.push("Debe seleccionar una fecha.");
+                    if (!nombrePantalla) errores.push("Debe ingresar su nombre");
+                    if (!generoPantalla) errores.push("Debe seleccionar su genero");
+                    if (!tipodocupantalla) errores.push("Debe seleccionar el tipo de documento.");
+                    if (!numeroIdpantalla) errores.push("Debe ingresar numero de identificacion.");
+                    if (!pantallaequipo) errores.push("Debe seleccionar equipo");
+                    if (!iniciopantalla) errores.push("Debe seleccinar hora de inicio");
+                    if (!finalpantalla) errores.push("Debe seleccionar hora de finalizacion");
 
-          if (!registradopantalla) errores.push("Debe ingresar nombre a cargo");
+                    if (!registradopantalla) errores.push("Debe ingresar nombre a cargo");
 
-          row = [fechaPantallas, 
-                 nombrePantalla, 
-                 generoPantalla, 
-                 tipodocupantalla, 
-                 numeroIdpantalla, 
-                 pantallaequipo, 
-                 document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No", 
-                 iniciopantalla, 
-                 finalpantalla, 
-                 tiempo,
-                 disponibilidadpantalla, 
-                 registradopantalla
-            ];
-        }
+                    row = [fechaPantallas,
+                        nombrePantalla,
+                        generoPantalla,
+                        tipodocupantalla,
+                        numeroIdpantalla,
+                        pantallaequipo,
+                        document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No",
+                        iniciopantalla,
+                        finalpantalla,
+                        tiempo,
+                        disponibilidadpantalla,
+                        registradopantalla
+                    ];
+                }
 
-        if (tipo === "reservas") {
-          const fecharegistro = document.getElementById("fecharegistro").value.trim();
-          const nombreReserva = document.getElementById("nombreReserva").value.trim();
-          const generoReserva = document.getElementById("generoReserva").value.trim();
-          const propositoreserva = document.getElementById("propositoreserva").value.trim();
-          const telefonoreserva = document.getElementById("telefonoreserva").value.trim();
-          const lugarreserva = document.getElementById("lugarreserva").value.trim();
-          const tipodocumentlla = document.getElementById("tipodocumentlla").value.trim();
-          const numdocumentreserva = document.getElementById("numdocumentreserva").value.trim();
-          const carnetReserva = document.getElementById("carnetReserva").value.trim();
-          const cabinareserva = document.getElementById("cabinareserva").value.trim();
-          const fechareserva = document.getElementById("fechareserva").value.trim();
-          const inicioReserva = document.getElementById("inicioReserva").value.trim();
-          const finalreserva = document.getElementById("finalreserva").value.trim();
-          const asignarreserva = document.getElementById("asignarreserva").value.trim();
-          const registradoporReserv = document.getElementById("registradoporReserv").value.trim();
+                if (tipo === "reservas") {
+                    const fecharegistro = document.getElementById("fecharegistro").value.trim();
+                    const nombreReserva = document.getElementById("nombreReserva").value.trim();
+                    const generoReserva = document.getElementById("generoReserva").value.trim();
+                    const propositoreserva = document.getElementById("propositoreserva").value.trim();
+                    const telefonoreserva = document.getElementById("telefonoreserva").value.trim();
+                    const lugarreserva = document.getElementById("lugarreserva").value.trim();
+                    const tipodocumentlla = document.getElementById("tipodocumentlla").value.trim();
+                    const numdocumentreserva = document.getElementById("numdocumentreserva").value.trim();
+                    const carnetReserva = document.getElementById("carnetReserva").value.trim();
+                    const cabinareserva = document.getElementById("cabinareserva").value.trim();
+                    const fechareserva = document.getElementById("fechareserva").value.trim();
+                    const inicioReserva = document.getElementById("inicioReserva").value.trim();
+                    const finalreserva = document.getElementById("finalreserva").value.trim();
+                    const asignarreserva = document.getElementById("asignarreserva").value.trim();
+                    const registradoporReserv = document.getElementById("registradoporReserv").value.trim();
 
-          if (!nombreReserva) errores.push("Debe ingresar el nombre del responsable.");
-          if (!generoReserva) errores.push("Debe seleccione el genero.");
-          if (!propositoreserva) errores.push("Debe ingresar los detalles de prestamo.");
-          if (!telefonoreserva) errores.push("Debe ingrese un numero de telefono.");
-          if (!lugarreserva) errores.push("Debe ingresar nombre de la institucion.");
-          if (!tipodocumentlla) errores.push("Debe selecciones tipo de documento.");
-          if (!numdocumentreserva) errores.push("Debe ingrese un documento valido.");
-          if (!carnetReserva) errores.push("Debe ingrese su carnet de la institucion.");
-          if (!cabinareserva) errores.push("Debe seleccione cabina asignar.");
-          if (!fechareserva) errores.push("Debe seleccione una fecha de prestamo.");
-          if (!inicioReserva) errores.push("Debe seleccione una hora de inicio");
-          if (!finalreserva) errores.push("Debe seleccione una hora de finalizacion");
-          if (!asignarreserva) errores.push("Debe seleccione el estado del prestamo");
+                    if (!nombreReserva) errores.push("Debe ingresar el nombre del responsable.");
+                    if (!generoReserva) errores.push("Debe seleccione el genero.");
+                    if (!propositoreserva) errores.push("Debe ingresar los detalles de prestamo.");
+                    if (!telefonoreserva) errores.push("Debe ingrese un numero de telefono.");
+                    if (!lugarreserva) errores.push("Debe ingresar nombre de la institucion.");
+                    if (!tipodocumentlla) errores.push("Debe selecciones tipo de documento.");
+                    if (!numdocumentreserva) errores.push("Debe ingrese un documento valido.");
+                    if (!carnetReserva) errores.push("Debe ingrese su carnet de la institucion.");
+                    if (!cabinareserva) errores.push("Debe seleccione cabina asignar.");
+                    if (!fechareserva) errores.push("Debe seleccione una fecha de prestamo.");
+                    if (!inicioReserva) errores.push("Debe seleccione una hora de inicio");
+                    if (!finalreserva) errores.push("Debe seleccione una hora de finalizacion");
+                    if (!asignarreserva) errores.push("Debe seleccione el estado del prestamo");
 
-          row = [fecharegistro, nombreReserva, generoReserva, propositoreserva, telefonoreserva, lugarreserva, tipodocumentlla, numdocumentreserva, carnetReserva, cabinareserva, fechareserva, inicioReserva, finalreserva, asignarreserva, registradoporReserv];
-        }
+                    row = [fecharegistro, nombreReserva, generoReserva, propositoreserva, telefonoreserva, lugarreserva, tipodocumentlla, numdocumentreserva, carnetReserva, cabinareserva, fechareserva, inicioReserva, finalreserva, asignarreserva, registradoporReserv];
+                }
 
 
-        // 🔎 Validar antes de guardar
-        if (errores.length > 0) {
-          Swal.fire("⚠️ Campos vacíos", errores.join("<br>"), "warning");
-          return;
-        }
+                // 🔎 Validar antes de guardar
+                if (errores.length > 0) {
+                    Swal.fire("⚠️ Campos vacíos", errores.join("<br>"), "warning");
+                    return;
+                }
 
-        if (row.length > 0) {
-          await guardarEnSheets(tipo, row);
-        }
-      }
-    });
+                if (row.length > 0) {
+                    await guardarEnSheets(tipo, row);
+                }
+            }
+        });
 
-  </script>
+    </script>
+
 </body>
+
 </html>
