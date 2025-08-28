@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Agregar Visitas</title>
+    <title>Menu principal</title>
 
     <!-- Fuente Nunito -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
@@ -189,7 +189,7 @@
         let tokenClient;
         window.onload = () => {
             tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: "TU_CLIENT_ID.apps.googleusercontent.com", // <== reemplazar con tu Client ID
+                client_id: "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com", // <== reemplazar con tu Client ID
                 scope: "https://www.googleapis.com/auth/spreadsheets",
                 callback: (resp) => {
                     if (resp.access_token) {
