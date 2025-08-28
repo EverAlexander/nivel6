@@ -132,10 +132,14 @@
 
                                         <div class="card shadow-lg border-0 rounded-3">
                                             <!-- Encabezado -->
-                                            <div class="card-header bg-gradient-success text-white text-center">
+                                            <div
+                                                class="card-header bg-gradient-success text-white d-flex justify-content-between align-items-center">
                                                 <h5 class="mb-0 fw-bold">
-                                                    <i class="bi bi-laptop me-2"></i>Reservaciones de cabinas
+                                                    <i class="bi bi-laptop me-2"></i> Reservaciones de cabinas
                                                 </h5>
+                                                <button id="refreshBtn" class="btn btn-light btn-sm">
+                                                    <i class="bi bi-arrow-clockwise"></i> Refrescar
+                                                </button>
                                             </div>
 
                                             <!-- Contenido de tabla -->
@@ -151,6 +155,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
+
                                             </div>
                                         </div>
 
@@ -174,9 +179,10 @@
                                                             <select class="form-control" id="selectDescripcion">
                                                                 <option value="Reservado">Reservado</option>
                                                                 <option value="Colocado">Colocado</option>
-                                                                <option value="Reservacion Cancelada">Reservacion Cancelada</option>
+                                                                <option value="Reservacion Cancelada">Reservacion
+                                                                    Cancelada</option>
                                                                 <option value="No asistio">No asistio</option>
-                                                            
+
                                                             </select>
                                                         </div>
                                                         <input type="hidden" id="filaEditar">
