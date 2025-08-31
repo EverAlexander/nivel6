@@ -426,21 +426,21 @@
         }
 
         function abrirModalEquipo(fila) {
+            // Guardar la fila en el input oculto
             document.getElementById("filaEditarEquipo").value = fila;
 
             const encabezados = datosGlobal[0];
             const idxEquipo = encabezados.indexOf("Equipo asignado");
             const idxComplemento = encabezados.indexOf("Complemento");
 
-            // Asignar el equipo al select
+            // Asignar el valor al select de Equipo
             document.getElementById("inputEquipo").value = datosGlobal[fila][idxEquipo] || "";
 
-            // Marcar o desmarcar checkbox según la hoja
+            // ⚡ Aquí va el bloque para el checkbox
             const checkbox = document.getElementById("inputComplemento");
             const valorComplemento = datosGlobal[fila][idxComplemento] || "";
-
-            // Si tiene algo (ej: "Lapiz Huawei") → marcado
-            checkbox.checked = valorComplemento.trim() !== "";
+            // Marcar solo si es "Si"
+            checkbox.checked = valorComplemento.trim().toLowerCase() === "Lapiz Huawei";
 
             // Mostrar el modal
             const modal = new bootstrap.Modal(document.getElementById("editarEquipoModal"));
