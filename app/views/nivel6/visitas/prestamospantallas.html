@@ -128,8 +128,6 @@
                                 <div class="card-body">
                                     <div class="container mt-4">
 
-
-
                                         <div class="card shadow-lg border-0 rounded-3">
                                             <!-- Encabezado -->
                                             <div
@@ -140,6 +138,7 @@
                                                 <button id="refreshBtn" class="btn btn-light btn-sm">
                                                     <i class="bi bi-arrow-clockwise"></i> Refrescar
                                                 </button>
+
                                             </div>
 
                                             <!-- Contenido de tabla -->
@@ -192,6 +191,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -324,22 +324,38 @@
 
             datosFiltrados.forEach((fila, index) => {
                 const tr = document.createElement("tr");
+
+                // Crear las celdas con los datos
                 indices.forEach(idx => {
                     const td = document.createElement("td");
                     td.textContent = idx >= 0 ? fila[idx] || "" : "";
                     tr.appendChild(td);
                 });
 
+                // Crear celda de acción
                 const tdAccion = document.createElement("td");
-                const btn = document.createElement("button");
-                btn.textContent = "Editar";
-                btn.className = "btn btn-sm btn-primary";
 
-                // ⚡ Aquí estaba el error: usabas index + 1 (del filtrado)
-                // Solución: busca el índice real en datosGlobal
+                // Crear el enlace con ícono (en vez de button con texto)
+                const btn = document.createElement("a");
+                btn.href = "#";
+                btn.className = "btn-edit";
+                btn.setAttribute("data-target", "#editModal");
+
+                // Crear el ícono
+                const icon = document.createElement("i");
+                icon.className = "fas fa-edit";
+                icon.style.color = "#007bff";
+
+                // Insertar el ícono en el enlace
+                btn.appendChild(icon);
+
+                // Obtener índice real en datosGlobal
                 const indiceReal = datosGlobal.indexOf(fila);
 
+                // Evento click → abrir modal
                 btn.onclick = () => abrirModal(indiceReal);
+
+                // Añadir enlace a la celda y la celda a la fila
                 tdAccion.appendChild(btn);
                 tr.appendChild(tdAccion);
 
