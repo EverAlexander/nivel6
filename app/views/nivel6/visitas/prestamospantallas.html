@@ -459,31 +459,20 @@
             }).requestAccessToken();
         });
 
-        document.getElementById("guardarEquipo").onclick = async () => {
-            // Obtener la fila real de la que se está editando
-            const fila = parseInt(document.getElementById("filaEditarEquipo").value);
+        document.getElementById("guardarCambio").onclick = async () => {
+            const fila = parseInt(document.getElementById("filaEditar").value);
+            const nuevoValor = document.getElementById("selectDescripcion").value;
 
-            // Obtener los nuevos valores desde los inputs del modal
-            const nuevoEquipo = document.getElementById("inputEquipo").value;
-            const nuevoComplemento = document.getElementById("inputComplemento").value;
-
-            const accessToken = sessionStorage.getItem("accessToken");
+            const accessToken = sessionStorage.getItem("accessToken"); // 🔑
             if (!accessToken) {
                 alert("No hay sesión activa. Inicie sesión de nuevo.");
                 return;
             }
 
-            // Calcular índices de las columnas
-            const encabezados = datosGlobal[0];
-            const idxEquipo = encabezados.indexOf("Equipo asignado");
-            const idxComplemento = encabezados.indexOf("Complemento");
-
-            // Rango que abarca ambas columnas en la hoja de Google Sheets
-            const rangoCelda = `Prestamos de pantallas!${String.fromCharCode(65 + idxEquipo)}${fila + 1}:${String.fromCharCode(65 + idxComplemento)}${fila + 1}`;
+            const rangoCelda = `Prestamos de pantallas!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
 
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
 
-            // Hacer la actualización en Google Sheets
             const res = await fetch(url, {
                 method: "PUT",
                 headers: {
@@ -493,62 +482,19 @@
                 body: JSON.stringify({
                     range: rangoCelda,
                     majorDimension: "ROWS",
-                    values: [[nuevoEquipo, nuevoComplemento]]
+                    values: [[nuevoValor]]
                 })
             });
 
             if (res.ok) {
-                // Actualizar los datos locales
-                datosGlobal[fila][idxEquipo] = nuevoEquipo;
-                datosGlobal[fila][idxComplemento] = nuevoComplemento;
-
-                // Refrescar la tabla
+                datosGlobal[fila][indiceDescripcion] = nuevoValor;
                 mostrarDatos(datosGlobal);
-
-                // Cerrar el modal
-                bootstrap.Modal.getInstance(document.getElementById("editarEquipoModal")).hide();
+                bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
             } else {
                 const err = await res.json();
                 console.error("Error al actualizar:", err);
                 alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
             }
-        };
-
-        const fila = parseInt(document.getElementById("filaEditar").value);
-        const nuevoValor = document.getElementById("selectDescripcion").value;
-
-        const accessToken = sessionStorage.getItem("accessToken"); // 🔑
-        if (!accessToken) {
-            alert("No hay sesión activa. Inicie sesión de nuevo.");
-            return;
-        }
-
-        const rangoCelda = `Prestamos de pantallas!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
-
-        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
-
-        const res = await fetch(url, {
-            method: "PUT",
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                range: rangoCelda,
-                majorDimension: "ROWS",
-                values: [[nuevoValor]]
-            })
-        });
-
-        if (res.ok) {
-            datosGlobal[fila][indiceDescripcion] = nuevoValor;
-            mostrarDatos(datosGlobal);
-            bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
-        } else {
-            const err = await res.json();
-            console.error("Error al actualizar:", err);
-            alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
-        }
         };
 
         obtenerDatos().then(mostrarDatos);
