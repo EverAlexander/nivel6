@@ -192,6 +192,44 @@
                                         </div>
                                     </div>
 
+                                    <!-- Nuevo Modal para editar Equipo y Complemento -->
+                                    <div class="modal fade" id="editarEquipoModal" tabindex="-1"
+                                        aria-labelledby="editarEquipoLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editarEquipoLabel">Editar Equipo y
+                                                        Complemento</h5>
+                                                    <button type="button" class="btn-close"
+                                                        data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="formEditarEquipo">
+                                                        <div class="mb-3">
+                                                            <label for="inputEquipo" class="form-label">Equipo
+                                                                asignado:</label>
+                                                            <input type="text" class="form-control" id="inputEquipo">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="inputComplemento"
+                                                                class="form-label">Complemento:</label>
+                                                            <input type="text" class="form-control"
+                                                                id="inputComplemento">
+                                                        </div>
+                                                        <input type="hidden" id="filaEditarEquipo">
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        id="guardarEquipo">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -335,30 +373,36 @@
                 // Crear celda de acción
                 const tdAccion = document.createElement("td");
 
-                // Crear el enlace con ícono (en vez de button con texto)
-                const btn = document.createElement("a");
-                btn.href = "#";
-                btn.className = "btn-edit";
-                btn.setAttribute("data-target", "#editModal");
+                // Botón 1: Editar disponibilidad
+                const btnDisponibilidad = document.createElement("a");
+                btnDisponibilidad.href = "#";
+                btnDisponibilidad.className = "btn-edit me-2"; // separacion
+                btnDisponibilidad.setAttribute("data-target", "#editarModal");
 
-                // Crear el ícono
-                const icon = document.createElement("i");
-                icon.className = "fas fa-edit";
-                icon.style.color = "#007bff";
+                const icon1 = document.createElement("i");
+                icon1.className = "fas fa-edit";
+                icon1.style.color = "#007bff";
+                btnDisponibilidad.appendChild(icon1);
 
-                // Insertar el ícono en el enlace
-                btn.appendChild(icon);
+                btnDisponibilidad.onclick = () => abrirModal(indiceReal);
 
-                // Obtener índice real en datosGlobal
-                const indiceReal = datosGlobal.indexOf(fila);
+                // Botón 2: Editar equipo y complemento
+                const btnEquipo = document.createElement("a");
+                btnEquipo.href = "#";
+                btnEquipo.className = "btn-edit";
 
-                // Evento click → abrir modal
-                btn.onclick = () => abrirModal(indiceReal);
+                const icon2 = document.createElement("i");
+                icon2.className = "fas fa-cogs"; // ícono distinto para diferenciar
+                icon2.style.color = "#28a745";
+                btnEquipo.appendChild(icon2);
 
-                // Añadir enlace a la celda y la celda a la fila
-                tdAccion.appendChild(btn);
+                btnEquipo.onclick = () => abrirModalEquipo(indiceReal);
+
+                // Agregar ambos botones a la celda
+                tdAccion.appendChild(btnDisponibilidad);
+                tdAccion.appendChild(btnEquipo);
+
                 tr.appendChild(tdAccion);
-
                 tbody.appendChild(tr);
             });
 
