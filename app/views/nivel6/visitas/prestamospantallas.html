@@ -363,47 +363,44 @@
             datosFiltrados.forEach((fila, index) => {
                 const tr = document.createElement("tr");
 
-                // Crear las celdas con los datos
+                // Crear celdas con datos...
                 indices.forEach(idx => {
                     const td = document.createElement("td");
                     td.textContent = idx >= 0 ? fila[idx] || "" : "";
                     tr.appendChild(td);
                 });
 
-                // Crear celda de acción
+                // Obtener índice real en datosGlobal **dentro del forEach**
+                const indiceReal = datosGlobal.indexOf(fila);
+
                 // Crear celda de acción
                 const tdAccion = document.createElement("td");
 
-                // Botón 1: Editar disponibilidad
+                // Botón Disponibilidad
                 const btnDisponibilidad = document.createElement("a");
                 btnDisponibilidad.href = "#";
-                btnDisponibilidad.className = "btn-edit me-2"; // separacion
-                btnDisponibilidad.setAttribute("data-target", "#editarModal");
-
+                btnDisponibilidad.className = "btn-edit me-2";
                 const icon1 = document.createElement("i");
                 icon1.className = "fas fa-edit";
                 icon1.style.color = "#007bff";
                 btnDisponibilidad.appendChild(icon1);
-
                 btnDisponibilidad.onclick = () => abrirModal(indiceReal);
 
-                // Botón 2: Editar equipo y complemento
+                // Botón Equipo/Complemento
                 const btnEquipo = document.createElement("a");
                 btnEquipo.href = "#";
                 btnEquipo.className = "btn-edit";
-
                 const icon2 = document.createElement("i");
-                icon2.className = "fas fa-cogs"; // ícono distinto para diferenciar
+                icon2.className = "fas fa-cogs";
                 icon2.style.color = "#28a745";
                 btnEquipo.appendChild(icon2);
-
                 btnEquipo.onclick = () => abrirModalEquipo(indiceReal);
 
-                // Agregar ambos botones a la celda
+                // Agregar botones a la celda y la celda a la fila
                 tdAccion.appendChild(btnDisponibilidad);
                 tdAccion.appendChild(btnEquipo);
-
                 tr.appendChild(tdAccion);
+
                 tbody.appendChild(tr);
             });
 
