@@ -518,7 +518,7 @@
         document.getElementById("guardarEquipo").onclick = async () => {
             const fila = parseInt(document.getElementById("filaEditarEquipo").value);
             const nuevoEquipo = document.getElementById("inputEquipo").value;
-            const nuevoComplemento = document.getElementById("inputComplemento").checked ? "Si" : "No";
+            const nuevoComplemento = document.getElementById("inputComplemento").checked ? "Lapiz Huawei" : "No";
 
             const accessToken = sessionStorage.getItem("accessToken");
             if (!accessToken) return alert("No hay sesión activa");
