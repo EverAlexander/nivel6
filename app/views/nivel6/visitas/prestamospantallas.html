@@ -218,7 +218,12 @@
                                                         <div class="mb-3">
                                                             <label for="inputComplemento"
                                                                 class="form-label">Complemento:</label>
-                                                            <input type="text" id="inputComplemento" class="form-control">
+                                                            <div class="mb-3 form-check">
+                                                                <input type="checkbox" class="form-check-input"
+                                                                    id="inputComplemento">
+                                                                <label class="form-check-label"
+                                                                    for="inputComplemento">Lapiz Huawei</label>
+                                                            </div>
                                                         </div>
 
                                                         <input type="hidden" id="filaEditarEquipo">
@@ -404,7 +409,7 @@
                 // Agregar botones a la celda y la celda a la fila
                 tdAccion.appendChild(btnEquipo);
                 tdAccion.appendChild(btnDisponibilidad);
-                
+
                 tr.appendChild(tdAccion);
 
                 tbody.appendChild(tr);
@@ -423,14 +428,21 @@
         function abrirModalEquipo(fila) {
             document.getElementById("filaEditarEquipo").value = fila;
 
-            // Obtener valores actuales
             const encabezados = datosGlobal[0];
             const idxEquipo = encabezados.indexOf("Equipo asignado");
             const idxComplemento = encabezados.indexOf("Complemento");
 
+            // Asignar el equipo al select
             document.getElementById("inputEquipo").value = datosGlobal[fila][idxEquipo] || "";
-            document.getElementById("inputComplemento").value = datosGlobal[fila][idxComplemento] || "";
 
+            // Marcar o desmarcar checkbox según la hoja
+            const checkbox = document.getElementById("inputComplemento");
+            const valorComplemento = datosGlobal[fila][idxComplemento] || "";
+
+            // Si tiene algo (ej: "Lapiz Huawei") → marcado
+            checkbox.checked = valorComplemento.trim() !== "";
+
+            // Mostrar el modal
             const modal = new bootstrap.Modal(document.getElementById("editarEquipoModal"));
             modal.show();
         }
@@ -504,57 +516,32 @@
         };
 
         document.getElementById("guardarEquipo").onclick = async () => {
-            // Obtener la fila real que se está editando
             const fila = parseInt(document.getElementById("filaEditarEquipo").value);
-
-            // Obtener nuevos valores de los inputs
             const nuevoEquipo = document.getElementById("inputEquipo").value;
-            const nuevoComplemento = document.getElementById("inputComplemento").value;
+            const nuevoComplemento = document.getElementById("inputComplemento").checked ? "Si" : "No";
 
             const accessToken = sessionStorage.getItem("accessToken");
-            if (!accessToken) {
-                alert("No hay sesión activa. Inicie sesión de nuevo.");
-                return;
-            }
+            if (!accessToken) return alert("No hay sesión activa");
 
-            // Obtener índices de las columnas
             const encabezados = datosGlobal[0];
             const idxEquipo = encabezados.indexOf("Equipo asignado");
             const idxComplemento = encabezados.indexOf("Complemento");
 
-            // Rango que abarca ambas columnas
             const rangoCelda = `Prestamos de pantallas!${String.fromCharCode(65 + idxEquipo)}${fila + 1}:${String.fromCharCode(65 + idxComplemento)}${fila + 1}`;
 
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
 
-            const res = await fetch(url, {
+            await fetch(url, {
                 method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    range: rangoCelda,
-                    majorDimension: "ROWS",
-                    values: [[nuevoEquipo, nuevoComplemento]]
-                })
+                headers: { Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" },
+                body: JSON.stringify({ range: rangoCelda, majorDimension: "ROWS", values: [[nuevoEquipo, nuevoComplemento]] })
             });
 
-            if (res.ok) {
-                // Actualizar datos locales
-                datosGlobal[fila][idxEquipo] = nuevoEquipo;
-                datosGlobal[fila][idxComplemento] = nuevoComplemento;
-
-                // Refrescar la tabla
-                mostrarDatos(datosGlobal);
-
-                // Cerrar modal
-                bootstrap.Modal.getInstance(document.getElementById("editarEquipoModal")).hide();
-            } else {
-                const err = await res.json();
-                console.error("Error al actualizar:", err);
-                alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
-            }
+            // Actualizar tabla local y cerrar modal
+            datosGlobal[fila][idxEquipo] = nuevoEquipo;
+            datosGlobal[fila][idxComplemento] = nuevoComplemento;
+            mostrarDatos(datosGlobal);
+            bootstrap.Modal.getInstance(document.getElementById("editarEquipoModal")).hide();
         };
 
         obtenerDatos().then(mostrarDatos);
