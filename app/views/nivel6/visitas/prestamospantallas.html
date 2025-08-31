@@ -381,16 +381,6 @@
                 // Crear celda de acción
                 const tdAccion = document.createElement("td");
 
-                // Botón Disponibilidad
-                const btnDisponibilidad = document.createElement("a");
-                btnDisponibilidad.href = "#";
-                btnDisponibilidad.className = "btn-edit me-2";
-                const icon1 = document.createElement("i");
-                icon1.className = "fas fa-edit";
-                icon1.style.color = "#007bff";
-                btnDisponibilidad.appendChild(icon1);
-                btnDisponibilidad.onclick = () => abrirModal(indiceReal);
-
                 // Botón Equipo/Complemento
                 const btnEquipo = document.createElement("a");
                 btnEquipo.href = "#";
@@ -400,6 +390,16 @@
                 icon2.style.color = "#28a745";
                 btnEquipo.appendChild(icon2);
                 btnEquipo.onclick = () => abrirModalEquipo(indiceReal);
+
+                // Botón Disponibilidad
+                const btnDisponibilidad = document.createElement("a");
+                btnDisponibilidad.href = "#";
+                btnDisponibilidad.className = "btn-edit me-2";
+                const icon1 = document.createElement("i");
+                icon1.className = "fas fa-clock";
+                icon1.style.color = "#007bff";
+                btnDisponibilidad.appendChild(icon1);
+                btnDisponibilidad.onclick = () => abrirModal(indiceReal);
 
                 // Agregar botones a la celda y la celda a la fila
                 tdAccion.appendChild(btnDisponibilidad);
