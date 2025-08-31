@@ -371,6 +371,7 @@
                 });
 
                 // Crear celda de acción
+                // Crear celda de acción
                 const tdAccion = document.createElement("td");
 
                 // Botón 1: Editar disponibilidad
@@ -413,6 +414,21 @@
             const valorActual = datosGlobal[fila][indiceDescripcion];
             document.getElementById("selectDescripcion").value = valorActual;
             const modal = new bootstrap.Modal(document.getElementById("editarModal"));
+            modal.show();
+        }
+
+        function abrirModalEquipo(fila) {
+            document.getElementById("filaEditarEquipo").value = fila;
+
+            // Obtener valores actuales
+            const encabezados = datosGlobal[0];
+            const idxEquipo = encabezados.indexOf("Equipo asignado");
+            const idxComplemento = encabezados.indexOf("Complemento");
+
+            document.getElementById("inputEquipo").value = datosGlobal[fila][idxEquipo] || "";
+            document.getElementById("inputComplemento").value = datosGlobal[fila][idxComplemento] || "";
+
+            const modal = new bootstrap.Modal(document.getElementById("editarEquipoModal"));
             modal.show();
         }
 
