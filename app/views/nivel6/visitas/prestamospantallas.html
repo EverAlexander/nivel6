@@ -459,17 +459,27 @@
             }).requestAccessToken();
         });
 
-        document.getElementById("guardarCambio").onclick = async () => {
-            const fila = parseInt(document.getElementById("filaEditar").value);
-            const nuevoValor = document.getElementById("selectDescripcion").value;
+        document.getElementById("guardarEquipo").onclick = async () => {
+            // Obtener la fila real que se está editando
+            const fila = parseInt(document.getElementById("filaEditarEquipo").value);
 
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑
+            // Obtener nuevos valores de los inputs
+            const nuevoEquipo = document.getElementById("inputEquipo").value;
+            const nuevoComplemento = document.getElementById("inputComplemento").value;
+
+            const accessToken = sessionStorage.getItem("accessToken");
             if (!accessToken) {
                 alert("No hay sesión activa. Inicie sesión de nuevo.");
                 return;
             }
 
-            const rangoCelda = `Prestamos de pantallas!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
+            // Obtener índices de las columnas
+            const encabezados = datosGlobal[0];
+            const idxEquipo = encabezados.indexOf("Equipo asignado");
+            const idxComplemento = encabezados.indexOf("Complemento");
+
+            // Rango que abarca ambas columnas
+            const rangoCelda = `Prestamos de pantallas!${String.fromCharCode(65 + idxEquipo)}${fila + 1}:${String.fromCharCode(65 + idxComplemento)}${fila + 1}`;
 
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
 
@@ -482,14 +492,20 @@
                 body: JSON.stringify({
                     range: rangoCelda,
                     majorDimension: "ROWS",
-                    values: [[nuevoValor]]
+                    values: [[nuevoEquipo, nuevoComplemento]]
                 })
             });
 
             if (res.ok) {
-                datosGlobal[fila][indiceDescripcion] = nuevoValor;
+                // Actualizar datos locales
+                datosGlobal[fila][idxEquipo] = nuevoEquipo;
+                datosGlobal[fila][idxComplemento] = nuevoComplemento;
+
+                // Refrescar la tabla
                 mostrarDatos(datosGlobal);
-                bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
+
+                // Cerrar modal
+                bootstrap.Modal.getInstance(document.getElementById("editarEquipoModal")).hide();
             } else {
                 const err = await res.json();
                 console.error("Error al actualizar:", err);
