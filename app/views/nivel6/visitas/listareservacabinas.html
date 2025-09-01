@@ -311,6 +311,7 @@
             // 🔍 Buscar índices de columnas
             const indiceFecha = encabezados.indexOf("Agenda");          // fecha
             const indiceHoraEntrada = encabezados.indexOf("Hora de entrada"); // hora
+            const indiceCabina = encabezados.indexOf("Cabina");         // cabina
 
             const trHead = document.createElement("tr");
             columnasDeseadas.forEach(h => {
@@ -323,8 +324,11 @@
             trHead.appendChild(thAccion);
             thead.appendChild(trHead);
 
-            // Filtrar solo los registros "Reservado"
-            let datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
+            // ✅ Filtrar: solo "Reservado" y Cabina específica
+            let datosFiltrados = datos.slice(1).filter(fila => {
+                return fila[indiceDescripcion] === "Reservado"
+                    && fila[indiceCabina] === "Cabina 1"; // 👈 aquí pones la cabina deseada
+            });
 
             if (datosFiltrados.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8">No reservaciones de cabinas</td></tr>';
