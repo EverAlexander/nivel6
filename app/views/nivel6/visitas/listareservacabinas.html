@@ -308,10 +308,6 @@
             const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
             indiceDescripcion = encabezados.indexOf("Disponibilidad");
 
-            const idxAgenda = encabezados.indexOf("Agenda");
-            const idxHoraEntrada = encabezados.indexOf("Hora de entrada");
-
-            // Crear encabezado
             const trHead = document.createElement("tr");
             columnasDeseadas.forEach(h => {
                 const th = document.createElement("th");
@@ -323,23 +319,15 @@
             trHead.appendChild(thAccion);
             thead.appendChild(trHead);
 
-            // Filtrar solo los registros "Reservado"
-            let datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
+            // Filtrar solo los registros "En uso"
+            const datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
 
             if (datosFiltrados.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8">No reservaciones de cabinas</td></tr>';
                 return;
             }
 
-            // 🔥 Ordenar por fecha (Agenda) y luego por hora de entrada
-            datosFiltrados.sort((a, b) => {
-                const fechaA = parsearFechaHora(a[idxAgenda], a[idxHoraEntrada]);
-                const fechaB = parsearFechaHora(b[idxAgenda], b[idxHoraEntrada]);
-                return fechaA - fechaB; // ascendente
-            });
-
-            // Pintar filas ya ordenadas
-            datosFiltrados.forEach((fila) => {
+            datosFiltrados.forEach((fila, index) => {
                 const tr = document.createElement("tr");
                 indices.forEach(idx => {
                     const td = document.createElement("td");
@@ -352,15 +340,19 @@
                 btn.textContent = "Editar";
                 btn.className = "btn btn-sm btn-primary";
 
+                // ⚡ Aquí estaba el error: usabas index + 1 (del filtrado)
+                // Solución: busca el índice real en datosGlobal
                 const indiceReal = datosGlobal.indexOf(fila);
-                btn.onclick = () => abrirModal(indiceReal);
 
+                btn.onclick = () => abrirModal(indiceReal);
                 tdAccion.appendChild(btn);
                 tr.appendChild(tdAccion);
 
                 tbody.appendChild(tr);
             });
+
         }
+        
 
         function abrirModal(fila) {
             document.getElementById("filaEditar").value = fila;
