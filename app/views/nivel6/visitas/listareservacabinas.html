@@ -290,6 +290,92 @@
             return data.values || [];
         }
 
+        function mostrarDatos(datos) {
+            datosGlobal = datos;
+            const tabla = document.getElementById("tablaCabina");
+            const thead = tabla.querySelector("thead");
+            const tbody = tabla.querySelector("tbody");
+
+            thead.innerHTML = "";
+            tbody.innerHTML = "";
+
+            if (!datos || datos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8">No hay datos para mostrar</td></tr>';
+                return;
+            }
+
+            const encabezados = datos[0];
+            const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
+            indiceDescripcion = encabezados.indexOf("Disponibilidad");
+
+            // 🔍 Buscar índices de columnas
+            const indiceFecha = encabezados.indexOf("Agenda");          // fecha
+            const indiceHoraEntrada = encabezados.indexOf("Hora de entrada"); // hora
+
+            const trHead = document.createElement("tr");
+            columnasDeseadas.forEach(h => {
+                const th = document.createElement("th");
+                th.textContent = h;
+                trHead.appendChild(th);
+            });
+            const thAccion = document.createElement("th");
+            thAccion.textContent = "Acción";
+            trHead.appendChild(thAccion);
+            thead.appendChild(trHead);
+
+            // Filtrar solo los registros "Reservado"
+            let datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
+
+            if (datosFiltrados.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8">No reservaciones de cabinas</td></tr>';
+                return;
+            }
+
+            // ✅ Ordenar por fecha y luego por hora
+            datosFiltrados.sort((a, b) => {
+                const fechaA = new Date(a[indiceFecha] || "");
+                const fechaB = new Date(b[indiceFecha] || "");
+
+                if (fechaA.getTime() !== fechaB.getTime()) {
+                    return fechaA - fechaB; // ordenar por fecha primero
+                }
+
+                // Si la fecha es la misma → comparar hora
+                const horaA = a[indiceHoraEntrada] || "00:00";
+                const horaB = b[indiceHoraEntrada] || "00:00";
+
+                const [hA, mA] = horaA.split(":").map(Number);
+                const [hB, mB] = horaB.split(":").map(Number);
+
+                const totalMinA = (hA * 60) + (mA || 0);
+                const totalMinB = (hB * 60) + (mB || 0);
+
+                return totalMinA - totalMinB; // ascendente por hora
+            });
+
+            datosFiltrados.forEach((fila) => {
+                const tr = document.createElement("tr");
+                indices.forEach(idx => {
+                    const td = document.createElement("td");
+                    td.textContent = idx >= 0 ? fila[idx] || "" : "";
+                    tr.appendChild(td);
+                });
+
+                const tdAccion = document.createElement("td");
+                const btn = document.createElement("button");
+                btn.textContent = "Editar";
+                btn.className = "btn btn-sm btn-primary";
+
+                const indiceReal = datosGlobal.indexOf(fila);
+
+                btn.onclick = () => abrirModal(indiceReal);
+                tdAccion.appendChild(btn);
+                tr.appendChild(tdAccion);
+
+                tbody.appendChild(tr);
+            });
+        }
+
 
         function abrirModal(fila) {
             document.getElementById("filaEditar").value = fila;
