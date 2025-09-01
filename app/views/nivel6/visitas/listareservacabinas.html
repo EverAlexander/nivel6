@@ -308,8 +308,9 @@
             const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
             indiceDescripcion = encabezados.indexOf("Disponibilidad");
 
-            // 🔍 Buscar el índice de la columna "Agendada"
-            const indiceAgendada = encabezados.indexOf("Agenda");
+            // 🔍 Buscar índices de columnas
+            const indiceFecha = encabezados.indexOf("Agenda");          // fecha
+            const indiceHoraEntrada = encabezados.indexOf("Hora de entrada"); // hora
 
             const trHead = document.createElement("tr");
             columnasDeseadas.forEach(h => {
@@ -330,22 +331,26 @@
                 return;
             }
 
-            // ✅ Ordenar por columna "Agendada" (ascendente)
+            // ✅ Ordenar por fecha y luego por hora
             datosFiltrados.sort((a, b) => {
-                const valorA = a[indiceAgendada] || "";
-                const valorB = b[indiceAgendada] || "";
+                const fechaA = new Date(a[indiceFecha] || "");
+                const fechaB = new Date(b[indiceFecha] || "");
 
-                // Si es fecha, convertir a Date
-                const fechaA = new Date(valorA);
-                const fechaB = new Date(valorB);
-
-                // Validar si son fechas válidas
-                if (!isNaN(fechaA) && !isNaN(fechaB)) {
-                    return fechaA - fechaB; // ascendente
+                if (fechaA.getTime() !== fechaB.getTime()) {
+                    return fechaA - fechaB; // ordenar por fecha primero
                 }
 
-                // Si no son fechas, ordenar alfabéticamente
-                return valorA.localeCompare(valorB);
+                // Si la fecha es la misma → comparar hora
+                const horaA = a[indiceHoraEntrada] || "00:00";
+                const horaB = b[indiceHoraEntrada] || "00:00";
+
+                const [hA, mA] = horaA.split(":").map(Number);
+                const [hB, mB] = horaB.split(":").map(Number);
+
+                const totalMinA = (hA * 60) + (mA || 0);
+                const totalMinB = (hB * 60) + (mB || 0);
+
+                return totalMinA - totalMinB; // ascendente por hora
             });
 
             datosFiltrados.forEach((fila) => {
