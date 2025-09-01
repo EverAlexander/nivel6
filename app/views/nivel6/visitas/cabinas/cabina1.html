@@ -71,18 +71,31 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Recursos</span>
+                    <i class="fas fa-users"></i>
+                    <span>Usuarios</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="agregarvisita.html">Agregar Visitas</a>
-                        <a class="collapse-item" href="prestamospc.html">Computadoras en uso</a>
-                        <a class="collapse-item" href="prestamoscabina.html">Cabinas en uso</a>
-                        <a class="collapse-item" href="prestamospantallas.html">Pantallas en uso</a>
-                        <a class="collapse-item" href="#">Reservaciones</a>
-                        <a class="collapse-item" href="datosrecorridos.html">Recorridos</a>
+                        <a class="collapse-item" href="../agregarvisita.html">Agregar Visitas</a>
+                        <a class="collapse-item" href="../prestamospc.html">Computadoras en uso</a>
+                        <a class="collapse-item" href="../prestamoscabina.html">Cabinas en uso</a>
+                        <a class="collapse-item" href="../prestamospantallas.html">Pantallas en uso</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#cabinas"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-headphones"></i>
+                    <span>Cabinas</span>
+                </a>
+                <div id="cabinas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="#">Cabina 1</a>
+                        <a class="collapse-item" href="cabina2.html">Cabina 2</a>
                     </div>
                 </div>
             </li>
@@ -281,7 +294,7 @@
         let indiceDescripcion = -1;
 
         async function obtenerDatos() {
-            const accessToken = sessionStorage.getItem("accessToken"); 
+            const accessToken = sessionStorage.getItem("accessToken");
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`;
             const res = await fetch(url, {
                 headers: { Authorization: `Bearer ${accessToken}` }
@@ -327,7 +340,7 @@
             // Reservada y Cabina específica
             let datosFiltrados = datos.slice(1).filter(fila => {
                 return fila[indiceDescripcion] === "Reservado"
-                    && fila[indiceCabina] === "Cabina 1"; 
+                    && fila[indiceCabina] === "Cabina 1";
             });
 
             if (datosFiltrados.length === 0) {
