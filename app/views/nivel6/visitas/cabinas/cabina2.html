@@ -94,8 +94,8 @@
                 <div id="cabinas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="cabina1.html">Cabina 1</a>
-                        <a class="collapse-item" href="#">Cabina 2</a>
+                        <a class="collapse-item" href="#">Cabina 1</a>
+                        <a class="collapse-item" href="cabina2.html">Cabina 2</a>
                     </div>
                 </div>
             </li>
@@ -148,7 +148,7 @@
                                             <div
                                                 class="card-header bg-gradient-success text-white d-flex justify-content-between align-items-center">
                                                 <h5 class="mb-0 fw-bold">
-                                                    <i class="bi bi-door-closed"></i> Reservaciones de cabina 2
+                                                    <i class="bi bi-door-closed"></i> Reservaciones de cabina 1
                                                 </h5>
                                                 <button id="refreshBtn" class="btn btn-light btn-sm">
                                                     <i class="bi bi-arrow-clockwise"></i> Refrescar
@@ -275,7 +275,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
     <script>
         const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc";
         const RANGE = "Prestamos de salas!A1:Z1000";
@@ -303,6 +302,15 @@
             return data.values || [];
         }
 
+        // Función para interpretar fechas en formato dd/mm/yyyy
+        function parsearFecha(fechaStr) {
+            if (!fechaStr) return null;
+            const partes = fechaStr.split("/");
+            if (partes.length !== 3) return null;
+            const [dia, mes, año] = partes.map(Number);
+            return new Date(año, mes - 1, dia); // mes - 1 porque enero = 0
+        }
+
         function mostrarDatos(datos) {
             datosGlobal = datos;
             const tabla = document.getElementById("tablaCabina");
@@ -321,11 +329,11 @@
             const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
             indiceDescripcion = encabezados.indexOf("Disponibilidad");
 
-            // Filtrar columnas
-            const indiceFecha = encabezados.indexOf("Agenda");          // fecha
-            const indiceHoraEntrada = encabezados.indexOf("Hora de entrada"); // hora
-            const indiceCabina = encabezados.indexOf("Cabina");         // cabina
+            const indiceFecha = encabezados.indexOf("Agenda");
+            const indiceHoraEntrada = encabezados.indexOf("Hora de entrada");
+            const indiceCabina = encabezados.indexOf("Cabina");
 
+            // Encabezados de la tabla
             const trHead = document.createElement("tr");
             columnasDeseadas.forEach(h => {
                 const th = document.createElement("th");
@@ -337,44 +345,45 @@
             trHead.appendChild(thAccion);
             thead.appendChild(trHead);
 
-            // Reservada y Cabina específica
-            let datosFiltrados = datos.slice(1).filter(fila => {
-                return fila[indiceDescripcion] === "Reservado"
-                    && fila[indiceCabina] === "Cabina 2 (TV)";
-            });
+            // Construir lista con rowIndex real
+            let datosFiltrados = datos.slice(1).map((fila, i) => ({
+                fila,
+                rowIndex: i + 2 // fila real en la hoja (A1 son encabezados)
+            })).filter(obj =>
+                obj.fila[indiceDescripcion] === "Reservado" &&
+                obj.fila[indiceCabina] === "Cabina 2 (TV)"
+            );
 
             if (datosFiltrados.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8">No reservaciones de cabinas</td></tr>';
                 return;
             }
 
-            //Ordenar por fecha y luego por hora
+            // Ordenar por fecha (dd/mm/yyyy) y luego por hora
             datosFiltrados.sort((a, b) => {
-                const fechaA = new Date(a[indiceFecha] || "");
-                const fechaB = new Date(b[indiceFecha] || "");
+                const fechaA = parsearFecha(a.fila[indiceFecha]);
+                const fechaB = parsearFecha(b.fila[indiceFecha]);
 
-                if (fechaA.getTime() !== fechaB.getTime()) {
-                    return fechaA - fechaB; // ordenar por fecha primero
+                if (fechaA && fechaB && fechaA.getTime() !== fechaB.getTime()) {
+                    return fechaA - fechaB; // ordenar por fecha
                 }
 
                 // Si la fecha es la misma → comparar hora
-                const horaA = a[indiceHoraEntrada] || "00:00";
-                const horaB = b[indiceHoraEntrada] || "00:00";
+                const horaA = a.fila[indiceHoraEntrada] || "00:00";
+                const horaB = b.fila[indiceHoraEntrada] || "00:00";
 
                 const [hA, mA] = horaA.split(":").map(Number);
                 const [hB, mB] = horaB.split(":").map(Number);
 
-                const totalMinA = (hA * 60) + (mA || 0);
-                const totalMinB = (hB * 60) + (mB || 0);
-
-                return totalMinA - totalMinB; // ascendente por hora
+                return (hA * 60 + (mA || 0)) - (hB * 60 + (mB || 0));
             });
 
-            datosFiltrados.forEach((fila) => {
+            // Pintar filas
+            datosFiltrados.forEach((obj) => {
                 const tr = document.createElement("tr");
                 indices.forEach(idx => {
                     const td = document.createElement("td");
-                    td.textContent = idx >= 0 ? fila[idx] || "" : "";
+                    td.textContent = idx >= 0 ? obj.fila[idx] || "" : "";
                     tr.appendChild(td);
                 });
 
@@ -383,9 +392,7 @@
                 btn.textContent = "Editar";
                 btn.className = "btn btn-sm btn-primary";
 
-                const indiceReal = datosGlobal.indexOf(fila);
-
-                btn.onclick = () => abrirModal(indiceReal);
+                btn.onclick = () => abrirModal(obj.rowIndex, obj.fila[indiceDescripcion]);
                 tdAccion.appendChild(btn);
                 tr.appendChild(tdAccion);
 
@@ -393,57 +400,25 @@
             });
         }
 
-
-        function abrirModal(fila) {
-            document.getElementById("filaEditar").value = fila;
-            const valorActual = datosGlobal[fila][indiceDescripcion];
+        function abrirModal(rowIndex, valorActual) {
+            document.getElementById("filaEditar").value = rowIndex;
             document.getElementById("selectDescripcion").value = valorActual;
             const modal = new bootstrap.Modal(document.getElementById("editarModal"));
             modal.show();
         }
 
-        // Botón para refrescar token y datos
-        document.getElementById("refreshBtn").addEventListener("click", () => {
-            const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // 🔑 tu client_id real
-            const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
-
-            google.accounts.oauth2.initTokenClient({
-                client_id: clientId,
-                scope: scope,
-                callback: (response) => {
-                    if (response.access_token) {
-                        sessionStorage.setItem("accessToken", response.access_token);
-                        obtenerDatos().then(mostrarDatos);
-                        Swal.fire({
-                            icon: "success",
-                            title: "Refrescado",
-                            text: "Se renovó el acceso y los datos fueron actualizados.",
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "No se pudo refrescar el token."
-                        });
-                    }
-                }
-            }).requestAccessToken();
-        });
-
-
+        // Guardar cambios
         document.getElementById("guardarCambio").onclick = async () => {
             const fila = parseInt(document.getElementById("filaEditar").value);
             const nuevoValor = document.getElementById("selectDescripcion").value;
 
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑
+            const accessToken = sessionStorage.getItem("accessToken");
             if (!accessToken) {
                 alert("No hay sesión activa. Inicie sesión de nuevo.");
                 return;
             }
 
-            const rangoCelda = `Prestamos de salas!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
+            const rangoCelda = `Prestamos de salas!${String.fromCharCode(65 + indiceDescripcion)}${fila}`;
 
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
 
@@ -461,8 +436,7 @@
             });
 
             if (res.ok) {
-                datosGlobal[fila][indiceDescripcion] = nuevoValor;
-                mostrarDatos(datosGlobal);
+                await obtenerDatos().then(mostrarDatos);
                 bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
             } else {
                 const err = await res.json();
@@ -473,6 +447,8 @@
 
         obtenerDatos().then(mostrarDatos);
     </script>
+
+
 </body>
 
 </html>
