@@ -385,13 +385,18 @@
                         </div>
 
                         <div class="col-md-3">
+                          <label for="horapc" class="form-label">Duración (horas)</label>
+                          <input type="number" id="horapc" class="form-control">
+                        </div>
+
+                        <div class="col-md-3 d-none">
                             <label for="iniciopc" class="form-label">Inicio</label>
                             <input type="time" id="iniciopc" class="form-control">
                         </div>
 
                         <div class="col-md-3">
                             <label for="finalpc" class="form-label">Finalización</label>
-                            <input type="time" id="finalpc" class="form-control">
+                            <input type="time" id="finalpc" class="form-control" readonly>
                         </div>
 
                         <div class="col-md-3">
@@ -406,6 +411,30 @@
         <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
       `;
         document.getElementById("fechaCompu").value = obtenerFechaActual();
+        // lógica: calcular inicio y fin según la duración
+        const horasInput = document.getElementById("horapc");
+        const inicioInput = document.getElementById("iniciopc");
+        const finInput = document.getElementById("finalpc");
+
+        function calcularHoras() {
+          const ahora = new Date();
+          const horas = parseInt(horasInput.value) || 0;
+
+          // hora inicio (hora actual en formato HH:MM)
+          const inicio = ahora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+          inicioInput.value = inicio;
+
+          // hora fin (sumar horas)
+          ahora.setHours(ahora.getHours() + horas);
+          const fin = ahora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+          finInput.value = fin;
+        }
+
+        // calcular al cargar
+        calcularHoras();
+
+        // recalcular cuando cambie duración
+        horasInput.addEventListener("input", calcularHoras);
       }
 
       if (valor === "reservas") {
