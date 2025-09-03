@@ -571,30 +571,39 @@
   `;
         document.getElementById("fecharegistro").value = obtenerFechaActual();
 
-        // lógica: calcular inicio y fin según la duración
-        const horasInput = document.getElementById("horasReserva");
-        const inicioInput = document.getElementById("inicioReserva");
-        const finInput = document.getElementById("finalreserva");
+        const horasInput = document.getElementById("horasReserva");   // duración en horas
+        const inicioInput = document.getElementById("inicioReserva"); // hora inicio elegida
+        const finInput = document.getElementById("finalreserva");     // hora fin calculada
 
         function calcularHoras() {
-          const ahora = new Date();
           const horas = parseInt(horasInput.value) || 0;
+          const inicio = inicioInput.value;
 
-          // hora inicio (hora actual en formato HH:MM)
-          const inicio = ahora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
-          inicioInput.value = inicio;
+          if (!inicio || horas === 0) {
+            finInput.value = "";
+            return;
+          }
 
-          // hora fin (sumar horas)
-          ahora.setHours(ahora.getHours() + horas);
-          const fin = ahora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
-          finInput.value = fin;
+          // convertir la hora de inicio a objeto Date
+          const [h, m] = inicio.split(":").map(Number);
+          const fecha = new Date();
+          fecha.setHours(h, m, 0, 0);
+
+          // sumar la duración
+          fecha.setHours(fecha.getHours() + horas);
+
+          // asignar a campo de fin
+          finInput.value = fecha.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          });
         }
 
-        // calcular al cargar
-        calcularHoras();
-
-        // recalcular cuando cambie duración
+        // recalcular cuando cambie duración o inicio
         horasInput.addEventListener("input", calcularHoras);
+        inicioInput.addEventListener("input", calcularHoras);
+
       }
 
       if (valor === "pantallasn6") {
