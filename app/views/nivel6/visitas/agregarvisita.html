@@ -549,7 +549,7 @@
 
         function calcularHoras() {
           const ahora = new Date();
-          const horas = parseInt(horasInput.value) || 1;
+          const horas = parseInt(horasInput.value) || 0;
 
           // hora inicio (hora actual en formato HH:MM)
           const inicio = ahora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
