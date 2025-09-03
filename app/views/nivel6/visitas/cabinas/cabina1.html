@@ -302,6 +302,15 @@
             return data.values || [];
         }
 
+        // Función para interpretar fechas en formato dd/mm/yyyy
+        function parsearFecha(fechaStr) {
+            if (!fechaStr) return null;
+            const partes = fechaStr.split("/");
+            if (partes.length !== 3) return null;
+            const [dia, mes, año] = partes.map(Number);
+            return new Date(año, mes - 1, dia); // mes - 1 porque enero = 0
+        }
+
         function mostrarDatos(datos) {
             datosGlobal = datos;
             const tabla = document.getElementById("tablaCabina");
@@ -339,7 +348,7 @@
             // Construir lista con rowIndex real
             let datosFiltrados = datos.slice(1).map((fila, i) => ({
                 fila,
-                rowIndex: i + 2 // +2 porque la hoja empieza en fila 2 (fila 1 = encabezados)
+                rowIndex: i + 2 // fila real en la hoja (A1 son encabezados)
             })).filter(obj =>
                 obj.fila[indiceDescripcion] === "Reservado" &&
                 obj.fila[indiceCabina] === "Cabina 1"
@@ -350,15 +359,16 @@
                 return;
             }
 
-            // Ordenar por fecha y hora
+            // Ordenar por fecha (dd/mm/yyyy) y luego por hora
             datosFiltrados.sort((a, b) => {
-                const fechaA = new Date(a.fila[indiceFecha] || "");
-                const fechaB = new Date(b.fila[indiceFecha] || "");
+                const fechaA = parsearFecha(a.fila[indiceFecha]);
+                const fechaB = parsearFecha(b.fila[indiceFecha]);
 
-                if (fechaA.getTime() !== fechaB.getTime()) {
-                    return fechaA - fechaB;
+                if (fechaA && fechaB && fechaA.getTime() !== fechaB.getTime()) {
+                    return fechaA - fechaB; // ordenar por fecha
                 }
 
+                // Si la fecha es la misma → comparar hora
                 const horaA = a.fila[indiceHoraEntrada] || "00:00";
                 const horaB = b.fila[indiceHoraEntrada] || "00:00";
 
@@ -437,6 +447,7 @@
 
         obtenerDatos().then(mostrarDatos);
     </script>
+
 
 </body>
 
