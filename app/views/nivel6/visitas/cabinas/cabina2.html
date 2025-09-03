@@ -406,7 +406,36 @@
             const modal = new bootstrap.Modal(document.getElementById("editarModal"));
             modal.show();
         }
+        
+        document.getElementById("refreshBtn").addEventListener("click", () => {
+            const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // 🔑 tu client_id real
+            const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
+            google.accounts.oauth2.initTokenClient({
+                client_id: clientId,
+                scope: scope,
+                callback: (response) => {
+                    if (response.access_token) {
+                        sessionStorage.setItem("accessToken", response.access_token);
+                        obtenerDatos().then(mostrarDatos);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Refrescado",
+                            text: "Se renovó el acceso y los datos fueron actualizados.",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "No se pudo refrescar el token."
+                        });
+                    }
+                }
+            }).requestAccessToken();
+        });
+        
         // Guardar cambios
         document.getElementById("guardarCambio").onclick = async () => {
             const fila = parseInt(document.getElementById("filaEditar").value);
