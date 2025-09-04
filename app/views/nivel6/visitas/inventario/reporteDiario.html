@@ -187,33 +187,39 @@
                                                 <div class="card-header bg-info text-white fw-bold">Entrega de Turno
                                                 </div>
                                                 <div class="card-body">
-                                                    <div class="row mb-3">
-                                                        <div class="col-md-3">
-                                                            <label for="fechaEntrega" class="form-label">Fecha</label>
-                                                            <input type="date" id="fechaEntrega" class="form-control">
+                                                    <form id="reporteDForm" class="needs-validation" novalidate>
+                                                        <div class="row mb-3">
+                                                            <div class="col-md-3">
+                                                                <label for="fechaEntrega"
+                                                                    class="form-label">Fecha</label>
+                                                                <input type="date" id="fechaEntrega"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="turnoEntrega"
+                                                                    class="form-label">Turno</label>
+                                                                <select id="turnoEntrega" class="form-control">
+                                                                    <option value="" disabled selected>Seleccionar
+                                                                    </option>
+                                                                    <option value="1am a 8am">1am a 8am</option>
+                                                                    <option value="8am a 4pm">8am a 4pm</option>
+                                                                    <option value="4pm a 11pm">4pm a 11pm</option>
+                                                                    <option value="6pm a 1am">6pm a 1am</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="entregaPor" class="form-label">Entrega
+                                                                    por</label>
+                                                                <input type="text" id="entregaPor" class="form-control"
+                                                                    placeholder="Nombre responsable entrega">
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="recibePor" class="form-label">Recibe</label>
+                                                                <input type="text" id="recibePor" class="form-control"
+                                                                    placeholder="Nombre responsable recibe">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <label for="turnoEntrega" class="form-label">Turno</label>
-                                                            <select id="turnoEntrega" class="form-control">
-                                                                <option value="" disabled selected>Seleccionar</option>
-                                                                <option value="1am a 8am">1am a 8am</option>
-                                                                <option value="8am a 4pm">8am a 4pm</option>
-                                                                <option value="4pm a 11pm">4pm a 11pm</option>
-                                                                <option value="6pm a 1am">6pm a 1am</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label for="entregaPor" class="form-label">Entrega
-                                                                por</label>
-                                                            <input type="text" id="entregaPor" class="form-control"
-                                                                placeholder="Nombre responsable entrega">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <label for="recibePor" class="form-label">Recibe</label>
-                                                            <input type="text" id="recibePor" class="form-control"
-                                                                placeholder="Nombre responsable recibe">
-                                                        </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -453,7 +459,7 @@
 
             try {
                 const response = await fetch(
-                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Inventario recepcion!A1:append?valueInputOption=RAW`,
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Inventario Reporte por turnos!A1:append?valueInputOption=RAW`,
                     {
                         method: "POST",
                         headers: {
@@ -478,7 +484,7 @@
                     showConfirmButton: false
                 });
 
-                document.getElementById("inventarioForm").reset();
+                document.getElementById("reporteDForm").reset();
 
             } catch (err) {
                 Swal.fire("❌ Error", err.message, "error");
@@ -490,35 +496,27 @@
             let errores = [];
             let row = [];
 
-            const fecha = document.getElementById("fechainventario").value.trim();
-            const categoria = document.getElementById("catinventario").value.trim();
-            const nombre = document.getElementById("nombreInventario").value.trim();
-            const marca = document.getElementById("marcaInventario").value.trim();
-            const modelo = document.getElementById("modeloInventario").value.trim();
-            const serial = document.getElementById("serialInventario").value.trim();
-            const cantidad = document.getElementById("cantInventario").value.trim();
-            const ubicacion = document.getElementById("ubicationInventer").value.trim();
-
+            const fecha = document.getElementById("fechaEntrega").value.trim();
+            const turnoEntrega = document.getElementById("turnoEntrega").value.trim();
+            const entregaPor = document.getElementById("entregaPor").value.trim();
+            const recibePor = document.getElementById("recibePor").value.trim();
+            
             if (!fecha) errores.push("Debe seleccionar una fecha.");
-            if (!categoria) errores.push("Debe seleccionar una categoría.");
-            if (!nombre) errores.push("Debe ingresar un nombre.");
-            if (!marca) errores.push("Debe ingresar la marca.");
-            if (!modelo) errores.push("Debe ingresar el modelo.");
-            if (!serial) errores.push("Debe ingresar el serial.");
-            if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar cantidad válida.");
-            if (!ubicacion) errores.push("Debe seleccionar ubicación.");
-
-            row = [fecha, categoria, nombre, marca, modelo, serial, cantidad, ubicacion];
+            if (!turnoEntrega) errores.push("Debe seleccionar una categoría.");
+            if (!entregaPor) errores.push("Debe ingresar un nombre.");
+            if (!recibePor) errores.push("Debe ingresar la marca.");
+            
+            row = [fecha, turnoEntrega, entregaPor, recibePor];
 
             if (errores.length > 0) {
                 Swal.fire("⚠️ Campos incompletos", errores.join("<br>"), "warning");
                 return;
             }
 
-            await guardarEnSheets("Inventario recepcion", row);
+            await guardarEnSheets("Reporte por turnos", row);
         });
 
-
+        //Para habilitar textarea de observaciones
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.toggle-observacion').forEach(check => {
                 check.addEventListener('change', function () {
@@ -535,6 +533,7 @@
                 });
             });
         });
+
         // ====================== BOTÓN REFRESCAR TOKEN ======================
         document.getElementById("refreshBtn").addEventListener("click", () => {
             google.accounts.oauth2.initTokenClient({
@@ -560,6 +559,7 @@
                 }
             }).requestAccessToken();
         });
+
     </script>
     <script>
         // Verificar sesión
