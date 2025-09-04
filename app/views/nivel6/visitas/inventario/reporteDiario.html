@@ -506,7 +506,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.toggle-observacion').forEach(check => {
                 check.addEventListener('change', function () {
-                    // buscar el textarea en el mismo contenedor .form-check
+                    // Buscar el textarea dentro del mismo bloque .form-check
                     const obsInput = this.closest('.form-check').querySelector('.observacion');
                     if (!obsInput) return;
 
@@ -519,7 +519,6 @@
                 });
             });
         });
-
         // ====================== BOTÓN REFRESCAR TOKEN ======================
         document.getElementById("refreshBtn").addEventListener("click", () => {
             google.accounts.oauth2.initTokenClient({
