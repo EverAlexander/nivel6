@@ -272,6 +272,17 @@
         const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // <-- tu Client ID
         const scope = "https://www.googleapis.com/auth/spreadsheets";
 
+        function obtenerFechaActual() {
+            const hoy = new Date();
+            const year = hoy.getFullYear();
+            const month = String(hoy.getMonth() + 1).padStart(2, '0');
+            const day = String(hoy.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Establece la fecha actual en el campo de inventario
+        document.getElementById('fechainventario').value = obtenerFechaActual();
+
         // ====================== FUNCIÓN PARA GUARDAR ======================
         async function guardarEnSheets(tipo, row) {
             const accessToken = sessionStorage.getItem("accessToken");
@@ -344,7 +355,7 @@
                 return;
             }
 
-            await guardarEnSheets("inventario", row);
+            await guardarEnSheets("Inventario recepcion", row);
         });
 
         // ====================== BOTÓN REFRESCAR TOKEN ======================
