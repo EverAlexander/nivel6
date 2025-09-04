@@ -180,25 +180,41 @@
 
                                 <div class="card-body">
 
-                                    <!-- Información general -->
                                     <div class="row mb-4">
-                                        <div class="col-md-3">
-                                            <label for="fechainventario" class="form-label">Fecha</label>
-                                            <input type="date" id="fechainventario" class="form-control" readonly>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="responsableTurno" class="form-label">Responsable</label>
-                                            <input type="text" id="responsableTurno" class="form-control">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="turnoTurn" class="form-label">Turno</label>
-                                            <select id="turnoTurn" class="form-control">
-                                                <option value="" disabled selected>Seleccionar</option>
-                                                <option value="1am a 8am">1am a 8am</option>
-                                                <option value="8am a 4pm">8am a 4pm</option>
-                                                <option value="4pm a 11pm">4pm a 11pm</option>
-                                                <option value="6pm a 1am">6pm a 1am</option>
-                                            </select>
+                                        <div class="col-12">
+                                            <div class="card border-info shadow-sm h-100">
+                                                <div class="card-header bg-info text-white fw-bold">Entrega de Turno
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-3">
+                                                            <label for="fechaEntrega" class="form-label">Fecha</label>
+                                                            <input type="date" id="fechaEntrega" class="form-control">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="turnoEntrega" class="form-label">Turno</label>
+                                                            <select id="turnoEntrega" class="form-control">
+                                                                <option value="" disabled selected>Seleccionar</option>
+                                                                <option value="1am a 8am">1am a 8am</option>
+                                                                <option value="8am a 4pm">8am a 4pm</option>
+                                                                <option value="4pm a 11pm">4pm a 11pm</option>
+                                                                <option value="6pm a 1am">6pm a 1am</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="entregaPor" class="form-label">Entrega
+                                                                por</label>
+                                                            <input type="text" id="entregaPor" class="form-control"
+                                                                placeholder="Nombre responsable entrega">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="recibePor" class="form-label">Recibe</label>
+                                                            <input type="text" id="recibePor" class="form-control"
+                                                                placeholder="Nombre responsable recibe">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
