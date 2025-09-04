@@ -110,7 +110,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
                         <a class="collapse-item" href="#">Reporte Diario</a>
-                        <a class="collapse-item" href="#">Consultas  de reportes</a>
+                        <a class="collapse-item" href="#">Consultas de reportes</a>
                     </div>
                 </div>
             </li>
@@ -182,42 +182,69 @@
                                     <form id="inventarioForm" class="needs-validation" novalidate>
                                         <br>
                                         <div class="row mb-4">
-                                            <div class="col-md-3 d-none">
+                                            <div class="col-md-3">
                                                 <label for="fechainventario" class="form-label">Fecha</label>
-                                                <input type="date" id="fechainventario" class="form-control">
+                                                <input type="date" id="fechainventario" class="form-control" readonly>
                                             </div>
 
                                             <div class="col-md-3">
-                                                <label for="catinventario" class="form-label">Categoria</label>
-                                                <select id="catinventario" class="form-control">
+                                                <label for="responsableTurno" class="form-label">Responsable</label>
+                                                <input type="text" id="responsableTurno" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="turnoTurn" class="form-label">Turno</label>
+                                                <select id="turnoTurn" class="form-control">
                                                     <option value="" disabled selected>Seleccionar</option>
-                                                    <option value="Comunicacion">Comunicacion</option>
-                                                    <option value="Perifericos">Perifericos</option>
-                                                    <option value="Conectividad">Conectividad</option>
-                                                    <option value="Accesorios">Accesorios</option>
-                                                    <option value="Moviles">Moviles</option>
-                                                    <option value="Escaneo">Escaneo</option>
+                                                    <option value="1am a 8am">1am a 8am</option>
+                                                    <option value="8am a 4pm">8am a 4pm</option>
+                                                    <option value="4pm a 11pm">4pm a 11pm</option>
+                                                    <option value="6pm a 1am">6pm a 1am</option>
                                                 </select>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label for="nombreInventario" class="form-label">Nombre del
-                                                    producto</label>
-                                                <input type="text" id="nombreInventario" class="form-control">
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label for="marcaInventario" class="form-label">Marca</label>
-                                                <input type="text" id="marcaInventario" class="form-control">
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label for="modeloInventario" class="form-label">Modelo</label>
-                                                <input type="text" id="modeloInventario" class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="row mb-4">
+                                            <div class="card-title mb-0">
+                                                <h6 class="m-0 me-2">Computadoras</h6>
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-label">Computadoras Activas</label><br>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pc1">
+                                                    <label class="form-check-label" for="robotica">PC-01</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pc2">
+                                                    <label class="form-check-label" for="robotica">PC-02</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pc3">
+                                                    <label class="form-check-label" for="robotica">PC-03</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pc4">
+                                                    <label class="form-check-label" for="robotica">PC-04</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pc5">
+                                                    <label class="form-check-label" for="robotica">PC-05</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pc6">
+                                                    <label class="form-check-label" for="robotica">PC-06</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pc7">
+                                                    <label class="form-check-label" for="robotica">PC-07</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="pc8">
+                                                    <label class="form-check-label" for="robotica">PC-08</label>
+                                                </div>
+                                            </div>
+
+
                                             <div class="col-md-3">
                                                 <label for="serialInventario" class="form-label">Serial</label>
                                                 <input type="text" id="serialInventario" class="form-control">
