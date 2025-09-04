@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Menu principal</title>
+
+    <!-- Fuente Nunito -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+
+    <!-- Estilos de la plantilla -->
+    <link href="../../../../../public/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../../../../../public/css/estilo.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script>
+        function actualizarHora() {
+            const ahora = new Date();
+            const horas = ahora.getHours().toString().padStart(2, '0');
+            const minutos = ahora.getMinutes().toString().padStart(2, '0');
+            const segundos = ahora.getSeconds().toString().padStart(2, '0');
+            const horaFormateada = `${horas}:${minutos}:${segundos}`;
+            document.getElementById('horaActual').textContent = horaFormateada;
+        }
+        setInterval(actualizarHora, 1000);
+    </script>
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Nivel 6</div>
+            </a>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="home.html">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <div class="sidebar-heading">Menu Prestamos</div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-users"></i>
+                    <span>Usuarios</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="#">Agregar Visitas</a>
+                        <a class="collapse-item" href="../prestamospc.html">Computadoras en uso</a>
+                        <a class="collapse-item" href="../prestamoscabina.html">Cabinas en uso</a>
+                        <a class="collapse-item" href="../prestamospantallas.html">Pantallas en uso</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#cabinas"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-headphones"></i>
+                    <span>Reserva Cabinas</span>
+                </a>
+                <div id="cabinas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="../cabinas/cabina1.html">Cabina 1</a>
+                        <a class="collapse-item" href="../cabinas/cabina2.html">Cabina 2</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#turnoencargado"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-boxes"></i>
+                    <span>Reporte</span>
+                </a>
+                <div id="turnoencargado" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="#">Reporte Diario</a>
+                        <a class="collapse-item" href="#">Consultas  de reportes</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inventario"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-boxes"></i>
+                    <span>Inventario</span>
+                </a>
+                <div id="inventario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="agregarInventario.html">Agregar Inventario</a>
+                        <a class="collapse-item" href="#">Lista de Inventario</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider">
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="horaActual"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Usuario -->
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
+                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img id="userImage" src="" alt="Imagen de usuario" class="user-logo rounded-circle"
+                                    width="50" height="40">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <span class="dropdown-item"><i class="fas fa-user mr-2"></i><span
+                                        id="userName"></span></span>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" id="logoutBtn"><i
+                                        class="fas fa-sign-out-alt mr-2"></i> Cerrar
+                                    Sesión</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 order-2 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div
+                                        class="card-header bg-gradient-success text-white d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0 fw-bold">Inventario Recepcion</h5>
+                                        <button id="refreshBtn" class="btn btn-light btn-sm">
+                                            <i class="bi bi-arrow-clockwise"></i> Refrescar
+                                        </button>
+                                    </div>
+
+                                    <form id="inventarioForm" class="needs-validation" novalidate>
+                                        <br>
+                                        <div class="row mb-4">
+                                            <div class="col-md-3 d-none">
+                                                <label for="fechainventario" class="form-label">Fecha</label>
+                                                <input type="date" id="fechainventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="catinventario" class="form-label">Categoria</label>
+                                                <select id="catinventario" class="form-control">
+                                                    <option value="" disabled selected>Seleccionar</option>
+                                                    <option value="Comunicacion">Comunicacion</option>
+                                                    <option value="Perifericos">Perifericos</option>
+                                                    <option value="Conectividad">Conectividad</option>
+                                                    <option value="Accesorios">Accesorios</option>
+                                                    <option value="Moviles">Moviles</option>
+                                                    <option value="Escaneo">Escaneo</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="nombreInventario" class="form-label">Nombre del
+                                                    producto</label>
+                                                <input type="text" id="nombreInventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="marcaInventario" class="form-label">Marca</label>
+                                                <input type="text" id="marcaInventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="modeloInventario" class="form-label">Modelo</label>
+                                                <input type="text" id="modeloInventario" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-4">
+                                            <div class="col-md-3">
+                                                <label for="serialInventario" class="form-label">Serial</label>
+                                                <input type="text" id="serialInventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="cantInventario" class="form-label">Cantidad</label>
+                                                <input type="number" id="cantInventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="ubicationInventer" class="form-label">Ubicacion</label>
+                                                <select id="ubicationInventer" class="form-control">
+                                                    <option value="" disabled selected>Seleccionar</option>
+                                                    <option value="Recepcion Nivel 6">Recepcion Nivel 6</option>
+                                                    <option value="Bodega">Bodega</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!--Botón de agregar usuarios-->
+                                        <div class="row mb-4">
+                                            <div class="col-12">
+                                                <button type="button" id="btnGuardar"
+                                                    class="btn btn-success">Guardar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        ©
+                        <script>document.write(new Date().getFullYear());</script>, The_Alexander
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../../../../../public/vendor/jquery/jquery.min.js"></script>
+    <script src="../../../../../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../../../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../../../../public/js/sb-admin-2.min.js"></script>
+    <script src="../../../../../public/vendor/chart.js/Chart.min.js"></script>
+    <script src="../../../../../public/js/demo/chart-area-demo.js"></script>
+    <script src="../../../../../public/js/demo/chart-pie-demo.js"></script>
+    <script src="../../../../../public/js/fechaactual.js"></script>
+
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script>
+        // ========= CONFIG =========
+        const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // <-- tu ID real
+        const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // <-- tu Client ID
+        const scope = "https://www.googleapis.com/auth/spreadsheets";
+
+        function obtenerFechaActual() {
+            const hoy = new Date();
+            const year = hoy.getFullYear();
+            const month = String(hoy.getMonth() + 1).padStart(2, '0');
+            const day = String(hoy.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Establece la fecha actual en el campo de inventario
+        document.getElementById('fechainventario').value = obtenerFechaActual();
+
+        // ====================== FUNCIÓN PARA GUARDAR ======================
+        async function guardarEnSheets(tipo, row) {
+            const accessToken = sessionStorage.getItem("accessToken");
+            if (!accessToken) {
+                Swal.fire("⚠️ Error", "No hay token de acceso válido", "error");
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/Inventario recepcion!A1:append?valueInputOption=RAW`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${accessToken}`,
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            values: [row]  // cada fila como un array
+                        })
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Error al guardar en Google Sheets");
+                }
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Guardado",
+                    text: "El inventario fue registrado con éxito",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+
+                document.getElementById("inventarioForm").reset();
+
+            } catch (err) {
+                Swal.fire("❌ Error", err.message, "error");
+            }
+        }
+
+        // ====================== VALIDAR Y ENVIAR ======================
+        document.getElementById("btnGuardar").addEventListener("click", async () => {
+            let errores = [];
+            let row = [];
+
+            const fecha = document.getElementById("fechainventario").value.trim();
+            const categoria = document.getElementById("catinventario").value.trim();
+            const nombre = document.getElementById("nombreInventario").value.trim();
+            const marca = document.getElementById("marcaInventario").value.trim();
+            const modelo = document.getElementById("modeloInventario").value.trim();
+            const serial = document.getElementById("serialInventario").value.trim();
+            const cantidad = document.getElementById("cantInventario").value.trim();
+            const ubicacion = document.getElementById("ubicationInventer").value.trim();
+
+            if (!fecha) errores.push("Debe seleccionar una fecha.");
+            if (!categoria) errores.push("Debe seleccionar una categoría.");
+            if (!nombre) errores.push("Debe ingresar un nombre.");
+            if (!marca) errores.push("Debe ingresar la marca.");
+            if (!modelo) errores.push("Debe ingresar el modelo.");
+            if (!serial) errores.push("Debe ingresar el serial.");
+            if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar cantidad válida.");
+            if (!ubicacion) errores.push("Debe seleccionar ubicación.");
+
+            row = [fecha, categoria, nombre, marca, modelo, serial, cantidad, ubicacion];
+
+            if (errores.length > 0) {
+                Swal.fire("⚠️ Campos incompletos", errores.join("<br>"), "warning");
+                return;
+            }
+
+            await guardarEnSheets("Inventario recepcion", row);
+        });
+
+        // ====================== BOTÓN REFRESCAR TOKEN ======================
+        document.getElementById("refreshBtn").addEventListener("click", () => {
+            google.accounts.oauth2.initTokenClient({
+                client_id: clientId,
+                scope: scope,
+                callback: (response) => {
+                    if (response.access_token) {
+                        sessionStorage.setItem("accessToken", response.access_token);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Refrescado",
+                            text: "Se renovó el acceso correctamente",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "No se pudo refrescar el token."
+                        });
+                    }
+                }
+            }).requestAccessToken();
+        });
+    </script>
+
+    <script>
+        // Verificar sesión
+        const token = sessionStorage.getItem("accessToken");
+        if (!token) {
+            Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
+                .then(() => {
+                    window.location.href = "../../../../../index.html";
+                });
+        } else {
+            // Cargar datos de usuario
+            document.getElementById("userName").textContent = sessionStorage.getItem("userName");
+            document.getElementById("userImage").src = sessionStorage.getItem("userPicture");
+        }
+
+        // Logout
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            Swal.fire({
+                title: "¿Cerrar sesión?",
+                text: "Se cerrará tu cuenta de Google",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sí, salir",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    sessionStorage.clear();
+                    window.location.href = "../../../../../index.html";
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
