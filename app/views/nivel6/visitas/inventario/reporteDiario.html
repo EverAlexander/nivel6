@@ -167,157 +167,171 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-12 col-md-12 order-2 mb-4">
-                            <div class="card h-100">
+                        <div class="col-lg-12 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <!-- Header -->
+                                <div
+                                    class="card-header bg-gradient-success text-white d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0 fw-bold">Inventario Recepción</h5>
+                                    <button id="refreshBtn" class="btn btn-light btn-sm">
+                                        <i class="bi bi-arrow-clockwise"></i> Refrescar
+                                    </button>
+                                </div>
+
                                 <div class="card-body">
 
-                                    <div
-                                        class="card-header bg-gradient-success text-white d-flex justify-content-between align-items-center">
-                                        <h5 class="mb-0 fw-bold">Inventario Recepcion</h5>
-                                        <button id="refreshBtn" class="btn btn-light btn-sm">
-                                            <i class="bi bi-arrow-clockwise"></i> Refrescar
-                                        </button>
+                                    <!-- Información general -->
+                                    <div class="row mb-4">
+                                        <div class="col-md-3">
+                                            <label for="fechainventario" class="form-label">Fecha</label>
+                                            <input type="date" id="fechainventario" class="form-control" readonly>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="responsableTurno" class="form-label">Responsable</label>
+                                            <input type="text" id="responsableTurno" class="form-control">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="turnoTurn" class="form-label">Turno</label>
+                                            <select id="turnoTurn" class="form-control">
+                                                <option value="" disabled selected>Seleccionar</option>
+                                                <option value="1am a 8am">1am a 8am</option>
+                                                <option value="8am a 4pm">8am a 4pm</option>
+                                                <option value="4pm a 11pm">4pm a 11pm</option>
+                                                <option value="6pm a 1am">6pm a 1am</option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <form id="inventarioForm" class="needs-validation" novalidate>
-                                        <br>
-                                        <div class="row mb-4">
-                                            <div class="col-md-3">
-                                                <label for="fechainventario" class="form-label">Fecha</label>
-                                                <input type="date" id="fechainventario" class="form-control" readonly>
-                                            </div>
+                                    <!-- Secciones de inventario -->
+                                    <div class="row">
 
-                                            <div class="col-md-3">
-                                                <label for="responsableTurno" class="form-label">Responsable</label>
-                                                <input type="text" id="responsableTurno" class="form-control">
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label for="turnoTurn" class="form-label">Turno</label>
-                                                <select id="turnoTurn" class="form-control">
-                                                    <option value="" disabled selected>Seleccionar</option>
-                                                    <option value="1am a 8am">1am a 8am</option>
-                                                    <option value="8am a 4pm">8am a 4pm</option>
-                                                    <option value="4pm a 11pm">4pm a 11pm</option>
-                                                    <option value="6pm a 1am">6pm a 1am</option>
-                                                </select>
+                                        <!-- Computadoras Activas -->
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card border-primary h-100 shadow-sm">
+                                                <div class="card-header bg-primary text-white fw-bold">Computadoras
+                                                    Activas</div>
+                                                <div class="card-body">
+                                                    <div class="form-check mb-1"><input class="form-check-input"
+                                                            type="checkbox" id="pc1"><label class="form-check-label"
+                                                            for="pc1">PC-01</label></div>
+                                                    <div class="form-check mb-1"><input class="form-check-input"
+                                                            type="checkbox" id="pc2"><label class="form-check-label"
+                                                            for="pc2">PC-02</label></div>
+                                                    <div class="form-check mb-1"><input class="form-check-input"
+                                                            type="checkbox" id="pc3"><label class="form-check-label"
+                                                            for="pc3">PC-03</label></div>
+                                                    <div class="form-check mb-1"><input class="form-check-input"
+                                                            type="checkbox" id="pc4"><label class="form-check-label"
+                                                            for="pc4">PC-04</label></div>
+                                                    <div class="form-check mb-1"><input class="form-check-input"
+                                                            type="checkbox" id="pc5"><label class="form-check-label"
+                                                            for="pc5">PC-05</label></div>
+                                                    <div class="form-check mb-1"><input class="form-check-input"
+                                                            type="checkbox" id="pc6"><label class="form-check-label"
+                                                            for="pc6">PC-06</label></div>
+                                                    <div class="form-check mb-1"><input class="form-check-input"
+                                                            type="checkbox" id="pc7"><label class="form-check-label"
+                                                            for="pc7">PC-07</label></div>
+                                                    <div class="form-check mb-1"><input class="form-check-input"
+                                                            type="checkbox" id="pc8"><label class="form-check-label"
+                                                            for="pc8">PC-08</label></div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="row mb-4">
-
-                                            <div class="col">
-                                                <label class="form-label">Computadoras Activas</label><br>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pc1">
-                                                    <label class="form-check-label" for="robotica">PC-01</label>
+                                        <!-- Lápices Digitales -->
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card border-warning h-100 shadow-sm">
+                                                <div class="card-header bg-warning text-dark fw-bold">Lápices Digitales
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pc2">
-                                                    <label class="form-check-label" for="robotica">PC-02</label>
+                                                <div class="card-body">
+                                                    <!-- Lápiz 1 -->
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input toggle-observacion"
+                                                            type="checkbox" id="lapiz1">
+                                                        <label class="form-check-label" for="lapiz1">Lápiz Huawei
+                                                            1</label>
+                                                        <textarea class="form-control mt-2 d-none observacion"
+                                                            id="obsLapiz1" placeholder="Observación Lápiz 1"></textarea>
+                                                    </div>
+                                                    <!-- Lápiz 2 -->
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input toggle-observacion"
+                                                            type="checkbox" id="lapiz2">
+                                                        <label class="form-check-label" for="lapiz2">Lápiz Huawei
+                                                            2</label>
+                                                        <textarea class="form-control mt-2 d-none observacion"
+                                                            id="obsLapiz2" placeholder="Observación Lápiz 2"></textarea>
+                                                    </div>
+                                                    <!-- Lápiz 3 -->
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input toggle-observacion"
+                                                            type="checkbox" id="lapiz3">
+                                                        <label class="form-check-label" for="lapiz3">Lápiz Huawei
+                                                            3</label>
+                                                        <textarea class="form-control mt-2 d-none observacion"
+                                                            id="obsLapiz3" placeholder="Observación Lápiz 3"></textarea>
+                                                    </div>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pc3">
-                                                    <label class="form-check-label" for="robotica">PC-03</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pc4">
-                                                    <label class="form-check-label" for="robotica">PC-04</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pc5">
-                                                    <label class="form-check-label" for="robotica">PC-05</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pc6">
-                                                    <label class="form-check-label" for="robotica">PC-06</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pc7">
-                                                    <label class="form-check-label" for="robotica">PC-07</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="pc8">
-                                                    <label class="form-check-label" for="robotica">PC-08</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col">
-                                                <label class="form-label">Lápices Digitales</label><br>
-
-                                                <!-- Lápiz 1 -->
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input toggle-observacion" type="checkbox"
-                                                        id="lapiz1">
-                                                    <label class="form-check-label" for="lapiz1">Lápiz Huawei 1</label>
-                                                    <textarea class="form-control mt-2 d-none observacion"
-                                                        id="obsLapiz1" placeholder="Observación Lápiz 1"></textarea>
-                                                </div>
-
-                                                <!-- Lápiz 2 -->
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input toggle-observacion" type="checkbox"
-                                                        id="lapiz2">
-                                                    <label class="form-check-label" for="lapiz2">Lápiz Huawei 2</label>
-                                                    <textarea class="form-control mt-2 d-none observacion"
-                                                        id="obsLapiz2" placeholder="Observación Lápiz 2"></textarea>
-                                                </div>
-
-                                                <!-- Lápiz 3 -->
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input toggle-observacion" type="checkbox"
-                                                        id="lapiz3">
-                                                    <label class="form-check-label" for="lapiz3">Lápiz Huawei 3</label>
-                                                    <textarea class="form-control mt-2 d-none observacion"
-                                                        id="obsLapiz3" placeholder="Observación Lápiz 3"></textarea>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col">
-                                                <label class="form-label">Cabinas en uso</label><br>
-
-                                                <!-- Cabina 1 -->
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input toggle-observacion" type="checkbox"
-                                                        id="cab1">
-                                                    <label class="form-check-label" for="cab1">Cabina 1</label>
-                                                    <textarea class="form-control mt-2 d-none observacion" id="obsCab1"
-                                                        placeholder="Observación de Cabina 1"></textarea>
-                                                </div>
-
-                                                <!-- Cabina 2 -->
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input toggle-observacion" type="checkbox"
-                                                        id="cab2">
-                                                    <label class="form-check-label" for="cab2">Cabina 2 (TV)</label>
-                                                    <textarea class="form-control mt-2 d-none observacion" id="obsCab2"
-                                                        placeholder="Observación de Cabina 2"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <label for="ubicationInventer" class="form-label">Ubicacion</label>
-                                                <select id="ubicationInventer" class="form-control">
-                                                    <option value="" disabled selected>Seleccionar</option>
-                                                    <option value="Recepcion Nivel 6">Recepcion Nivel 6</option>
-                                                    <option value="Bodega">Bodega</option>
-                                                </select>
                                             </div>
                                         </div>
 
-                                        <!--Botón de agregar usuarios-->
-                                        <div class="row mb-4">
-                                            <div class="col-12">
-                                                <button type="button" id="btnGuardar"
-                                                    class="btn btn-success">Guardar</button>
+                                        <!-- Cabinas en uso -->
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card border-success h-100 shadow-sm">
+                                                <div class="card-header bg-success text-white fw-bold">Cabinas en uso
+                                                </div>
+                                                <div class="card-body">
+                                                    <!-- Cabina 1 -->
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input toggle-observacion"
+                                                            type="checkbox" id="cab1">
+                                                        <label class="form-check-label" for="cab1">Cabina 1</label>
+                                                        <textarea class="form-control mt-2 d-none observacion"
+                                                            id="obsCab1"
+                                                            placeholder="Observación de Cabina 1"></textarea>
+                                                    </div>
+                                                    <!-- Cabina 2 -->
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input toggle-observacion"
+                                                            type="checkbox" id="cab2">
+                                                        <label class="form-check-label" for="cab2">Cabina 2 (TV)</label>
+                                                        <textarea class="form-control mt-2 d-none observacion"
+                                                            id="obsCab2"
+                                                            placeholder="Observación de Cabina 2"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </form>
+
+                                    </div>
+
+                                    <!-- Ubicación -->
+                                    <div class="row mb-4 mt-3">
+                                        <div class="col-md-4">
+                                            <label for="ubicationInventer" class="form-label">Ubicación</label>
+                                            <select id="ubicationInventer" class="form-control">
+                                                <option value="" disabled selected>Seleccionar</option>
+                                                <option value="Recepcion Nivel 6">Recepción Nivel 6</option>
+                                                <option value="Bodega">Bodega</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Botón Guardar -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button type="button" id="btnGuardar" class="btn btn-success btn-lg">
+                                                <i class="fas fa-save me-2"></i> Guardar Inventario
+                                            </button>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
