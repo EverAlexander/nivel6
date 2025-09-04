@@ -484,7 +484,14 @@
                     showConfirmButton: false
                 });
 
+                // 🔹 Limpiar formulario
                 document.getElementById("reporteDForm").reset();
+
+                // 🔹 Ocultar y vaciar observaciones
+                document.querySelectorAll("textarea").forEach(txt => {
+                    txt.value = "";
+                    txt.classList.add("d-none"); // o txt.style.display = "none";
+                });
 
             } catch (err) {
                 Swal.fire("❌ Error", err.message, "error");
