@@ -500,18 +500,68 @@
             const turnoEntrega = document.getElementById("turnoEntrega").value.trim();
             const entregaPor = document.getElementById("entregaPor").value.trim();
             const recibePor = document.getElementById("recibePor").value.trim();
-            
+
             if (!fecha) errores.push("Debe seleccionar una fecha.");
-            if (!turnoEntrega) errores.push("Debe seleccionar una categoría.");
-            if (!entregaPor) errores.push("Debe ingresar un nombre.");
-            if (!recibePor) errores.push("Debe ingresar la marca.");
-            
-            row = [fecha, turnoEntrega, entregaPor, recibePor];
+            if (!turnoEntrega) errores.push("Debe seleccionar un turno.");
+            if (!entregaPor) errores.push("Debe ingresar un responsable de entrega.");
+            if (!recibePor) errores.push("Debe ingresar un responsable de recepción.");
+
+            // ==== Computadoras Activas ====
+            const pcs = [];
+            for (let i = 1; i <= 8; i++) {
+                const pc = document.getElementById(`pc${i}`);
+                if (pc && pc.checked) pcs.push(`PC-${i}`);
+            }
+
+            // ==== Lápices Digitales (Sí + Observación en una sola celda) ====
+            const lapiz1 = document.getElementById("lapiz1").checked
+                ? "Sí" + (document.getElementById("obsLapiz1").value.trim() ? " - " + document.getElementById("obsLapiz1").value.trim() : "")
+                : "No";
+            const lapiz2 = document.getElementById("lapiz2").checked
+                ? "Sí" + (document.getElementById("obsLapiz2").value.trim() ? " - " + document.getElementById("obsLapiz2").value.trim() : "")
+                : "No";
+            const lapiz3 = document.getElementById("lapiz3").checked
+                ? "Sí" + (document.getElementById("obsLapiz3").value.trim() ? " - " + document.getElementById("obsLapiz3").value.trim() : "")
+                : "No";
+
+            // ==== Cabinas ====
+            const cab1 = document.getElementById("cab1").checked
+                ? "Sí" + (document.getElementById("obsCab1").value.trim() ? " - " + document.getElementById("obsCab1").value.trim() : "")
+                : "No";
+            const cab2 = document.getElementById("cab2").checked
+                ? "Sí" + (document.getElementById("obsCab2").value.trim() ? " - " + document.getElementById("obsCab2").value.trim() : "")
+                : "No";
+
+            // ==== Complementos ====
+            const radioMoto = document.getElementById("radioMoto").checked ? "Sí" : "No";
+            const tablet = document.getElementById("tablet").checked ? "Sí" : "No";
+            const pistola = document.getElementById("pistola").checked ? "Sí" : "No";
+
+            // ==== Observaciones Generales ====
+            const obGeneral = document.getElementById("obgeneral").value.trim();
 
             if (errores.length > 0) {
                 Swal.fire("⚠️ Campos incompletos", errores.join("<br>"), "warning");
                 return;
             }
+
+            // ==== Armar fila completa ====
+            row = [
+                fecha,
+                turnoEntrega,
+                entregaPor,
+                recibePor,
+                pcs.join(", "), // Computadoras activas
+                lapiz1,
+                lapiz2,
+                lapiz3,
+                cab1,
+                cab2,
+                radioMoto,
+                tablet,
+                pistola,
+                obGeneral
+            ];
 
             await guardarEnSheets("Reporte por turnos", row);
         });
