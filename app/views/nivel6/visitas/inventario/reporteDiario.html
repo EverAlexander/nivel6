@@ -353,9 +353,9 @@
                                     <div class="row mb-4">
                                         <div class="col-12 mb-3">
                                             <div class="card border-dark h-100 shadow-sm">
+                                                <div class="card-header bg-dark text-white fw-bold">Observaciones
+                                                    Generales</div>
                                                 <div class="card-body">
-                                                    <label for="obgeneral" class="form-label">Observaciones
-                                                        Generales</label>
                                                     <textarea class="form-control" id="obgeneral"
                                                         placeholder=""></textarea>
                                                 </div>
@@ -502,17 +502,15 @@
         });
 
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.toggle-observacion').forEach(check => {
-                check.addEventListener('change', function () {
-                    const obsInput = this.parentElement.querySelector('.observacion');
-                    if (this.checked) {
-                        obsInput.classList.remove('d-none'); // mostrar textarea
-                    } else {
-                        obsInput.classList.add('d-none');   // ocultar textarea
-                        obsInput.value = ""; // limpiar si se desmarca
-                    }
-                });
+        document.querySelectorAll('.toggle-observacion').forEach(check => {
+            check.addEventListener('change', function () {
+                const obsInput = this.parentElement.querySelector('.observacion');
+                if (this.checked) {
+                    obsInput.classList.remove('d-none'); // mostrar textarea
+                } else {
+                    obsInput.classList.add('d-none');   // ocultar textarea
+                    obsInput.value = ""; // limpiar si se desmarca
+                }
             });
         });
 
