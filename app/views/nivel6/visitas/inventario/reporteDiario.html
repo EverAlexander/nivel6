@@ -356,6 +356,7 @@
                                                 <div class="card-header bg-dark text-white fw-bold">Observaciones
                                                     Generales</div>
                                                 <div class="card-body">
+
                                                     <textarea class="form-control" id="obgeneral"
                                                         placeholder=""></textarea>
                                                 </div>
@@ -502,9 +503,11 @@
         });
 
 
+        // Toggle de observaciones para lápices y cabinas
         document.querySelectorAll('.toggle-observacion').forEach(check => {
             check.addEventListener('change', function () {
                 const obsInput = this.parentElement.querySelector('.observacion');
+                if (!obsInput) return;
                 if (this.checked) {
                     obsInput.classList.remove('d-none'); // mostrar textarea
                 } else {
@@ -513,7 +516,7 @@
                 }
             });
         });
-
+        
         // ====================== BOTÓN REFRESCAR TOKEN ======================
         document.getElementById("refreshBtn").addEventListener("click", () => {
             google.accounts.oauth2.initTokenClient({
