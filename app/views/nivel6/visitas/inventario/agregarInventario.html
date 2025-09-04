@@ -385,6 +385,38 @@
         });
     </script>
 
+    <script>
+        // Verificar sesión
+        const token = sessionStorage.getItem("accessToken");
+        if (!token) {
+            Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
+                .then(() => {
+                    window.location.href = "../../../../../index.html";
+                });
+        } else {
+            // Cargar datos de usuario
+            document.getElementById("userName").textContent = sessionStorage.getItem("userName");
+            document.getElementById("userImage").src = sessionStorage.getItem("userPicture");
+        }
+
+        // Logout
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            Swal.fire({
+                title: "¿Cerrar sesión?",
+                text: "Se cerrará tu cuenta de Google",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sí, salir",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    sessionStorage.clear();
+                    window.location.href = "../../../../../index.html";
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>
