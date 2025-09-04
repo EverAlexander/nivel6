@@ -161,63 +161,76 @@
                                     <br>
                                     <br>
 
-                                    <div class="row g-3">
-                                        <div class="col-md-3 d-none">
-                                            <label for="fechainventario" class="form-label">Fecha</label>
-                                            <input type="date" id="fechainventario" class="form-control">
+                                    <form id="inventarioForm" class="needs-validation" novalidate>
+                                        <div class="card-title mb-0">
+                                            <h6 class="m-0 me-2">Registro de usuario Nivel 6</h6>
+                                        </div>
+                                        <br>
+                                        <div class="row mb-4">
+                                            <div class="col-md-3 d-none">
+                                                <label for="fechainventario" class="form-label">Fecha</label>
+                                                <input type="date" id="fechainventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="catinventario" class="form-label">Categoria</label>
+                                                <select id="catinventario" class="form-control">
+                                                    <option value="" disabled selected>Seleccionar</option>
+                                                    <option value="Comunicacion">Comunicacion</option>
+                                                    <option value="Perifericos">Perifericos</option>
+                                                    <option value="Conectividad">Conectividad</option>
+                                                    <option value="Accesorios">Accesorios</option>
+                                                    <option value="Moviles">Moviles</option>
+                                                    <option value="Escaneo">Escaneo</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="nombreInventario" class="form-label">Nombre del
+                                                    producto</label>
+                                                <input type="text" id="nombreInventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="marcaInventario" class="form-label">Marca</label>
+                                                <input type="text" id="marcaInventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="modeloInventario" class="form-label">Modelo</label>
+                                                <input type="text" id="modeloInventario" class="form-control">
+                                            </div>
                                         </div>
 
-                                        <div class="col-md-3">
-                                            <label for="catinventario" class="form-label">Categoria</label>
-                                            <select id="catinventario" class="form-control">
-                                                <option value="" disabled selected>Seleccionar</option>
-                                                <option value="Comunicacion">Comunicacion</option>
-                                                <option value="Perifericos">Perifericos</option>
-                                                <option value="Conectividad">Conectividad</option>
-                                                <option value="Accesorios">Accesorios</option>
-                                                <option value="Moviles">Moviles</option>
-                                                <option value="Escaneo">Escaneo</option>
-                                            </select>
+                                        <div class="row mb-4">
+                                            <div class="col-md-3">
+                                                <label for="serialInventario" class="form-label">Serial</label>
+                                                <input type="text" id="serialInventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="cantInventario" class="form-label">Cantidad</label>
+                                                <input type="number" id="cantInventario" class="form-control">
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label for="ubicationInventer" class="form-label">Ubicacion</label>
+                                                <select id="ubicationInventer" class="form-control">
+                                                    <option value="" disabled selected>Seleccionar</option>
+                                                    <option value="Recepcion Nivel 6">Recepcion Nivel 6</option>
+                                                    <option value="Bodega">Bodega</option>
+                                                </select>
+                                            </div>
                                         </div>
 
-                                        <div class="col-md-3">
-                                            <label for="nombreInventario" class="form-label">Nombre del producto</label>
-                                            <input type="text" id="nombreInventario" class="form-control">
+                                        <!--Botón de agregar usuarios-->
+                                        <div class="row mb-4">
+                                            <div class="col-12">
+                                                <button type="button" id="btnGuardar"
+                                                    class="btn btn-success">Guardar</button>
+                                            </div>
                                         </div>
-
-                                        <div class="col-md-3">
-                                            <label for="marcaInventario" class="form-label">Marca</label>
-                                            <input type="text" id="marcaInventario" class="form-control">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label for="modeloInventario" class="form-label">Modelo</label>
-                                            <input type="text" id="modeloInventario" class="form-control">
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="row g-3">
-                                        <div class="col-md-3">
-                                            <label for="serialInventario" class="form-label">Serial</label>
-                                            <input type="text" id="serialInventario" class="form-control">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label for="cantInventario" class="form-label">Cantidad</label>
-                                            <input type="number" id="cantInventario" class="form-control">
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <label for="ubicationInventer" class="form-label">Ubicacion</label>
-                                            <select id="ubicationInventer" class="form-control">
-                                                <option value="" disabled selected>Seleccionar</option>
-                                                <option value="Recepcion Nivel 6">Recepcion Nivel 6</option>
-                                                <option value="Bodega">Bodega</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <br><br>
-                                    <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
