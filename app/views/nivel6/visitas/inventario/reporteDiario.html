@@ -467,7 +467,7 @@
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            values: [row]  // cada fila como un array
+                            values: [row]
                         })
                     }
                 );
@@ -484,14 +484,10 @@
                     showConfirmButton: false
                 });
 
-                // 🔹 Limpiar formulario
-                document.getElementById("reporteDForm").reset();
-
-                // 🔹 Ocultar y vaciar observaciones
-                document.querySelectorAll("textarea").forEach(txt => {
-                    txt.value = "";
-                    txt.classList.add("d-none"); // o txt.style.display = "none";
-                });
+                // 🔹 Recargar página después del alert
+                setTimeout(() => {
+                    location.reload();
+                }, 1600);
 
             } catch (err) {
                 Swal.fire("❌ Error", err.message, "error");
