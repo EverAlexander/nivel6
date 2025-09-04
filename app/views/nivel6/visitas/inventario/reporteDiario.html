@@ -256,38 +256,42 @@
                                             </div>
                                         </div>
 
-
-                                        <div class="col">
-                                            <label class="form-label">Lápices Digitales</label><br>
-
-                                            <!-- Lápiz 1 -->
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input toggle-observacion" type="checkbox"
-                                                    id="lapiz1">
-                                                <label class="form-check-label" for="lapiz1">Lápiz Huawei 1</label>
-                                                <textarea class="form-control mt-2 d-none observacion" id="obsLapiz1"
-                                                    placeholder="Observación Lápiz 1"></textarea>
-                                            </div>
-
-                                            <!-- Lápiz 2 -->
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input toggle-observacion" type="checkbox"
-                                                    id="lapiz2">
-                                                <label class="form-check-label" for="lapiz2">Lápiz Huawei 2</label>
-                                                <textarea class="form-control mt-2 d-none observacion" id="obsLapiz2"
-                                                    placeholder="Observación Lápiz 2"></textarea>
-                                            </div>
-
-                                            <!-- Lápiz 3 -->
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input toggle-observacion" type="checkbox"
-                                                    id="lapiz3">
-                                                <label class="form-check-label" for="lapiz3">Lápiz Huawei 3</label>
-                                                <textarea class="form-control mt-2 d-none observacion" id="obsLapiz3"
-                                                    placeholder="Observación Lápiz 3"></textarea>
+                                        <!-- Lápices Digitales -->
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card border-warning h-100 shadow-sm">
+                                                <div class="card-header bg-warning text-dark fw-bold">Lápices Digitales
+                                                </div>
+                                                <div class="card-body">
+                                                    <!-- Lápiz 1 -->
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input toggle-observacion"
+                                                            type="checkbox" id="lapiz1">
+                                                        <label class="form-check-label" for="lapiz1">Lápiz Huawei
+                                                            1</label>
+                                                        <textarea class="form-control mt-2 d-none observacion"
+                                                            id="obsLapiz1" placeholder="Observación Lápiz 1"></textarea>
+                                                    </div>
+                                                    <!-- Lápiz 2 -->
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input toggle-observacion"
+                                                            type="checkbox" id="lapiz2">
+                                                        <label class="form-check-label" for="lapiz2">Lápiz Huawei
+                                                            2</label>
+                                                        <textarea class="form-control mt-2 d-none observacion"
+                                                            id="obsLapiz2" placeholder="Observación Lápiz 2"></textarea>
+                                                    </div>
+                                                    <!-- Lápiz 3 -->
+                                                    <div class="form-check mb-2">
+                                                        <input class="form-check-input toggle-observacion"
+                                                            type="checkbox" id="lapiz3">
+                                                        <label class="form-check-label" for="lapiz3">Lápiz Huawei
+                                                            3</label>
+                                                        <textarea class="form-control mt-2 d-none observacion"
+                                                            id="obsLapiz3" placeholder="Observación Lápiz 3"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-
 
                                         <!-- Cabinas en uso -->
                                         <div class="col-md-4 mb-3">
@@ -499,18 +503,22 @@
         });
 
 
-        document.querySelectorAll('.toggle-observacion').forEach(check => {
-            check.addEventListener('change', function () {
-                const obsInput = this.parentElement.querySelector('.observacion');
-                if (this.checked) {
-                    obsInput.classList.remove('d-none'); // mostrar textarea
-                } else {
-                    obsInput.classList.add('d-none');   // ocultar textarea
-                    obsInput.value = ""; // limpiar si se desmarca
-                }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.toggle-observacion').forEach(check => {
+                check.addEventListener('change', function () {
+                    // Buscar el textarea dentro del mismo bloque .form-check
+                    const obsInput = this.closest('.form-check').querySelector('.observacion');
+                    if (!obsInput) return;
+
+                    if (this.checked) {
+                        obsInput.classList.remove('d-none'); // mostrar textarea
+                    } else {
+                        obsInput.classList.add('d-none');   // ocultar textarea
+                        obsInput.value = ""; // limpiar si se desmarca
+                    }
+                });
             });
         });
-
         // ====================== BOTÓN REFRESCAR TOKEN ======================
         document.getElementById("refreshBtn").addEventListener("click", () => {
             google.accounts.oauth2.initTokenClient({
