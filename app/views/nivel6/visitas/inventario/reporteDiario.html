@@ -264,8 +264,8 @@
                                                     <input class="form-check-input toggle-observacion" type="checkbox"
                                                         id="cab1">
                                                     <label class="form-check-label" for="cab1">Cabina 1</label>
-                                                    <input type="text" class="form-control mt-2  observacion"
-                                                        id="obsCab1" placeholder="Observación de Cabina 1">
+                                                    <textarea class="form-control mt-2 d-none observacion" id="obsCab1"
+                                                        placeholder="Observación de Cabina 1"></textarea>
                                                 </div>
 
                                                 <!-- Cabina 2 -->
@@ -273,10 +273,11 @@
                                                     <input class="form-check-input toggle-observacion" type="checkbox"
                                                         id="cab2">
                                                     <label class="form-check-label" for="cab2">Cabina 2 (TV)</label>
-                                                    <input type="text" class="form-control mt-2 d-none observacion"
-                                                        id="obsCab2" placeholder="Observación de Cabina 2">
+                                                    <textarea class="form-control mt-2 d-none observacion" id="obsCab2"
+                                                        placeholder="Observación de Cabina 2"></textarea>
                                                 </div>
                                             </div>
+
 
 
 
@@ -423,6 +424,19 @@
             }
 
             await guardarEnSheets("Inventario recepcion", row);
+        });
+
+
+        document.querySelectorAll('.toggle-observacion').forEach(check => {
+            check.addEventListener('change', function () {
+                const obsInput = this.parentElement.querySelector('.observacion');
+                if (this.checked) {
+                    obsInput.classList.remove('d-none'); // mostrar textarea
+                } else {
+                    obsInput.classList.add('d-none');   // ocultar textarea
+                    obsInput.value = ""; // limpiar si se desmarca
+                }
+            });
         });
 
         // ====================== BOTÓN REFRESCAR TOKEN ======================
