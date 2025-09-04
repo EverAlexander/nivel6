@@ -499,22 +499,18 @@
         });
 
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.toggle-observacion').forEach(check => {
-                check.addEventListener('change', function () {
-                    // Buscar el textarea dentro del mismo bloque .form-check
-                    const obsInput = this.closest('.form-check').querySelector('.observacion');
-                    if (!obsInput) return;
-
-                    if (this.checked) {
-                        obsInput.classList.remove('d-none'); // mostrar textarea
-                    } else {
-                        obsInput.classList.add('d-none');   // ocultar textarea
-                        obsInput.value = ""; // limpiar si se desmarca
-                    }
-                });
+        document.querySelectorAll('.toggle-observacion').forEach(check => {
+            check.addEventListener('change', function () {
+                const obsInput = this.parentElement.querySelector('.observacion');
+                if (this.checked) {
+                    obsInput.classList.remove('d-none'); // mostrar textarea
+                } else {
+                    obsInput.classList.add('d-none');   // ocultar textarea
+                    obsInput.value = ""; // limpiar si se desmarca
+                }
             });
         });
+
         // ====================== BOTÓN REFRESCAR TOKEN ======================
         document.getElementById("refreshBtn").addEventListener("click", () => {
             google.accounts.oauth2.initTokenClient({
