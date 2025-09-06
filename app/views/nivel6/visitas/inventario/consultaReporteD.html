@@ -381,14 +381,24 @@
             return data.values || [];
         }
 
-        // ✅ Ajuste: convertir a "6/9/2025"
-        function formatearFecha(fechaInput) {
-            if (!fechaInput) return "";
-            const partes = fechaInput.split("-"); // ["2025","09","06"]
-            const dia = parseInt(partes[2], 10);   // quita cero delante
-            const mes = parseInt(partes[1], 10);   // quita cero delante
-            const anio = partes[0];
-            return `${dia}/${mes}/${anio}`;
+        // ✅ Normaliza cualquier fecha a formato "YYYY-MM-DD"
+        function normalizarFecha(fechaTexto) {
+            if (!fechaTexto) return "";
+            let partes;
+
+            if (fechaTexto.includes("-")) {
+                // viene de input "2025-09-10"
+                partes = fechaTexto.split("-");
+                return `${partes[0]}-${partes[1].padStart(2, "0")}-${partes[2].padStart(2, "0")}`;
+            } else if (fechaTexto.includes("/")) {
+                // viene de Sheets "10/09/2025" o "10/9/2025"
+                partes = fechaTexto.split("/");
+                const dia = partes[0].padStart(2, "0");
+                const mes = partes[1].padStart(2, "0");
+                const anio = partes[2];
+                return `${anio}-${mes}-${dia}`;
+            }
+            return fechaTexto;
         }
 
         function mostrarEnDivs(fila, indices) {
@@ -409,7 +419,7 @@
         document.getElementById("filtroForm").addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const fechaSeleccionada = formatearFecha(document.getElementById("fecha").value);
+            const fechaSeleccionada = normalizarFecha(document.getElementById("fecha").value);
             const turnoSeleccionado = document.getElementById("turno").value.trim().toLowerCase();
 
             console.log("Buscando fecha:", fechaSeleccionada, "Turno:", turnoSeleccionado);
@@ -431,11 +441,15 @@
                 indices[col] = encabezados.indexOf(col);
             });
 
-            const filaEncontrada = datos.find((fila, i) =>
-                i > 0 &&
-                (fila[indices["Fecha"]] || "").trim() === fechaSeleccionada &&
-                (fila[indices["Turno"]] || "").trim().toLowerCase() === turnoSeleccionado
-            );
+            const filaEncontrada = datos.find((fila, i) => {
+                if (i === 0) return false; // saltar encabezado
+                const fechaFila = normalizarFecha((fila[indices["Fecha"]] || "").trim());
+                const turnoFila = (fila[indices["Turno"]] || "").trim().toLowerCase();
+
+                console.log("Comparando:", fechaFila, turnoFila);
+
+                return fechaFila === fechaSeleccionada && turnoFila === turnoSeleccionado;
+            });
 
             console.log("Fila encontrada:", filaEncontrada);
 
@@ -448,8 +462,6 @@
             mostrarEnDivs(filaEncontrada, indices);
         });
     </script>
-
-
 
 </body>
 
