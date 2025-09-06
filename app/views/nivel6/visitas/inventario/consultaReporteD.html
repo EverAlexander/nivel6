@@ -160,8 +160,7 @@
                                                     <div class="col-md-5">
                                                         <label for="fecha" class="form-label fw-bold">Selecciona
                                                             Fecha</label>
-                                                        <input type="date" id="fecha"
-                                                                    class="form-control">
+                                                        <input type="date" id="fecha" class="form-control">
                                                     </div>
                                                     <div class="col-md-5">
                                                         <label for="turno" class="form-label fw-bold">Selecciona
@@ -360,103 +359,95 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+    
     <script>
         const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc";
         const RANGE = "Inventario recepcion!A1:Z1000";
-
-        const columnasDeseadas = ["Fecha", "Categoria", "Nombre", "Marca", "Modelo", "Cantidad", "Ubicacion"];
         let datosGlobal = [];
-        let indiceDescripcion = -1;
 
+        // Obtener datos
         async function obtenerDatos() {
             const accessToken = sessionStorage.getItem("accessToken");
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`;
-            const res = await fetch(url, {
-                headers: { Authorization: `Bearer ${accessToken}` }
-            });
+            const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
             const data = await res.json();
             return data.values || [];
         }
 
-        function mostrarDatos(datos) {
-            const tabla = document.getElementById("tablaInventario");
-            const thead = tabla.querySelector("thead");
-            const tbody = tabla.querySelector("tbody");
-
-            thead.innerHTML = "";
-            tbody.innerHTML = "";
-
-            if (!datos || datos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8">No hay datos para mostrar</td></tr>';
-                return;
-            }
-
+        // Poblar selects de filtro
+        function poblarFiltros(datos) {
             const encabezados = datos[0];
-            const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
-            indiceDescripcion = encabezados.indexOf("Categoria");
+            const filas = datos.slice(1);
 
-            // Construir encabezado
-            const trHead = document.createElement("tr");
-            columnasDeseadas.forEach(h => {
-                const th = document.createElement("th");
-                th.textContent = h;
-                trHead.appendChild(th);
+            const fechaIdx = encabezados.indexOf("Fecha");
+            const turnoIdx = encabezados.indexOf("Turno");
+
+            const fechas = [...new Set(filas.map(f => f[fechaIdx]))];
+            const turnos = [...new Set(filas.map(f => f[turnoIdx]))];
+
+            const selectFecha = document.getElementById("fecha");
+            const selectTurno = document.getElementById("turno");
+
+            fechas.forEach(f => {
+                if (f) {
+                    const option = document.createElement("option");
+                    option.value = f;
+                    option.textContent = f;
+                    selectFecha.appendChild(option);
+                }
             });
 
-            thead.appendChild(trHead);
-
-            // Datos sin encabezados
-            const datosFiltrados = datos.slice(1);
-
-            if (datosFiltrados.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8">Sin resultados</td></tr>';
-                return;
-            }
-
-            datosFiltrados.forEach((fila) => {
-                const tr = document.createElement("tr");
-                indices.forEach(idx => {
-                    const td = document.createElement("td");
-                    td.textContent = idx >= 0 ? fila[idx] || "" : "";
-                    tr.appendChild(td);
-                });
-
-                tbody.appendChild(tr);
+            turnos.forEach(t => {
+                if (t) {
+                    const option = document.createElement("option");
+                    option.value = t;
+                    option.textContent = t;
+                    selectTurno.appendChild(option);
+                }
             });
         }
 
-        // Filtro dinámico
-        function filtrarDatos(termino) {
-            termino = termino.toLowerCase().trim();
+        // Mostrar datos en tarjetas
+        function mostrarDatos(fila, encabezados) {
+            document.getElementById("radioCn6").textContent = fila[encabezados.indexOf("Radio Motorola")] || "-";
+            document.getElementById("escanerpistola").textContent = fila[encabezados.indexOf("Pistola de escaneo")] || "-";
+            document.getElementById("tablets").textContent = fila[encabezados.indexOf("Tablets")] || "-";
+
+            document.getElementById("cabina1").textContent = fila[encabezados.indexOf("Cabina 1")] || "-";
+            document.getElementById("cabina02").textContent = fila[encabezados.indexOf("Cabina 2")] || "-";
+
+            document.getElementById("lapiz1").textContent = fila[encabezados.indexOf("Lapiz Huawei 1")] || "-";
+            document.getElementById("lapiz2").textContent = fila[encabezados.indexOf("Lapiz Huawei 2")] || "-";
+            document.getElementById("lapiz3").textContent = fila[encabezados.indexOf("Lapiz Huawei 3")] || "-";
+
+            document.getElementById("contenedorDatos").classList.remove("d-none");
+        }
+
+        // Evento submit filtro
+        document.getElementById("filtroForm").addEventListener("submit", e => {
+            e.preventDefault();
+            const fecha = document.getElementById("fecha").value;
+            const turno = document.getElementById("turno").value;
 
             const encabezados = datosGlobal[0];
             const filas = datosGlobal.slice(1);
 
-            if (!termino) {
-                //Si no hay texto, mostramos todo otra vez
-                mostrarDatos(datosGlobal);
-                return;
-            }
-
-            const filtradas = filas.filter(fila =>
-                fila.some(valor => valor && valor.toLowerCase().includes(termino))
+            const fila = filas.find(f =>
+                f[encabezados.indexOf("Fecha")] === fecha &&
+                f[encabezados.indexOf("Turno")] === turno
             );
 
-            mostrarDatos([encabezados, ...filtradas]);
-        }
+            if (fila) {
+                mostrarDatos(fila, encabezados);
+            } else {
+                alert("No se encontraron datos para la selección.");
+            }
+        });
 
-        // Evento al escribir en el input
-        document.addEventListener("DOMContentLoaded", () => {
-            const buscador = document.getElementById("buscador");
-            buscador.addEventListener("input", (e) => {
-                filtrarDatos(e.target.value);
-            });
-
-            // Inicial
-            obtenerDatos().then(datos => {
-                datosGlobal = datos;
-                mostrarDatos(datos);
-            });
+        // Inicial
+        document.addEventListener("DOMContentLoaded", async () => {
+            datosGlobal = await obtenerDatos();
+            poblarFiltros(datosGlobal);
         });
     </script>
 
