@@ -58,7 +58,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item active">
-                <a class="nav-link" href="home.html">
+                <a class="nav-link" href="../home.html">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span>
                 </a>
@@ -71,22 +71,49 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-exchange-alt"></i>
-                    <span>Recursos</span>
+                    <i class="fas fa-users"></i>
+                    <span>Usuarios</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="agregarvisita.html">Agregar Visitas</a>
-                        <a class="collapse-item" href="prestamospc.html">Computadoras en uso</a>
-                        <a class="collapse-item" href="prestamoscabina.html">Cabinas en uso</a>
-                        <a class="collapse-item" href="prestamospantallas.html">Pantallas en uso</a>
-                        <a class="collapse-item" href="#">Reservaciones</a>
-                        <a class="collapse-item" href="datosrecorridos.html">Recorridos</a>
+                        <a class="collapse-item" href="../agregarvisita.html">Agregar Visitas</a>
+                        <a class="collapse-item" href="../prestamospc.html">Computadoras en uso</a>
+                        <a class="collapse-item" href="../prestamoscabina.html">Cabinas en uso</a>
+                        <a class="collapse-item" href="../prestamospantallas.html">Pantallas en uso</a>
                     </div>
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#cabinas"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-headphones"></i>
+                    <span>Cabinas</span>
+                </a>
+                <div id="cabinas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="../cabinas/cabina1.html">Cabina 1</a>
+                        <a class="collapse-item" href="../cabinas/cabina2.html">Cabina 2</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inventario"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-boxes"></i>
+                    <span>Inventario</span>
+                </a>
+                <div id="inventario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opciones:</h6>
+                        <a class="collapse-item" href="agregarInventario.html">Agregar Inventario</a>
+                        <a class="collapse-item" href="#">Lista de Inventario</a>
+                    </div>
+                </div>
+            </li>
             <hr class="sidebar-divider">
         </ul>
         <!-- End of Sidebar -->
@@ -264,7 +291,7 @@
                 th.textContent = h;
                 trHead.appendChild(th);
             });
-            
+
             thead.appendChild(trHead);
 
             // Datos sin encabezados
