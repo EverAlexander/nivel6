@@ -264,9 +264,7 @@
                 th.textContent = h;
                 trHead.appendChild(th);
             });
-            const thAccion = document.createElement("th");
-            thAccion.textContent = "Acción";
-            trHead.appendChild(thAccion);
+            
             thead.appendChild(trHead);
 
             // Datos sin encabezados
@@ -296,7 +294,7 @@
             });
         }
 
-        // 🔍 Filtro dinámico
+        // Filtro dinámico
         function filtrarDatos(termino) {
             termino = termino.toLowerCase().trim();
 
@@ -304,7 +302,7 @@
             const filas = datosGlobal.slice(1);
 
             if (!termino) {
-                // ✅ Si no hay texto, mostramos todo otra vez
+                //Si no hay texto, mostramos todo otra vez
                 mostrarDatos(datosGlobal);
                 return;
             }
