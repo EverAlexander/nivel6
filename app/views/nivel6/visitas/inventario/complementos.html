@@ -306,8 +306,8 @@
             indiceDescripcion = encabezados.indexOf("Categoria");
 
             // 🔍 Buscar índices de columnas
-            const indiceFecha = encabezados.indexOf("Agenda");          // fecha
-            const indiceHoraEntrada = encabezados.indexOf("Hora de entrada"); // hora
+            //const indiceFecha = encabezados.indexOf("Agenda");          // fecha
+            //const indiceHoraEntrada = encabezados.indexOf("Hora de entrada"); // hora
 
             const trHead = document.createElement("tr");
             columnasDeseadas.forEach(h => {
@@ -321,15 +321,15 @@
             thead.appendChild(trHead);
 
             // Filtrar solo los registros "Reservado"
-            let datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
+            //let datosFiltrados = datos.slice(1).filter(fila => fila[indiceDescripcion] === "Reservado");
 
-            if (datosFiltrados.length === 0) {
+            /*if (datosFiltrados.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="8">No reservaciones de cabinas</td></tr>';
                 return;
-            }
+            }*/
 
             // ✅ Ordenar por fecha y luego por hora
-            datosFiltrados.sort((a, b) => {
+            /*datosFiltrados.sort((a, b) => {
                 const fechaA = new Date(a[indiceFecha] || "");
                 const fechaB = new Date(b[indiceFecha] || "");
 
@@ -348,7 +348,7 @@
                 const totalMinB = (hB * 60) + (mB || 0);
 
                 return totalMinA - totalMinB; // ascendente por hora
-            });
+            });*/
 
             datosFiltrados.forEach((fila) => {
                 const tr = document.createElement("tr");
@@ -456,4 +456,3 @@
 </body>
 
 </html>
-
