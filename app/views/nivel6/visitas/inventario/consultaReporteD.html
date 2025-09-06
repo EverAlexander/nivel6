@@ -381,10 +381,14 @@
             return data.values || [];
         }
 
+        // ✅ Ajuste: convertir a "6/9/2025"
         function formatearFecha(fechaInput) {
-            // fechaInput viene como "2025-09-06"
-            const partes = fechaInput.split("-");
-            return `${partes[2]}/${partes[1]}/${partes[0]}`; // "06/09/2025"
+            if (!fechaInput) return "";
+            const partes = fechaInput.split("-"); // ["2025","09","06"]
+            const dia = parseInt(partes[2], 10);   // quita cero delante
+            const mes = parseInt(partes[1], 10);   // quita cero delante
+            const anio = partes[0];
+            return `${dia}/${mes}/${anio}`;
         }
 
         function mostrarEnDivs(fila, indices) {
@@ -444,6 +448,7 @@
             mostrarEnDivs(filaEncontrada, indices);
         });
     </script>
+
 
 
 </body>
