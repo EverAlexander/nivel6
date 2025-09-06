@@ -359,7 +359,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    
+
     <script>
         const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc";
         const RANGE = "Reporte por turnos!A1:Z1000";
@@ -372,39 +372,6 @@
             const res = await fetch(url, { headers: { Authorization: `Bearer ${accessToken}` } });
             const data = await res.json();
             return data.values || [];
-        }
-
-        // Poblar selects de filtro
-        function poblarFiltros(datos) {
-            const encabezados = datos[0];
-            const filas = datos.slice(1);
-
-            const fechaIdx = encabezados.indexOf("Fecha");
-            const turnoIdx = encabezados.indexOf("Turno");
-
-            const fechas = [...new Set(filas.map(f => f[fechaIdx]))];
-            const turnos = [...new Set(filas.map(f => f[turnoIdx]))];
-
-            const selectFecha = document.getElementById("fecha");
-            const selectTurno = document.getElementById("turno");
-
-            fechas.forEach(f => {
-                if (f) {
-                    const option = document.createElement("option");
-                    option.value = f;
-                    option.textContent = f;
-                    selectFecha.appendChild(option);
-                }
-            });
-
-            turnos.forEach(t => {
-                if (t) {
-                    const option = document.createElement("option");
-                    option.value = t;
-                    option.textContent = t;
-                    selectTurno.appendChild(option);
-                }
-            });
         }
 
         // Mostrar datos en tarjetas
@@ -426,14 +393,24 @@
         // Evento submit filtro
         document.getElementById("filtroForm").addEventListener("submit", e => {
             e.preventDefault();
-            const fecha = document.getElementById("fecha").value;
+
+            const fechaInput = document.getElementById("fecha").value; // yyyy-mm-dd
             const turno = document.getElementById("turno").value;
+
+            if (!fechaInput || !turno) {
+                alert("Por favor selecciona una fecha y un turno.");
+                return;
+            }
+
+            // Convertimos la fecha del input a formato usado en Google Sheets (dd/mm/yyyy o similar)
+            const fechaObj = new Date(fechaInput);
+            const fechaFormateada = `${fechaObj.getDate()}/${fechaObj.getMonth() + 1}/${fechaObj.getFullYear()}`;
 
             const encabezados = datosGlobal[0];
             const filas = datosGlobal.slice(1);
 
             const fila = filas.find(f =>
-                f[encabezados.indexOf("Fecha")] === fecha &&
+                f[encabezados.indexOf("Fecha")] === fechaFormateada &&
                 f[encabezados.indexOf("Turno")] === turno
             );
 
@@ -447,11 +424,11 @@
         // Inicial
         document.addEventListener("DOMContentLoaded", async () => {
             datosGlobal = await obtenerDatos();
-            poblarFiltros(datosGlobal);
         });
     </script>
 
 
+
 </body>
 
-</html>s
+</html>
