@@ -289,6 +289,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-12 mb-4">
+                                                    <div class="card shadow-sm border-0 rounded-3">
+                                                        <div class="card-header bg-gradient-warning text-dark fw-bold">
+                                                            Observaciones Generales
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <p class="mb-0 text-muted" id="observaciones">No hay
+                                                                observaciones.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -411,6 +425,8 @@
             document.getElementById("lapiz1").textContent = fila[indices["Lapiz Huawei 1"]] || "—";
             document.getElementById("lapiz2").textContent = fila[indices["Lapiz Huawei 2"]] || "—";
             document.getElementById("lapiz3").textContent = fila[indices["Lapiz Huawei 3"]] || "—";
+
+            document.getElementById("observaciones").textContent = fila[indices["Observaciones Generales"]] || "—";
 
             document.getElementById("contenedorDatos").classList.remove("d-none");
         }
