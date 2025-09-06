@@ -359,7 +359,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-
     <script>
         const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc";
         const RANGE = "Reporte por turnos!A1:Z1000";
@@ -402,16 +401,19 @@
                 return;
             }
 
-            // Convertimos la fecha del input a formato usado en Google Sheets (dd/mm/yyyy o similar)
+            // Convertimos la fecha del input a formato dd/mm/yyyy con mes con cero
             const fechaObj = new Date(fechaInput);
-            const fechaFormateada = `${fechaObj.getDate()}/${fechaObj.getMonth() + 1}/${fechaObj.getFullYear()}`;
+            const dia = fechaObj.getDate(); // sin cero
+            const mes = String(fechaObj.getMonth() + 1).padStart(2, "0"); // mes con cero
+            const fechaFormateada = `${dia}/${mes}/${fechaObj.getFullYear()}`;
 
             const encabezados = datosGlobal[0];
             const filas = datosGlobal.slice(1);
 
+            // Buscar fila coincidente normalizando espacios y mayúsculas
             const fila = filas.find(f =>
-                f[encabezados.indexOf("Fecha")] === fechaFormateada &&
-                f[encabezados.indexOf("Turno")] === turno
+                (f[encabezados.indexOf("Fecha")] || "").trim() === fechaFormateada &&
+                (f[encabezados.indexOf("Turno")] || "").trim().toLowerCase() === turno.toLowerCase()
             );
 
             if (fila) {
@@ -426,6 +428,7 @@
             datosGlobal = await obtenerDatos();
         });
     </script>
+
 
 
 
