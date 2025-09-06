@@ -359,13 +359,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
     <script>
         const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc";
         const RANGE = "Reporte por turnos!A1:Z1000";
 
-        const columnasDeseadas = ["Fecha", "Turno", "Entregado por", "Recibido por", "PC en uso", "Lapiz Huawei 1", "Lapiz Huawei 2", "Lapiz Huawei 3", "Cabina 1", "Cabina 2", "Radio Motorola", "Tablets", "Pistola de escaneo", "Observaciones Generales"];
-        let datosGlobal = [];
+        const columnasDeseadas = [
+            "Fecha", "Turno", "Entregado por", "Recibido por", "PC en uso",
+            "Lapiz Huawei 1", "Lapiz Huawei 2", "Lapiz Huawei 3",
+            "Cabina 1", "Cabina 2", "Radio Motorola", "Tablets",
+            "Pistola de escaneo", "Observaciones Generales"
+        ];
 
         async function obtenerDatos() {
             const accessToken = sessionStorage.getItem("accessToken");
@@ -374,11 +377,17 @@
                 headers: { Authorization: `Bearer ${accessToken}` }
             });
             const data = await res.json();
+            console.log("Datos crudos desde la hoja:", data.values); // 👀 debug
             return data.values || [];
         }
 
+        function formatearFecha(fechaInput) {
+            // fechaInput viene como "2025-09-06"
+            const partes = fechaInput.split("-");
+            return `${partes[2]}/${partes[1]}/${partes[0]}`; // "06/09/2025"
+        }
+
         function mostrarEnDivs(fila, indices) {
-            // Asignar valores a cada div según ID
             document.getElementById("radioCn6").textContent = fila[indices["Radio Motorola"]] || "—";
             document.getElementById("escanerpistola").textContent = fila[indices["Pistola de escaneo"]] || "—";
             document.getElementById("tablets").textContent = fila[indices["Tablets"]] || "—";
@@ -390,15 +399,16 @@
             document.getElementById("lapiz2").textContent = fila[indices["Lapiz Huawei 2"]] || "—";
             document.getElementById("lapiz3").textContent = fila[indices["Lapiz Huawei 3"]] || "—";
 
-            // Mostrar contenedor de tarjetas
             document.getElementById("contenedorDatos").classList.remove("d-none");
         }
 
         document.getElementById("filtroForm").addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const fechaSeleccionada = document.getElementById("fecha").value;
-            const turnoSeleccionado = document.getElementById("turno").value;
+            const fechaSeleccionada = formatearFecha(document.getElementById("fecha").value);
+            const turnoSeleccionado = document.getElementById("turno").value.trim().toLowerCase();
+
+            console.log("Buscando fecha:", fechaSeleccionada, "Turno:", turnoSeleccionado);
 
             if (!fechaSeleccionada || !turnoSeleccionado) {
                 alert("Por favor selecciona una fecha y un turno.");
@@ -411,19 +421,19 @@
                 return;
             }
 
-            // Encabezados y mapa de columnas
             const encabezados = datos[0];
             const indices = {};
             columnasDeseadas.forEach(col => {
                 indices[col] = encabezados.indexOf(col);
             });
 
-            // Buscar fila que coincida
             const filaEncontrada = datos.find((fila, i) =>
                 i > 0 &&
-                fila[indices["Fecha"]] === fechaSeleccionada &&
-                fila[indices["Turno"]] === turnoSeleccionado
+                (fila[indices["Fecha"]] || "").trim() === fechaSeleccionada &&
+                (fila[indices["Turno"]] || "").trim().toLowerCase() === turnoSeleccionado
             );
+
+            console.log("Fila encontrada:", filaEncontrada);
 
             if (!filaEncontrada) {
                 alert("No se encontraron registros para esa fecha y turno.");
@@ -431,10 +441,10 @@
                 return;
             }
 
-            // Mostrar valores en tarjetas/divs
             mostrarEnDivs(filaEncontrada, indices);
         });
     </script>
+
 
 </body>
 
