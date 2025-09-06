@@ -188,30 +188,29 @@
                                             <div class="row mb-4">
                                                 <div class="col-lg-12">
                                                     <div class="card shadow-sm border-0 rounded-3">
-                                                        <div
-                                                            class="card-header bg-gradient-secondary text-white fw-bold">
-                                                            Detalle del Reporte
+                                                        <div class="card-header bg-primary text-white fw-bold">
+                                                            📋 Detalle del Reporte Diario
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="row text-center text-md-start">
                                                                 <div class="col-md-3 mb-3">
-                                                                    <span class="fw-bold text-secondary">Fecha:</span>
+                                                                    <span class="fw-bold text-muted">Fecha:</span>
                                                                     <div id="detalleFecha" class="h6 mb-0 text-dark">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3 mb-3">
-                                                                    <span class="fw-bold text-secondary">Turno:</span>
+                                                                    <span class="fw-bold text-muted">Turno:</span>
                                                                     <div id="detalleTurno" class="h6 mb-0 text-dark">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3 mb-3">
-                                                                    <span class="fw-bold text-secondary">Entregado
+                                                                    <span class="fw-bold text-muted">Entregado
                                                                         por:</span>
                                                                     <div id="detalleEntregado"
                                                                         class="h6 mb-0 text-dark"></div>
                                                                 </div>
                                                                 <div class="col-md-3 mb-3">
-                                                                    <span class="fw-bold text-secondary">Recibido
+                                                                    <span class="fw-bold text-muted">Recibido
                                                                         por:</span>
                                                                     <div id="detalleRecibido" class="h6 mb-0 text-dark">
                                                                     </div>
@@ -222,53 +221,54 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Tarjetas -->
-
+                                            <!-- Tarjetas principales -->
                                             <div class="row">
                                                 <!-- Radio -->
                                                 <div class="col-xl-4 col-md-6 mb-4">
-                                                    <div
-                                                        class="card shadow-sm border-0 rounded-3 bg-gradient-primary text-white h-100">
+                                                    <div class="card shadow-sm border-start border-primary h-100">
                                                         <div
                                                             class="card-body d-flex justify-content-between align-items-center">
                                                             <div>
-                                                                <div class="text-uppercase small fw-bold mb-1">Radio de
-                                                                    Comunicación</div>
-                                                                <div class="h4 fw-bold" id="radioCn6"></div>
+                                                                <div
+                                                                    class="text-uppercase small fw-bold text-muted mb-1">
+                                                                    Radio de Comunicación</div>
+                                                                <div class="h5 fw-bold text-dark" id="radioCn6"></div>
                                                             </div>
-                                                            <i class="fas fa-broadcast-tower fa-2x opacity-75"></i>
+                                                            <i
+                                                                class="fas fa-broadcast-tower fa-2x text-primary opacity-75"></i>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <!-- Lector de Barras -->
+                                                <!-- Pistola lectora -->
                                                 <div class="col-xl-4 col-md-6 mb-4">
-                                                    <div
-                                                        class="card shadow-sm border-0 rounded-3 bg-gradient-success text-white h-100">
+                                                    <div class="card shadow-sm border-start border-success h-100">
                                                         <div
                                                             class="card-body d-flex justify-content-between align-items-center">
                                                             <div>
-                                                                <div class="text-uppercase small fw-bold mb-1">Pistola
-                                                                    Lectora</div>
-                                                                <div class="h4 fw-bold" id="escanerpistola"></div>
+                                                                <div
+                                                                    class="text-uppercase small fw-bold text-muted mb-1">
+                                                                    Pistola Lectora</div>
+                                                                <div class="h5 fw-bold text-dark" id="escanerpistola">
+                                                                </div>
                                                             </div>
-                                                            <i class="fas fa-barcode fa-2x opacity-75"></i>
+                                                            <i class="fas fa-barcode fa-2x text-success opacity-75"></i>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <!-- Tablets -->
                                                 <div class="col-xl-4 col-md-6 mb-4">
-                                                    <div
-                                                        class="card shadow-sm border-0 rounded-3 bg-gradient-info text-white h-100">
+                                                    <div class="card shadow-sm border-start border-info h-100">
                                                         <div
                                                             class="card-body d-flex justify-content-between align-items-center">
                                                             <div>
-                                                                <div class="text-uppercase small fw-bold mb-1">Tablets
-                                                                </div>
-                                                                <div class="h4 fw-bold" id="tablets"></div>
+                                                                <div
+                                                                    class="text-uppercase small fw-bold text-muted mb-1">
+                                                                    Tablets</div>
+                                                                <div class="h5 fw-bold text-dark" id="tablets"></div>
                                                             </div>
-                                                            <i class="fas fa-tablet-alt fa-2x opacity-75"></i>
+                                                            <i class="fas fa-tablet-alt fa-2x text-info opacity-75"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -278,26 +278,25 @@
                                             <div class="row mb-4">
                                                 <div class="col-lg-12">
                                                     <div class="card shadow-sm border-0 rounded-3">
-                                                        <div class="card-header bg-gradient-dark text-white fw-bold">
-                                                            PC en uso
+                                                        <div class="card-header bg-light fw-bold text-dark">
+                                                            💻 PC en uso
                                                         </div>
                                                         <div class="card-body">
                                                             <div id="pcEnUso" class="d-flex flex-wrap gap-2">
-                                                                <!-- Aquí se insertan las PCs como badges -->
-                                                                <!-- Ejemplo dinámico: <span class="badge bg-primary">PC-1</span> -->
+                                                                <!-- Ejemplo: <span class="badge bg-primary">PC-1</span> -->
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-
                                             <!-- Cabinas -->
                                             <div class="row">
                                                 <div class="col-lg-6 mb-4">
                                                     <div class="card shadow-sm border-0 rounded-3">
-                                                        <div class="card-header bg-gradient-primary text-white fw-bold">
-                                                            Cabina 1</div>
+                                                        <div class="card-header bg-primary text-white fw-bold">
+                                                            🎧 Cabina 1
+                                                        </div>
                                                         <div
                                                             class="card-body d-flex justify-content-between align-items-center">
                                                             <div class="h5 fw-bold text-dark" id="cabina1"></div>
@@ -308,8 +307,9 @@
 
                                                 <div class="col-lg-6 mb-4">
                                                     <div class="card shadow-sm border-0 rounded-3">
-                                                        <div class="card-header bg-gradient-primary text-white fw-bold">
-                                                            Cabina 2</div>
+                                                        <div class="card-header bg-primary text-white fw-bold">
+                                                            🎧 Cabina 2
+                                                        </div>
                                                         <div
                                                             class="card-body d-flex justify-content-between align-items-center">
                                                             <div class="h5 fw-bold text-dark" id="cabina02"></div>
@@ -319,16 +319,17 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Tabla -->
+                                            <!-- Accesorios de Pantalla -->
                                             <div class="row">
                                                 <div class="col-lg-12 mb-4">
                                                     <div class="card shadow-sm border-0 rounded-3">
-                                                        <div class="card-header bg-gradient-info text-white fw-bold">
-                                                            Accesorios de Pantalla</div>
+                                                        <div class="card-header bg-info text-white fw-bold">
+                                                            🖊️ Accesorios de Pantalla
+                                                        </div>
                                                         <div class="card-body">
                                                             <table
                                                                 class="table table-hover table-bordered text-center align-middle">
-                                                                <thead class="table-dark">
+                                                                <thead class="table-light">
                                                                     <tr>
                                                                         <th>Lapiz Huawei 1</th>
                                                                         <th>Lapiz Huawei 2</th>
@@ -348,11 +349,12 @@
                                                 </div>
                                             </div>
 
+                                            <!-- Observaciones -->
                                             <div class="row">
                                                 <div class="col-lg-12 mb-4">
                                                     <div class="card shadow-sm border-0 rounded-3">
-                                                        <div class="card-header bg-gradient-warning text-dark fw-bold">
-                                                            Observaciones Generales
+                                                        <div class="card-header bg-warning text-dark fw-bold">
+                                                            📝 Observaciones Generales
                                                         </div>
                                                         <div class="card-body">
                                                             <p class="mb-0 text-muted" id="observaciones">No hay
@@ -361,8 +363,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
