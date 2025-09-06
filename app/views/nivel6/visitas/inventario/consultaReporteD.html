@@ -169,8 +169,18 @@
                                 <div class="card-body">
                                     <div class="container mt-4">
                                         <!-- Formulario de filtro -->
-                                        <div class="card shadow border-0 mb-4">
+                                        <div class="card shadow-sm border-0 mb-4">
                                             <div class="card-body">
+                                                <!-- Encabezado con título y botón -->
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <h5 class="mb-0 fw-bold text-primary">Filtro de Reporte Diario</h5>
+                                                    <button type="button" id="btnRefrescar"
+                                                        class="btn btn-outline-primary">
+                                                        <i class="fas fa-sync-alt me-1"></i> Refrescar
+                                                    </button>
+                                                </div>
+
+                                                <!-- Formulario de filtro -->
                                                 <form id="filtroForm" class="row g-3 align-items-center">
                                                     <div class="col-md-5">
                                                         <label for="fecha" class="form-label fw-bold">Selecciona
@@ -181,8 +191,7 @@
                                                         <label for="turno" class="form-label fw-bold">Selecciona
                                                             Turno</label>
                                                         <select id="turno" class="form-control">
-                                                            <option value="" disabled selected>Seleccionar
-                                                            </option>
+                                                            <option value="" disabled selected>Seleccionar</option>
                                                             <option value="1am a 8am">1am a 8am</option>
                                                             <option value="8am a 4pm">8am a 4pm</option>
                                                             <option value="4pm a 11pm">4pm a 11pm</option>
@@ -196,6 +205,7 @@
                                                 </form>
                                             </div>
                                         </div>
+
 
                                         <div id="contenedorDatos" class="d-none">
 
