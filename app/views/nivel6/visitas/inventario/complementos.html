@@ -336,22 +336,12 @@
 
                 const indiceReal = datosGlobal.indexOf(fila);
 
-                btn.onclick = () => abrirModal(indiceReal);
-                tdAccion.appendChild(btn);
-                tr.appendChild(tdAccion);
-
+                
                 tbody.appendChild(tr);
             });
         }
 
 
-        function abrirModal(fila) {
-            document.getElementById("filaEditar").value = fila;
-            const valorActual = datosGlobal[fila][indiceDescripcion];
-            document.getElementById("selectDescripcion").value = valorActual;
-            const modal = new bootstrap.Modal(document.getElementById("editarModal"));
-            modal.show();
-        }
 
         // Botón para refrescar token y datos
         document.getElementById("refreshBtn").addEventListener("click", () => {
@@ -382,45 +372,6 @@
                 }
             }).requestAccessToken();
         });
-
-
-        document.getElementById("guardarCambio").onclick = async () => {
-            const fila = parseInt(document.getElementById("filaEditar").value);
-            const nuevoValor = document.getElementById("selectDescripcion").value;
-
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑
-            if (!accessToken) {
-                alert("No hay sesión activa. Inicie sesión de nuevo.");
-                return;
-            }
-
-            const rangoCelda = `Prestamos de salas!${String.fromCharCode(65 + indiceDescripcion)}${fila + 1}`;
-
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${rangoCelda}?valueInputOption=USER_ENTERED`;
-
-            const res = await fetch(url, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    range: rangoCelda,
-                    majorDimension: "ROWS",
-                    values: [[nuevoValor]]
-                })
-            });
-
-            if (res.ok) {
-                datosGlobal[fila][indiceDescripcion] = nuevoValor;
-                mostrarDatos(datosGlobal);
-                bootstrap.Modal.getInstance(document.getElementById("editarModal")).hide();
-            } else {
-                const err = await res.json();
-                console.error("Error al actualizar:", err);
-                alert("No se pudo actualizar en la hoja. Revisa permisos de Google Sheets API.");
-            }
-        };
 
         obtenerDatos().then(mostrarDatos);
     </script>
