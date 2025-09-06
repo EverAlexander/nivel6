@@ -274,6 +274,24 @@
                                                 </div>
                                             </div>
 
+                                            <!-- PC en uso -->
+                                            <div class="row mb-4">
+                                                <div class="col-lg-12">
+                                                    <div class="card shadow-sm border-0 rounded-3">
+                                                        <div class="card-header bg-gradient-dark text-white fw-bold">
+                                                            PC en uso
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div id="pcEnUso" class="d-flex flex-wrap gap-2">
+                                                                <!-- Aquí se insertan las PCs como badges -->
+                                                                <!-- Ejemplo dinámico: <span class="badge bg-primary">PC-1</span> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                             <!-- Cabinas -->
                                             <div class="row">
                                                 <div class="col-lg-6 mb-4">
@@ -464,6 +482,8 @@
             document.getElementById("radioCn6").textContent = fila[indices["Radio Motorola"]] || "—";
             document.getElementById("escanerpistola").textContent = fila[indices["Pistola de escaneo"]] || "—";
             document.getElementById("tablets").textContent = fila[indices["Tablets"]] || "—";
+
+            document.getElementById("pcEnUso").textContent = fila[indices["PC en uso"]] || "—";
 
             document.getElementById("cabina1").textContent = fila[indices["Cabina 1"]] || "—";
             document.getElementById("cabina02").textContent = fila[indices["Cabina 2"]] || "—";
