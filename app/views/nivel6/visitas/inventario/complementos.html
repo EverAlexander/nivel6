@@ -127,19 +127,10 @@
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="container mt-4">
-
-
-
                                         <div class="card shadow-lg border-0 rounded-3">
-                                            <!-- Encabezado -->
-                                            <div
-                                                class="card-header bg-gradient-success text-white d-flex justify-content-between align-items-center">
-                                                <h5 class="mb-0 fw-bold">
-                                                    <i class="bi bi-laptop me-2"></i> Reservaciones de cabinas
-                                                </h5>
-                                                <button id="refreshBtn" class="btn btn-light btn-sm">
-                                                    <i class="bi bi-arrow-clockwise"></i> Refrescar
-                                                </button>
+                                            <div class="mb-3">
+                                                <input type="text" id="buscador" class="form-control"
+                                                    placeholder="🔎 Buscar por nombre, categoría, marca...">
                                             </div>
 
                                             <!-- Contenido de tabla -->
@@ -262,23 +253,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
     <script>
         const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc";
         const RANGE = "Inventario recepcion!A1:Z1000";
 
-        const columnasDeseadas = [
-            "Fecha",
-            "Categoria",
-            "Nombre",
-
-        ];
+        const columnasDeseadas = ["Fecha", "Categoria", "Nombre", "Marca"];
 
         let datosGlobal = [];
         let indiceDescripcion = -1;
 
         async function obtenerDatos() {
-            const accessToken = sessionStorage.getItem("accessToken"); // 🔑 usamos token de login
+            const accessToken = sessionStorage.getItem("accessToken");
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${RANGE}`;
             const res = await fetch(url, {
                 headers: { Authorization: `Bearer ${accessToken}` }
@@ -288,7 +273,7 @@
         }
 
         function mostrarDatos(datos) {
-            datosGlobal = datos; // guardamos referencia global
+            datosGlobal = datos;
             const tabla = document.getElementById("tablaInventario");
             const thead = tabla.querySelector("thead");
             const tbody = tabla.querySelector("tbody");
@@ -301,12 +286,11 @@
                 return;
             }
 
-            // La primera fila son los encabezados
+            // Encabezados
             const encabezados = datos[0];
             const indices = columnasDeseadas.map(col => encabezados.indexOf(col));
             indiceDescripcion = encabezados.indexOf("Categoria");
 
-            // Construir encabezado
             const trHead = document.createElement("tr");
             columnasDeseadas.forEach(h => {
                 const th = document.createElement("th");
@@ -318,7 +302,7 @@
             trHead.appendChild(thAccion);
             thead.appendChild(trHead);
 
-            // Las filas de datos reales empiezan en datos[1]
+            // Filas
             const datosFiltrados = datos.slice(1);
 
             datosFiltrados.forEach((fila) => {
@@ -333,48 +317,39 @@
                 const btn = document.createElement("button");
                 btn.textContent = "Editar";
                 btn.className = "btn btn-sm btn-primary";
+                tdAccion.appendChild(btn);
+                tr.appendChild(tdAccion);
 
-                const indiceReal = datosGlobal.indexOf(fila);
-
-                
                 tbody.appendChild(tr);
             });
         }
 
+        // 🔍 Filtro dinámico
+        function filtrarDatos() {
+            const texto = document.getElementById("buscador").value.toLowerCase();
+            const encabezados = datosGlobal[0];
+            const filas = datosGlobal.slice(1);
 
+            const filtrados = filas.filter(fila =>
+                fila.some(celda => celda && celda.toLowerCase().includes(texto))
+            );
 
-        // Botón para refrescar token y datos
-        document.getElementById("refreshBtn").addEventListener("click", () => {
-            const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // 🔑 tu client_id real
-            const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
+            // Re-renderiza la tabla con encabezados + filtrados
+            mostrarDatos([encabezados, ...filtrados]);
+        }
 
-            google.accounts.oauth2.initTokenClient({
-                client_id: clientId,
-                scope: scope,
-                callback: (response) => {
-                    if (response.access_token) {
-                        sessionStorage.setItem("accessToken", response.access_token);
-                        obtenerDatos().then(mostrarDatos);
-                        Swal.fire({
-                            icon: "success",
-                            title: "Refrescado",
-                            text: "Se renovó el acceso y los datos fueron actualizados.",
-                            timer: 1500,
-                            showConfirmButton: false
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Error",
-                            text: "No se pudo refrescar el token."
-                        });
-                    }
-                }
-            }).requestAccessToken();
-        });
-
+        // Inicializar
         obtenerDatos().then(mostrarDatos);
+
+        // Evento para el buscador
+        document.addEventListener("input", (e) => {
+            if (e.target.id === "buscador") {
+                filtrarDatos();
+            }
+        });
     </script>
+
+
 </body>
 
 </html>
