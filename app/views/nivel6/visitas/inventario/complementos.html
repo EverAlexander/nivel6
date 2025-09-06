@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Lista de usuario</title>
+    <title>Lista Inventario</title>
 
     <!-- Fuente Nunito -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
@@ -178,6 +178,9 @@
                                             <input type="text" id="buscador" class="form-control"
                                                 placeholder="Buscar por nombre, categoría o marca...">
                                         </div>
+                                         <button id="refreshBtn" class="btn btn-light btn-sm">
+                                                    <i class="bi bi-arrow-clockwise"></i> Refrescar
+                                                </button>
 
                                         <div class="card shadow-sm border-0 rounded-4">
                                             <div class="card-body p-0">
@@ -349,6 +352,36 @@
             mostrarDatos([encabezados, ...filtradas]);
         }
 
+        // Botón para refrescar token y datos
+        document.getElementById("refreshBtn").addEventListener("click", () => {
+            const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // 🔑 tu client_id real
+            const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+            google.accounts.oauth2.initTokenClient({
+                client_id: clientId,
+                scope: scope,
+                callback: (response) => {
+                    if (response.access_token) {
+                        sessionStorage.setItem("accessToken", response.access_token);
+                        obtenerDatos().then(mostrarDatos);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Refrescado",
+                            text: "Se renovó el acceso y los datos fueron actualizados.",
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "No se pudo refrescar el token."
+                        });
+                    }
+                }
+            }).requestAccessToken();
+        });
+       
         // Evento al escribir en el input
         document.addEventListener("DOMContentLoaded", () => {
             const buscador = document.getElementById("buscador");
