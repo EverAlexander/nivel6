@@ -390,20 +390,6 @@
             document.getElementById("contenedorDatos").classList.remove("d-none");
         }
 
-        // Mostrar mensaje de error en UI
-        function mostrarMensaje(msg) {
-            document.getElementById("radioCn6").textContent = "-";
-            document.getElementById("escanerpistola").textContent = "-";
-            document.getElementById("tablets").textContent = "-";
-            document.getElementById("cabina1").textContent = "-";
-            document.getElementById("cabina02").textContent = "-";
-            document.getElementById("lapiz1").textContent = "-";
-            document.getElementById("lapiz2").textContent = "-";
-            document.getElementById("lapiz3").textContent = "-";
-
-            alert(msg);
-        }
-
         // Evento submit filtro
         document.getElementById("filtroForm").addEventListener("submit", e => {
             e.preventDefault();
@@ -416,18 +402,22 @@
                 return;
             }
 
+            // Convertimos la fecha del input a formato usado en Google Sheets (dd/mm/yyyy o similar)
+            const fechaObj = new Date(fechaInput);
+            const fechaFormateada = `${fechaObj.getDate()}/${fechaObj.getMonth() + 1}/${fechaObj.getFullYear()}`;
+
             const encabezados = datosGlobal[0];
             const filas = datosGlobal.slice(1);
 
             const fila = filas.find(f =>
-                f[encabezados.indexOf("Fecha")] === fechaInput &&
+                f[encabezados.indexOf("Fecha")] === fechaFormateada &&
                 f[encabezados.indexOf("Turno")] === turno
             );
 
             if (fila) {
                 mostrarDatos(fila, encabezados);
             } else {
-                mostrarMensaje("No se encontraron datos para la selección.");
+                alert("No se encontraron datos para la selección.");
             }
         });
 
@@ -436,7 +426,6 @@
             datosGlobal = await obtenerDatos();
         });
     </script>
-
 
 
 
