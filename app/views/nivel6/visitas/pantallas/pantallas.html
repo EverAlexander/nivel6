@@ -2,38 +2,999 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Time Picker AM/PM</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Agregar Visitas</title>
+
+  <!-- Fuente Nunito -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
+
+  <!-- Estilos de la plantilla -->
+  <link href="../../../../public/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../../../../public/css/estilo.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <!-- Moment.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+  <script>
+    function actualizarHora() {
+      const ahora = new Date();
+      const horas = ahora.getHours().toString().padStart(2, '0');
+      const minutos = ahora.getMinutes().toString().padStart(2, '0');
+      const segundos = ahora.getSeconds().toString().padStart(2, '0');
+      const horaFormateada = `${horas}:${minutos}:${segundos}`;
+      document.getElementById('horaActual').textContent = horaFormateada;
+    }
+    setInterval(actualizarHora, 1000);
+  </script>
 </head>
 
-<body style="font-family: Arial, sans-serif; padding: 20px;">
+<body id="page-top">
+  <!-- Page Wrapper -->
+  <div id="wrapper">
 
-    <h2>Seleccionar hora (12h con AM/PM)</h2>
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Nivel 6</div>
+      </a>
+
+      <hr class="sidebar-divider my-0">
+
+      <li class="nav-item active">
+        <a class="nav-link" href="home.html">
+          <i class="fas fa-home"></i>
+          <span>Inicio</span>
+        </a>
+      </li>
+
+      <hr class="sidebar-divider">
+
+      <div class="sidebar-heading">Menu Prestamos</div>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-users"></i>
+          <span>Usuarios</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Opciones:</h6>
+            <a class="collapse-item" href="#">Agregar Visitas</a>
+            <a class="collapse-item" href="prestamospc.html">Computadoras en uso</a>
+            <a class="collapse-item" href="prestamoscabina.html">Cabinas en uso</a>
+            <a class="collapse-item" href="prestamospantallas.html">Pantallas en uso</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#cabinas" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-headphones"></i>
+          <span>Reserva Cabinas</span>
+        </a>
+        <div id="cabinas" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Opciones:</h6>
+            <a class="collapse-item" href="cabinas/cabina1.html">Cabina 1</a>
+            <a class="collapse-item" href="cabinas/cabina2.html">Cabina 2</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#turnoencargado" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-calendar-check"></i>
+          <span>Reporte</span>
+        </a>
+        <div id="turnoencargado" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Opciones:</h6>
+            <a class="collapse-item" href="inventario/reporteDiario.html">Reporte Diario</a>
+            <a class="collapse-item" href="inventario/consultaReporteD.html">Consultas de reportes</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inventario" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-boxes"></i>
+          <span>Inventario</span>
+        </a>
+        <div id="inventario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Opciones:</h6>
+            <a class="collapse-item" href="inventario/agregarInventario.html">Agregar Inventario</a>
+            <a class="collapse-item" href="inventario/complementos.html">Lista de Inventario</a>
+          </div>
+        </div>
+      </li>
+
+      <hr class="sidebar-divider">
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="horaActual"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Usuario -->
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img id="userImage" src="" alt="Imagen de usuario" class="user-logo rounded-circle" width="50"
+                  height="40">
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <span class="dropdown-item"><i class="fas fa-user mr-2"></i><span id="userName"></span></span>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt mr-2"></i> Cerrar
+                  Sesión</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 order-2 mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <button id="refreshBtn" class="btn btn-light btn-sm">
+                    <i class="bi bi-arrow-clockwise"></i> Refrescar
+                  </button>
+                  <br>
+                  <br>
+
+                  <!-- Combobox -->
+                  <div class="mb-3">
+                    <label for="tipoVisita" class="form-label">Tipo de Visita</label>
+                    <select id="tipoVisita" class="form-control">
+                      <option value="">Selecciona </option>
+                      <option value="activacionell">Activacion de llaves del saber</option>
+                      <option value="computadoras">Prestamos de Computadoras</option>
+                      <option value="pantallasn6">Prestamos de Pantallas</option>
+                      <option value="reservas">Reservas de Salas</option>
+                      <option value="recorridos">Recorridos (Áreas Internas)</option>
+                    </select>
+                  </div>
+
+                  <!-- Sección dinámica -->
+                  <div id="formExtra"></div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            ©
+            <script>document.write(new Date().getFullYear());</script>, The_Alexander
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../../../public/vendor/jquery/jquery.min.js"></script>
+  <script src="../../../../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../../../../public/js/sb-admin-2.min.js"></script>
+  <script src="../../../../public/vendor/chart.js/Chart.min.js"></script>
+  <script src="../../../../public/js/demo/chart-area-demo.js"></script>
+  <script src="../../../../public/js/demo/chart-pie-demo.js"></script>
+  <script src="../../../../public/js/fechaactual.js"></script>
 
 
-    <input type="text" id="hora" placeholder="Elige la hora">
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <p id="resultado" style="margin-top: 15px; font-weight: bold; color: darkblue;"></p>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script>
-        flatpickr("#hora", {
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "h:i K",   // 12h con AM/PM
-            time_24hr: false,
-            minuteIncrement: 1     // ahora permite elegir minuto a minuto
-        });
+  <script>
+    // ========= CONFIG =========
+    const SPREADSHEET_ID = "1aZGRbsWjC0SFu8xUnM8p410J920YB4TeeAKg4Ty-dMc"; // tu ID real
+    const accessToken = sessionStorage.getItem("accessToken");
 
-        const inputHora = document.getElementById("hora");
-        const resultado = document.getElementById("resultado");
+    const userName = sessionStorage.getItem("userName");
+    const userPicture = sessionStorage.getItem("userPicture");
 
-        inputHora.addEventListener("change", () => {
-            resultado.textContent = "Hora seleccionada: " + inputHora.value;
-        });
-    </script>
+    if (!accessToken) {
+      Swal.fire("⚠️ Sesión expirada", "Por favor inicia sesión nuevamente", "warning")
+        .then(() => window.location.href = "../../../../index.html");
+    } else {
+      // Mostrar usuario
+      document.getElementById("userName").textContent = userName || "Usuario";
+      document.getElementById("userImage").src = userPicture || "https://via.placeholder.com/40";
+    }
 
+    const tipoVisita = document.getElementById("tipoVisita");
+    const formExtra = document.getElementById("formExtra");
+
+    // ========= FECHA ACTUAL =========
+    function obtenerFechaActual() {
+      const hoy = new Date();
+      return hoy.toISOString().split("T")[0];
+    }
+
+    // ========= RENDERIZAR FORMULARIO =========
+    tipoVisita.addEventListener("change", function () {
+      const valor = this.value;
+      formExtra.innerHTML = "";
+
+      if (valor === "activacionell") {
+        formExtra.innerHTML = `
+        <div class="container mt-4">
+            <div class="card shadow-sm mb-4 rounded-3">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3 d-none">
+                            <label for="fechaActiva" class="form-label">Fecha</label>
+                            <input type="date" id="fechaActiva" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="numllave" class="form-label">Llave del saber</label>
+                            <input type="text" id="numllave" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="generollave" class="form-label">Generos</label>
+                            <select id="generollave" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femeninos</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="encargadollave" class="form-label">Registrado por</label>
+                            <input type="text" id="encargadollave" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="estadollave" class="form-label">Estado</label>
+                            <select id="estadollave" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Activada">Activada</option>
+                                <option value="Reeenviada">Reeenviada</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button>
+      `;
+        document.getElementById("fechaActiva").value = obtenerFechaActual();
+      }
+
+      if (valor === "recorridos") {
+        formExtra.innerHTML = `
+        <div class="row mb-4">
+          <div class="col">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" id="fecha" class="form-control">
+          </div>
+
+          <div class="col">
+            <label for="turno" class="form-label">Turno</label>
+            <select id="turno" class="form-control">
+              <option value="" disabled selected>Seleccionar</option>
+              <option value="8am a 4pm">8am a 4pm</option>
+              <option value="4pm a 11pm">4pm a 11pm</option>
+              <option value="6pm a 1am">6pm a 1am</option>
+              <option value="1am a 8am">1am a 8am</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <label class="form-label">Actividades</label><br>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="robotica">
+              <label class="form-check-label" for="robotica">Robótica</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="vr">
+              <label class="form-check-label" for="vr">Realidad Virtual</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="prototipado">
+              <label class="form-check-label" for="prototipado">Prototipado</label>
+            </div>
+          </div>
+
+          <div class="col">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input type="number" id="cantidad" class="form-control" min="1">
+          </div>
+        </div>
+
+        <button type="button" id="btnGuardar" class="btn btn-success">Guardar</button>
+      `;
+        document.getElementById("fecha").value = obtenerFechaActual();
+      }
+
+      if (valor === "computadoras") {
+        formExtra.innerHTML = `
+        <div class="container mt-4">
+            <div class="card shadow-sm mb-4 rounded-3">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3 d-none">
+                            <label for="fechaCompu" class="form-label">Fecha</label>
+                            <input type="date" id="fechaCompu" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="tipoDocum" class="form-label">Tipo de documento</label>
+                            <select id="tipoDocum" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Llave del Saber">Llave del Saber</option>
+                                <option value="Dui">DUI</option>
+                                <option value="Pasaporte">Pasaporte</option>
+                                <option value="Otros">Otros</option>   
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="numeroId" class="form-label">Número</label>
+                            <input type="text" id="numeroId" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="txtnombreUsuario" class="form-label">Nombre Completo</label>
+                            <input type="text" id="txtnombreUsuario" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="generoCompu" class="form-label">Género</label>
+                            <select id="generoCompu" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm rounded-3">
+                <div class="card-header bg-success text-white">
+                    <h5>Equipo Asignado</h5>
+                    </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="pcasignadas" class="form-label">Equipo a utilizar</label>
+                            <select id="pcasignadas" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="PC-01">PC-01</option>
+                                <option value="PC-02">PC-02</option>
+                                <option value="PC-03">PC-03</option>
+                                <option value="PC-04">PC-04</option>
+                                <option value="PC-05">PC-05</option>
+                                <option value="PC-06">PC-06</option>
+                                <option value="PC-07">PC-07</option>
+                                <option value="PC-08">PC-08</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                          <label for="horapc" class="form-label">Duración (horas)</label>
+                          <input type="number" id="horapc" class="form-control">
+                        </div>
+
+                        <div class="col-md-3 d-none">
+                            <label for="iniciopc" class="form-label">Inicio</label>
+                            <input type="time" id="iniciopc" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="finalpc" class="form-label">Finalización</label>
+                            <input type="time" id="finalpc" class="form-control" readonly>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="registadopor" class="form-label">Registrado Por</label>
+                            <input type="text" id="registadopor" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
+      `;
+        document.getElementById("fechaCompu").value = obtenerFechaActual();
+        // lógica: calcular inicio y fin según la duración
+        const horasInput = document.getElementById("horapc");
+        const inicioInput = document.getElementById("iniciopc");
+        const finInput = document.getElementById("finalpc");
+
+        function calcularHoras() {
+          const ahora = new Date();
+          const horas = parseInt(horasInput.value) || 0;
+
+          // hora inicio (hora actual en formato HH:MM)
+          const inicio = ahora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+          inicioInput.value = inicio;
+
+          // hora fin (sumar horas)
+          ahora.setHours(ahora.getHours() + horas);
+          const fin = ahora.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
+          finInput.value = fin;
+        }
+
+        // calcular al cargar
+        calcularHoras();
+
+        // recalcular cuando cambie duración
+        horasInput.addEventListener("input", calcularHoras);
+      }
+
+      if (valor === "reservas") {
+        formExtra.innerHTML = `
+    <div class="container mt-4">
+        <div class="card shadow-sm mb-4 rounded-3">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3 d-none">
+                        <label for="fecharegistro" class="form-label">Fecha</label>
+                        <input type="date" id="fecharegistro" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="nombreReserva" class="form-label">Nombre del Usuario</label>
+                        <input type="text" id="nombreReserva" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="generoReserva" class="form-label">Género</label>
+                        <select id="generoReserva" class="form-control">
+                            <option value="" disabled selected>Seleccionar</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="propositoreserva" class="form-label">Proposito del prestamo</label>
+                        <input type="text" id="propositoreserva" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="telefonoreserva" class="form-label">Telefono</label>
+                        <input type="text" id="telefonoreserva" class="form-control">
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm rounded-3">
+            <div class="card-header bg-success text-white">
+                <h5>Hoja de prestamos</h5>
+                </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="lugarreserva" class="form-label">Lugar de procedencia</label>
+                        <input type="text" id="lugarreserva" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="tipodocumentlla" class="form-label">Tipo de documento</label>
+                        <select id="tipodocumentlla" class="form-control">
+                            <option value="" disabled selected>Seleccionar</option>
+                            <option value="Llave del saber">Llave del saber</option>
+                            <option value="Dui">Dui</option>
+                            <option value="Pasaporte">Pasaporte</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="numdocumentreserva" class="form-label">Numero</label>
+                        <input type="text" id="numdocumentreserva" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="carnetReserva" class="form-label">Carnet Institucional</label>
+                        <input type="text" id="carnetReserva" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm rounded-3">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="cabinareserva" class="form-label">Cabina</label>
+                        <select id="cabinareserva" class="form-control">
+                            <option value="" disabled selected>Seleccionar</option>
+                            <option value="Cabina 1">Cabina 1</option>
+                            <option value="Cabina 2 (TV)">Cabina 2 (TV)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="fechareserva" class="form-label">Fecha de Reservacion</label>
+                        <input type="date" id="fechareserva" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="horasReserva" class="form-label">Duración (horas)</label>
+                        <input type="number" id="horasReserva" class="form-control">
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="inicioReserva" class="form-label">Hora de inicio</label>
+                        <input type="time" id="inicioReserva" class="form-control">
+                        <div id="horaFormateada" style="margin-top: 5px; font-style: italic; color: gray;"></div>
+                    </div>
+ 
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm rounded-3">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label for="finalreserva" class="form-label">Hora de finalizacion</label>
+                        <input type="time" id="finalreserva" class="form-control" readonly>
+                    </div> 
+                    <div class="col-md-3">
+                        <label for="asignarreserva" class="form-label">Estado del prestamo</label>
+                        <select id="asignarreserva" class="form-control">
+                            <option value="" disabled selected>Seleccionar</option>
+                            <option value="Reservado">Reservado</option>
+                            <option value="Colocado">Colocado</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label for="registradoporReserv" class="form-label">Registrado por</label>
+                        <input type="text" id="registradoporReserv" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <button type="button" id="btnGuardar" class="btn btn-success">Guardar en Google Sheets</button>
+  `;
+        document.getElementById("fecharegistro").value = obtenerFechaActual();
+
+        const horasInput = document.getElementById("horasReserva");   // duración en horas
+        const inicioInput = document.getElementById("inicioReserva"); // hora inicio elegida
+        const finInput = document.getElementById("finalreserva");     // hora fin calculada
+        const horaFormateada = document.getElementById("horaFormateada"); // muestra AM/PM
+
+        function calcularHoras() {
+          const horas = parseInt(horasInput.value) || 0;
+          const inicio = inicioInput.value;
+
+          if (!inicio) {
+            finInput.value = "";
+            horaFormateada.textContent = "";
+            return;
+          }
+
+          // convertir la hora de inicio a objeto Date
+          const [h, m] = inicio.split(":").map(Number);
+          const fecha = new Date();
+          fecha.setHours(h, m, 0, 0);
+
+          // mostrar hora en formato AM/PM debajo
+          horaFormateada.textContent = fecha.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true
+          });
+
+          if (horas === 0) {
+            finInput.value = "";
+            return;
+          }
+
+          // sumar la duración
+          fecha.setHours(fecha.getHours() + horas);
+
+          // asignar a campo de fin
+          finInput.value = fecha.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          });
+        }
+
+        // recalcular cuando cambie duración o inicio
+        horasInput.addEventListener("input", calcularHoras);
+        inicioInput.addEventListener("input", calcularHoras);
+
+
+      }
+
+      if (valor === "pantallasn6") {
+        formExtra.innerHTML = `
+        <div class="container mt-4">
+            <div class="card shadow-sm mb-4 rounded-3">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3 d-none">
+                            <label for="fechaPantallas" class="form-label">Fecha</label>
+                            <input type="date" id="fechaPantallas" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="nombrePantalla" class="form-label">Nombre del Usuario</label>
+                            <input type="text" id="nombrePantalla" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="generoPantalla" class="form-label">Genero</label>
+                            <select id="generoPantalla" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="M">M</option>
+                                <option value="F">F</option> 
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="tipodocupantalla" class="form-label">Tipo de documentos</label>
+                            <select id="tipodocupantalla" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Llave del saber">Llave del saber</option>
+                                <option value="Dui">Dui</option>
+                                <option value="Pasaporte">Pasaporte</option>                               
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="numeroIdpantalla" class="form-label">Número</label>
+                            <input type="text" id="numeroIdpantalla" class="form-control">
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm rounded-3">
+                <div class="card-header bg-success text-white">
+                    <h5>Equipo Asignado</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="pantallaequipo" class="form-label">Equipo a utilizar</label>
+                            <select id="pantallaequipo" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Pantalla - 01">Pantalla - 01</option>
+                                <option value="Pantalla - 02">Pantalla - 02</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="complementoPantalla" class="form-label">Complemento</label>
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="lppantalla">
+                              <label class="form-check-label" for="lppantalla">Lapiz Huawei</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="iniciopc" class="form-label">Inicio</label>
+                            <input type="time" id="iniciopantalla" class="form-control">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="finalpc" class="form-label">Finalización</label>
+                            <input type="time" id="finalpantalla" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="disponibilidadpantalla" class="form-label">Disponibilidad</label>
+                            <select id="disponibilidadpantalla" class="form-control">
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Colocado">Colocado</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="registradopantalla" class="form-label">Registrado por</label>
+                            <input type="text" id="registradopantalla" class="form-control">
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
+      `;
+        document.getElementById("fechaPantallas").value = obtenerFechaActual();
+      }
+
+    });
+
+    // ========= FUNCION GUARDAR =========
+    async function guardarEnSheets(tipo, datos) {
+      let range = "";
+
+      if (tipo === "recorridos") {
+        range = "Areas Internas!A1:Z1000";
+      } else if (tipo === "activacionell") {
+        range = "Activacion de llaves!A1:Z1000";
+      } else if (tipo === "computadoras") {
+        range = "Computadoras!A1:Z1000";
+      } else if (tipo === "pantallasn6") {
+        range = "Prestamos de pantallas!A1:Z1000";
+      } else if (tipo === "reservas") {
+        range = "Prestamos de salas!A1:Z1000";
+      }
+
+      try {
+        const res = await fetch(
+          `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodeURIComponent(range)}:append?valueInputOption=RAW`,
+          {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${accessToken}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ values: [datos] })
+          }
+        );
+
+        if (res.status === 401) {
+          Swal.fire("⚠️ Sesión expirada", "Vuelve a iniciar sesión", "warning");
+          sessionStorage.clear();
+          window.location.href = "../../../../index.html";
+          return;
+        }
+
+        if (!res.ok) {
+          throw new Error(await res.text());
+        }
+
+        Swal.fire("✅ Guardado", "El registro fue agregado correctamente", "success").then(() => window.location.reload());
+      } catch (err) {
+        console.error(err);
+        Swal.fire("❌ Error", "No se pudo guardar en Google Sheets", "error");
+      }
+    }
+
+    document.getElementById("refreshBtn").addEventListener("click", () => {
+      const clientId = "966776506808-4f5oafn8vgthr3iqda27funqrih5b3ud.apps.googleusercontent.com"; // 🔑 tu client_id real
+      const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+      google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: scope,
+        callback: (response) => {
+          if (response.access_token) {
+            sessionStorage.setItem("accessToken", response.access_token);
+            obtenerDatos().then(mostrarDatos);
+            Swal.fire({
+              icon: "success",
+              title: "Refrescado",
+              text: "Se renovó el acceso y los datos fueron actualizados.",
+              timer: 1500,
+              showConfirmButton: false
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "No se pudo refrescar el token."
+            });
+          }
+        }
+      }).requestAccessToken();
+    });
+
+    // ========= BOTÓN DE GUARDAR =========
+    document.addEventListener("click", async (e) => {
+      if (e.target && e.target.id === "btnGuardar") {
+        const tipo = document.getElementById("tipoVisita").value;
+
+        let row = [];
+        let errores = [];
+
+        if (tipo === "recorridos") {
+          const fecha = document.getElementById("fecha").value.trim();
+          const turno = document.getElementById("turno").value.trim();
+          const cantidad = document.getElementById("cantidad").value.trim();
+
+          if (!fecha) errores.push("Debe seleccionar una fecha.");
+          if (!turno) errores.push("Debe seleccionar un turno.");
+          if (!cantidad || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+
+          row = [
+            fecha,
+            turno,
+            document.getElementById("robotica").checked ? "Sí" : "No",
+            document.getElementById("vr").checked ? "Sí" : "No",
+            document.getElementById("prototipado").checked ? "Sí" : "No",
+            cantidad
+          ];
+        }
+
+        if (tipo === "activacionell") {
+          const fechaActiva = document.getElementById("fechaActiva").value.trim();
+          const numllave = document.getElementById("numllave").value.trim();
+          const generollave = document.getElementById("generollave").value.trim();
+          const encargadollave = document.getElementById("encargadollave").value.trim();
+          const estadollave = document.getElementById("estadollave").value.trim();
+
+          if (!fechaActiva) errores.push("Debe seleccionar una fecha.");
+          if (!numllave) errores.push("Debe ingresra numero de llave.");
+          if (!generollave) errores.push("Debe seleccionar el genero");
+          if (!encargadollave) errores.push("Debe ingresar responsable");
+          if (!estadollave) errores.push("Debe seleccionar el estado");
+
+          row = [fechaActiva, numllave, generollave, encargadollave, estadollave];
+        }
+
+        if (tipo === "computadoras") {
+          const fecha = document.getElementById("fechaCompu").value.trim();
+          const tipoDocum = document.getElementById("tipoDocum").value.trim();
+          const numero = document.getElementById("numeroId").value.trim();
+          const txtnombreUsuario = document.getElementById("txtnombreUsuario").value.trim();
+          const generoCompu = document.getElementById("generoCompu").value.trim();
+          const pcasignadas = document.getElementById("pcasignadas").value.trim();
+          const iniciopc = document.getElementById("iniciopc").value.trim();
+          const finalpc = document.getElementById("finalpc").value.trim();
+          const registadopor = document.getElementById("registadopor").value.trim();
+          const condicion = "En uso";
+
+          if (!fecha) errores.push("Debe seleccionar una fecha.");
+          if (!tipoDocum) errores.push("Debe seleccionar el tipo de documento.");
+          if (!numero) errores.push("Debe ingresar numero de identificacion.");
+          if (!txtnombreUsuario) errores.push("Debe ingresar su nombre");
+          if (!generoCompu) errores.push("Debe seleccionar su genero");
+          if (!pcasignadas) errores.push("Debe seleccionar equipo");
+          if (!iniciopc) errores.push("Debe seleccinar hora de inicio");
+          if (!finalpc) errores.push("Debe seleccionar hora de finalizacion");
+          if (!registadopor) errores.push("Debe ingresar nombre a cargo");
+
+          //if (! || parseInt(cantidad) < 1) errores.push("Debe ingresar una cantidad válida.");
+
+          row = [fecha, tipoDocum, numero, txtnombreUsuario, generoCompu, pcasignadas, iniciopc, finalpc, registadopor, condicion];
+        }
+
+        if (tipo === "pantallasn6") {
+          const fechaPantallas = document.getElementById("fechaPantallas").value.trim();
+          const nombrePantalla = document.getElementById("nombrePantalla").value.trim();
+          const generoPantalla = document.getElementById("generoPantalla").value.trim();
+          const tipodocupantalla = document.getElementById("tipodocupantalla").value.trim();
+          const numeroIdpantalla = document.getElementById("numeroIdpantalla").value.trim();
+          const pantallaequipo = document.getElementById("pantallaequipo").value.trim();
+
+          //const iniciopc = document.getElementById("iniciopc").value.trim();
+
+          const iniciopantalla = document.getElementById("iniciopantalla").value.trim();
+          const finalpantalla = document.getElementById("finalpantalla").value.trim();
+          const tiempo = " ";
+          const disponibilidadpantalla = document.getElementById("disponibilidadpantalla").value.trim();
+          const registradopantalla = document.getElementById("registradopantalla").value.trim();
+
+
+          if (!fechaPantallas) errores.push("Debe seleccionar una fecha.");
+          if (!nombrePantalla) errores.push("Debe ingresar su nombre");
+          if (!generoPantalla) errores.push("Debe seleccionar su genero");
+          if (!tipodocupantalla) errores.push("Debe seleccionar el tipo de documento.");
+          if (!numeroIdpantalla) errores.push("Debe ingresar numero de identificacion.");
+          if (!pantallaequipo) errores.push("Debe seleccionar equipo");
+          if (!iniciopantalla) errores.push("Debe seleccinar hora de inicio");
+          if (!finalpantalla) errores.push("Debe seleccionar hora de finalizacion");
+
+          if (!registradopantalla) errores.push("Debe ingresar nombre a cargo");
+
+          row = [fechaPantallas,
+            nombrePantalla,
+            generoPantalla,
+            tipodocupantalla,
+            numeroIdpantalla,
+            pantallaequipo,
+            document.getElementById("lppantalla").checked ? "Lapiz Huawei" : "No",
+            iniciopantalla,
+            finalpantalla,
+            tiempo,
+            disponibilidadpantalla,
+            registradopantalla
+          ];
+        }
+
+        if (tipo === "reservas") {
+          const fecharegistro = document.getElementById("fecharegistro").value.trim();
+          const nombreReserva = document.getElementById("nombreReserva").value.trim();
+          const generoReserva = document.getElementById("generoReserva").value.trim();
+          const propositoreserva = document.getElementById("propositoreserva").value.trim();
+          const telefonoreserva = document.getElementById("telefonoreserva").value.trim();
+          const lugarreserva = document.getElementById("lugarreserva").value.trim();
+          const tipodocumentlla = document.getElementById("tipodocumentlla").value.trim();
+          const numdocumentreserva = document.getElementById("numdocumentreserva").value.trim();
+          const carnetReserva = document.getElementById("carnetReserva").value.trim();
+          const cabinareserva = document.getElementById("cabinareserva").value.trim();
+          const fechareserva = document.getElementById("fechareserva").value.trim();
+          const inicioReserva = document.getElementById("inicioReserva").value.trim();
+          const finalreserva = document.getElementById("finalreserva").value.trim();
+          const asignarreserva = document.getElementById("asignarreserva").value.trim();
+          const registradoporReserv = document.getElementById("registradoporReserv").value.trim();
+
+          if (!nombreReserva) errores.push("Debe ingresar el nombre del responsable.");
+          if (!generoReserva) errores.push("Debe seleccione el genero.");
+          if (!propositoreserva) errores.push("Debe ingresar los detalles de prestamo.");
+          if (!telefonoreserva) errores.push("Debe ingrese un numero de telefono.");
+          if (!lugarreserva) errores.push("Debe ingresar nombre de la institucion.");
+          if (!tipodocumentlla) errores.push("Debe selecciones tipo de documento.");
+          if (!numdocumentreserva) errores.push("Debe ingrese un documento valido.");
+          if (!carnetReserva) errores.push("Debe ingrese su carnet de la institucion.");
+          if (!cabinareserva) errores.push("Debe seleccione cabina asignar.");
+          if (!fechareserva) errores.push("Debe seleccione una fecha de prestamo.");
+          if (!inicioReserva) errores.push("Debe seleccione una hora de inicio");
+          if (!finalreserva) errores.push("Debe seleccione una hora de finalizacion");
+          if (!asignarreserva) errores.push("Debe seleccione el estado del prestamo");
+
+          row = [fecharegistro, nombreReserva, generoReserva, propositoreserva, telefonoreserva, lugarreserva, tipodocumentlla, numdocumentreserva, carnetReserva, cabinareserva, fechareserva, inicioReserva, finalreserva, asignarreserva, registradoporReserv];
+        }
+
+        // 🔎 Validar antes de guardar
+        if (errores.length > 0) {
+          Swal.fire("⚠️ Campos vacíos", errores.join("<br>"), "warning");
+          return;
+        }
+
+        if (row.length > 0) {
+          await guardarEnSheets(tipo, row);
+        }
+      }
+    });
+
+  </script>
 </body>
 
 </html>
