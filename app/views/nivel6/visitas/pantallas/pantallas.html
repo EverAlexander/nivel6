@@ -564,7 +564,7 @@
 
                     <div class="col-md-3">
                         <label for="inicioReserva" class="form-label">Hora de inicio</label>
-                        <input type="text" id="inicioReserva" class="form-control">
+                        <input type="time" id="inicioReserva" class="form-control">
                         <div id="horaFormateada" style="margin-top: 5px; font-style: italic; color: gray;"></div>
                     </div>
  
@@ -607,25 +607,59 @@
         const finInput = document.getElementById("finalreserva");     // hora fin calculada
         const horaFormateada = document.getElementById("horaFormateada"); // muestra AM/PM
 
-        flatpickr(inicioInput, {
-          enableTime: true,
-          noCalendar: true,
-          dateFormat: "h:i K",   // 12h con AM/PM
-          time_24hr: false,
-          minuteIncrement: 1     // ahora permite elegir minuto a minuto
+        function calcularHoras() {
+          const horas = parseInt(horasInput.value) || 0;
+          const inicio = inicioInput.value;
+
+          if (!inicio) {
+            finInput.value = "";
+            horaFormateada.textContent = "";
+            return;
+          }
+
+          // convertir la hora de inicio a objeto Date
+          const [h, m] = inicio.split(":").map(Number);
+          const fecha = new Date();
+          fecha.setHours(h, m, 0, 0);
+
+          // mostrar hora en formato AM/PM debajo
+          horaFormateada.textContent = fecha.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true
+          });
+
+          if (horas === 0) {
+            finInput.value = "";
+            return;
+          }
+
+          // sumar la duración
+          fecha.setHours(fecha.getHours() + horas);
+
+          // asignar a campo de fin
+          finInput.value = fecha.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          });
+        }
+
+        // establecer hora actual al cargar
+        window.addEventListener("DOMContentLoaded", () => {
+          const ahora = new Date();
+          const horas = String(ahora.getHours()).padStart(2, "0");
+          const minutos = String(ahora.getMinutes()).padStart(2, "0");
+          inicioInput.value = `${horas}:${minutos}`;
+          calcularHoras(); // calcular automáticamente al iniciar
         });
 
-        const inputHora = document.getElementById("inicioReserva");
-        const resultado = document.getElementById("resultado");
+        // recalcular cuando cambie duración o inicio
+        horasInput.addEventListener("input", calcularHoras);
+        inicioInput.addEventListener("input", calcularHoras);
 
-        inputHora.addEventListener("change", () => {
-          resultado.textContent = "Hora seleccionada: " + inputHora.value;
-        });
-
-      }
-
-      if (valor === "pantallasn6") {
-        formExtra.innerHTML = `
+        if (valor === "pantallasn6") {
+          formExtra.innerHTML = `
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
                 <div class="card-body">
@@ -726,10 +760,10 @@
         <br>
         <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
       `;
-        document.getElementById("fechaPantallas").value = obtenerFechaActual();
-      }
+          document.getElementById("fechaPantallas").value = obtenerFechaActual();
+        }
 
-    });
+      });
 
     // ========= FUNCION GUARDAR =========
     async function guardarEnSheets(tipo, datos) {
