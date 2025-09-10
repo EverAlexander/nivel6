@@ -99,25 +99,25 @@
           </div>
         </div>
       </li>
-      
-      <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#turnoencargado"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-calendar-check"></i>
-                    <span>Reporte</span>
-                </a>
-                <div id="turnoencargado" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Opciones:</h6>
-                        <a class="collapse-item" href="inventario/reporteDiario.html">Reporte Diario</a>
-                        <a class="collapse-item" href="inventario/consultaReporteD.html">Consultas de reportes</a>
-                    </div>
-                </div>
-            </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inventario"
-          aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#turnoencargado" aria-expanded="true"
+          aria-controls="collapseTwo">
+          <i class="fas fa-calendar-check"></i>
+          <span>Reporte</span>
+        </a>
+        <div id="turnoencargado" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Opciones:</h6>
+            <a class="collapse-item" href="inventario/reporteDiario.html">Reporte Diario</a>
+            <a class="collapse-item" href="inventario/consultaReporteD.html">Consultas de reportes</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inventario" aria-expanded="true"
+          aria-controls="collapseTwo">
           <i class="fas fa-boxes"></i>
           <span>Inventario</span>
         </a>
@@ -565,6 +565,7 @@
                     <div class="col-md-3">
                         <label for="inicioReserva" class="form-label">Hora de inicio</label>
                         <input type="time" id="inicioReserva" class="form-control">
+                        <div id="horaFormateada" style="margin-top: 5px; font-style: italic; color: gray;"></div>
                     </div>
  
                 </div>
@@ -604,13 +605,15 @@
         const horasInput = document.getElementById("horasReserva");   // duración en horas
         const inicioInput = document.getElementById("inicioReserva"); // hora inicio elegida
         const finInput = document.getElementById("finalreserva");     // hora fin calculada
+        const horaFormateada = document.getElementById("horaFormateada"); // muestra AM/PM
 
         function calcularHoras() {
           const horas = parseInt(horasInput.value) || 0;
           const inicio = inicioInput.value;
 
-          if (!inicio || horas === 0) {
+          if (!inicio) {
             finInput.value = "";
+            horaFormateada.textContent = "";
             return;
           }
 
@@ -618,6 +621,18 @@
           const [h, m] = inicio.split(":").map(Number);
           const fecha = new Date();
           fecha.setHours(h, m, 0, 0);
+
+          // mostrar hora en formato AM/PM debajo
+          horaFormateada.textContent = fecha.toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit",
+            hour12: true
+          });
+
+          if (horas === 0) {
+            finInput.value = "";
+            return;
+          }
 
           // sumar la duración
           fecha.setHours(fecha.getHours() + horas);
@@ -634,7 +649,6 @@
         horasInput.addEventListener("input", calcularHoras);
         inicioInput.addEventListener("input", calcularHoras);
 
-      
 
       }
 
