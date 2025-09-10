@@ -564,7 +564,7 @@
 
                     <div class="col-md-3">
                         <label for="inicioReserva" class="form-label">Hora de inicio</label>
-                        <input type="time" id="inicioReserva" class="form-control">
+                        <input type="text" id="inicioReserva" class="form-control">
                         <div id="horaFormateada" style="margin-top: 5px; font-style: italic; color: gray;"></div>
                     </div>
  
@@ -607,20 +607,27 @@
         const finInput = document.getElementById("finalreserva");     // hora fin calculada
         const horaFormateada = document.getElementById("horaFormateada"); // muestra AM/PM
 
+        // Inicializar flatpickr en formato AM/PM
+        const fp = flatpickr(inicioInput, {
+          enableTime: true,
+          noCalendar: true,
+          dateFormat: "h:i K",   // siempre 12h con AM/PM
+          time_24hr: false,
+          minuteIncrement: 10,
+          onChange: calcularHoras   // recalcula automáticamente al cambiar
+        });
+
         function calcularHoras() {
           const horas = parseInt(horasInput.value) || 0;
-          const inicio = inicioInput.value;
-
-          if (!inicio) {
+          const fechas = fp.selectedDates; // array con objetos Date
+          if (!fechas.length) {
             finInput.value = "";
             horaFormateada.textContent = "";
             return;
           }
 
-          // convertir la hora de inicio a objeto Date
-          const [h, m] = inicio.split(":").map(Number);
-          const fecha = new Date();
-          fecha.setHours(h, m, 0, 0);
+          // tomar la fecha seleccionada
+          const fecha = new Date(fechas[0]);
 
           // mostrar hora en formato AM/PM debajo
           horaFormateada.textContent = fecha.toLocaleTimeString([], {
@@ -634,21 +641,20 @@
             return;
           }
 
-          // sumar la duración
-          fecha.setHours(fecha.getHours() + horas);
+          // sumar duración
+          const fin = new Date(fecha);
+          fin.setHours(fin.getHours() + horas);
 
-          // asignar a campo de fin
-          finInput.value = fecha.toLocaleTimeString([], {
-            hour: "2-digit",
+          // asignar a campo de fin (también en AM/PM si quieres)
+          finInput.value = fin.toLocaleTimeString([], {
+            hour: "numeric",
             minute: "2-digit",
-            hour12: false
+            hour12: true
           });
         }
 
-        // recalcular cuando cambie duración o inicio
+        // recalcular también cuando cambie duración
         horasInput.addEventListener("input", calcularHoras);
-        inicioInput.addEventListener("input", calcularHoras);
-
 
       }
 
