@@ -12,8 +12,8 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" rel="stylesheet">
 
   <!-- Estilos de la plantilla -->
-  <link href="../../../../public/css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../../../../public/css/estilo.css" rel="stylesheet">
+  <link href="../../../../../public/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../../../../../public/css/estilo.css" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -210,14 +210,14 @@
   </div>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="../../../../public/vendor/jquery/jquery.min.js"></script>
-  <script src="../../../../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../../../../public/vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="../../../../public/js/sb-admin-2.min.js"></script>
-  <script src="../../../../public/vendor/chart.js/Chart.min.js"></script>
-  <script src="../../../../public/js/demo/chart-area-demo.js"></script>
-  <script src="../../../../public/js/demo/chart-pie-demo.js"></script>
-  <script src="../../../../public/js/fechaactual.js"></script>
+  <script src="../../../../../public/vendor/jquery/jquery.min.js"></script>
+  <script src="../../../../../public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../../../public/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../../../../../public/js/sb-admin-2.min.js"></script>
+  <script src="../../../../../public/vendor/chart.js/Chart.min.js"></script>
+  <script src="../../../../../public/js/demo/chart-area-demo.js"></script>
+  <script src="../../../../../public/js/demo/chart-pie-demo.js"></script>
+  <script src="../../../../../public/js/fechaactual.js"></script>
 
 
   <!-- SweetAlert2 -->
@@ -607,48 +607,20 @@
         const finInput = document.getElementById("finalreserva");     // hora fin calculada
         const horaFormateada = document.getElementById("horaFormateada"); // muestra AM/PM
 
-        function calcularHoras() {
-          const horas = parseInt(horasInput.value) || 0;
-          const inicio = inicioInput.value;
+        flatpickr(inicioInput, {
+          enableTime: true,
+          noCalendar: true,
+          dateFormat: "h:i K",   // 12h con AM/PM
+          time_24hr: false,
+          minuteIncrement: 1     // ahora permite elegir minuto a minuto
+        });
 
-          if (!inicio) {
-            finInput.value = "";
-            horaFormateada.textContent = "";
-            return;
-          }
+        const inputHora = document.getElementById("hora");
+        const resultado = document.getElementById("resultado");
 
-          // convertir la hora de inicio a objeto Date
-          const [h, m] = inicio.split(":").map(Number);
-          const fecha = new Date();
-          fecha.setHours(h, m, 0, 0);
-
-          // mostrar hora en formato AM/PM debajo
-          horaFormateada.textContent = fecha.toLocaleTimeString([], {
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true
-          });
-
-          if (horas === 0) {
-            finInput.value = "";
-            return;
-          }
-
-          // sumar la duración
-          fecha.setHours(fecha.getHours() + horas);
-
-          // asignar a campo de fin
-          finInput.value = fecha.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false
-          });
-        }
-
-        // recalcular cuando cambie duración o inicio
-        horasInput.addEventListener("input", calcularHoras);
-        inicioInput.addEventListener("input", calcularHoras);
-
+        inputHora.addEventListener("change", () => {
+          resultado.textContent = "Hora seleccionada: " + inputHora.value;
+        });
 
       }
 
