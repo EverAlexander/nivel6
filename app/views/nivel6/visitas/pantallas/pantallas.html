@@ -657,9 +657,10 @@
         // recalcular cuando cambie duración o inicio
         horasInput.addEventListener("input", calcularHoras);
         inicioInput.addEventListener("input", calcularHoras);
+      }
 
-        if (valor === "pantallasn6") {
-          formExtra.innerHTML = `
+      if (valor === "pantallasn6") {
+        formExtra.innerHTML = `
         <div class="container mt-4">
             <div class="card shadow-sm mb-4 rounded-3">
                 <div class="card-body">
@@ -760,10 +761,10 @@
         <br>
         <button type="button" id="btnGuardar" class="btn btn-success">Asignar Equipos</button>
       `;
-          document.getElementById("fechaPantallas").value = obtenerFechaActual();
-        }
+        document.getElementById("fechaPantallas").value = obtenerFechaActual();
+      }
 
-      });
+    });
 
     // ========= FUNCION GUARDAR =========
     async function guardarEnSheets(tipo, datos) {
