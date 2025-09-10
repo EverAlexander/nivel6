@@ -604,49 +604,65 @@
         const inicioInput = document.getElementById("inicioReserva"); // hora inicio elegida
         const finInput = document.getElementById("finalreserva");     // hora fin calculada
 
-        // Crear un <small> para mostrar AM/PM al lado del campo final
-        const vistaAmPm = document.createElement("small");
-        vistaAmPm.style.marginLeft = "10px";
-        vistaAmPm.style.fontStyle = "italic";
-        finInput.insertAdjacentElement("afterend", vistaAmPm);
-
         function calcularHoras() {
           const horas = parseInt(horasInput.value) || 0;
           const inicio = inicioInput.value;
 
           if (!inicio || horas === 0) {
             finInput.value = "";
-            vistaAmPm.textContent = "";
             return;
           }
 
-          // convertir la hora de inicio a objeto Date
-          const [h, m] = inicio.split(":").map(Number);
+          // interpretar la hora que el usuario escribió (AM/PM)
+          let [hora, minutoPart] = inicio.split(":");
+          let minutos = 0;
+          let ampm = "";
+
+          if (minutoPart) {
+            // dividir minutos y AM/PM si el usuario lo pone
+            const partes = minutoPart.split(" ");
+            minutos = parseInt(partes[0]) || 0;
+            ampm = (partes[1] || "").toUpperCase();
+          }
+
+          let h = parseInt(hora) || 0;
+
+          // convertir a 24h si el usuario puso AM/PM
+          if (ampm === "PM" && h < 12) h += 12;
+          if (ampm === "AM" && h === 12) h = 0;
+
           const fecha = new Date();
-          fecha.setHours(h, m, 0, 0);
+          fecha.setHours(h, minutos, 0, 0);
 
           // sumar la duración
           fecha.setHours(fecha.getHours() + horas);
 
-          // asignar a campo de fin (24h)
-          inicioInput.value = fecha.toLocaleTimeString([], {
+          // asignar al input final en 24h
+          finInput.value = fecha.toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
             hour12: false
           });
-
-          // mostrar también en formato AM/PM
-          vistaAmPm.textContent = `(${fecha.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true
-          })})`;
         }
 
         // recalcular cuando cambie duración o inicio
         horasInput.addEventListener("input", calcularHoras);
-        inicioInput.addEventListener("input", calcularHoras);
-
+        inicioInput.addEventListener("blur", () => {
+          if (inicioInput.value) {
+            // normalizar la hora del inicio a formato AM/PM
+            const fecha = new Date();
+            const [h, m] = inicioInput.value.replace(/[^0-9:]/g, "").split(":").map(Number);
+            if (!isNaN(h) && !isNaN(m)) {
+              fecha.setHours(h, m);
+              inicioInput.value = fecha.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true
+              });
+            }
+          }
+          calcularHoras();
+        });
 
       }
 
