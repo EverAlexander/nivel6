@@ -564,7 +564,7 @@
 
                     <div class="col-md-3">
                         <label for="inicioReserva" class="form-label">Hora de inicio</label>
-                        <input type="texta" id="inicioReserva" class="form-control">
+                        <input type="time" id="inicioReserva" class="form-control">
                         <div id="horaFormateada" style="margin-top: 5px; font-style: italic; color: gray;"></div>
                     </div>
  
@@ -602,35 +602,27 @@
   `;
         document.getElementById("fecharegistro").value = obtenerFechaActual();
 
-        const horasInput = document.getElementById("horasReserva");
-        const inicioInput = document.getElementById("inicioReserva");
-        const finInput = document.getElementById("finalreserva");
-        const horaFormateada = document.getElementById("horaFormateada");
-
-        // Inicializar flatpickr con hora actual como default
-        const fp = flatpickr(inicioInput, {
-          enableTime: true,
-          noCalendar: true,
-          dateFormat: "h:i K",   // formato 12h con AM/PM
-          time_24hr: false,
-          minuteIncrement: 10,
-          defaultDate: new Date(),  // 👉 hora actual
-          onChange: calcularHoras
-        });
+        const horasInput = document.getElementById("horasReserva");   // duración en horas
+        const inicioInput = document.getElementById("inicioReserva"); // hora inicio elegida
+        const finInput = document.getElementById("finalreserva");     // hora fin calculada
+        const horaFormateada = document.getElementById("horaFormateada"); // muestra AM/PM
 
         function calcularHoras() {
           const horas = parseInt(horasInput.value) || 0;
-          const fechas = fp.selectedDates;
+          const inicio = inicioInput.value;
 
-          if (!fechas.length) {
+          if (!inicio) {
             finInput.value = "";
             horaFormateada.textContent = "";
             return;
           }
 
-          const fecha = new Date(fechas[0]);
+          // convertir la hora de inicio a objeto Date
+          const [h, m] = inicio.split(":").map(Number);
+          const fecha = new Date();
+          fecha.setHours(h, m, 0, 0);
 
-          // mostrar hora inicio
+          // mostrar hora en formato AM/PM debajo
           horaFormateada.textContent = fecha.toLocaleTimeString([], {
             hour: "numeric",
             minute: "2-digit",
@@ -642,22 +634,20 @@
             return;
           }
 
-          // calcular fin
-          const fin = new Date(fecha);
-          fin.setHours(fin.getHours() + horas);
+          // sumar la duración
+          fecha.setHours(fecha.getHours() + horas);
 
-          finInput.value = fin.toLocaleTimeString([], {
-            hour: "numeric",
+          // asignar a campo de fin
+          finInput.value = fecha.toLocaleTimeString([], {
+            hour: "2-digit",
             minute: "2-digit",
-            hour12: true
+            hour12: false
           });
         }
 
-        // recalcular cuando cambie la duración
+        // recalcular cuando cambie duración o inicio
         horasInput.addEventListener("input", calcularHoras);
-
-        // 👉 recalcular una vez al inicio para mostrar todo
-        calcularHoras();
+        inicioInput.addEventListener("input", calcularHoras);
 
 
       }
