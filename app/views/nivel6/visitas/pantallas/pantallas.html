@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Time Picker AM/PM</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body style="font-family: Arial, sans-serif; padding: 20px;">
+
+  <h2>Seleccionar hora (12h con AM/PM)</h2>
+
+  <label for="hora">Hora de inicio:</label>
+  <input type="text" id="hora" placeholder="Elige la hora">
+
+
+  
+  <p id="resultado" style="margin-top: 15px; font-weight: bold; color: darkblue;"></p>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    flatpickr("#hora", {
+      enableTime: true,
+      noCalendar: true,
+      dateFormat: "h:i K",   // formato 12h con AM/PM
+      time_24hr: false,
+      minuteIncrement: 10    // fracciones de 10 minutos
+    });
+
+    // Mostrar lo elegido
+    const inputHora = document.getElementById("hora");
+    const resultado = document.getElementById("resultado");
+
+    inputHora.addEventListener("change", () => {
+      resultado.textContent = "Hora seleccionada: " + inputHora.value;
+    });
+  </script>
+
+</body>
+</html>
 
